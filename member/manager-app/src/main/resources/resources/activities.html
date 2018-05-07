@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+</head>
+
+<body ng-app="materializeApp" class="active-activity">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">活动</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">活动</a>
+                                </li>
+                                <li class="active">活动 列表</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!--start container-->
+            <div class="container">
+                <!--<form method="POST" enctype="multipart/form-data" action="/shops" data-parsley-validate>-->
+                <!--<div class="section">-->
+                <!--<div class="row">-->
+                <!--<div class="input-field col s2">-->
+                <!--<select id="industry_id" name="industry_id">-->
+                <!--<option th:each="industry:${industries}" th:value="${industry?.industry_id}" th:text="${industry?.industry_name}"></option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col s1"></div>-->
+                <!--<div class="input-field col s2">-->
+                <!--<select id="map_id" name="map_id">-->
+                <!--<option th:each="map:${maps}" th:value="${map.map_id}" th:text="${map.map_name}"></option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col s2"></div>-->
+                <!--<div class="input-field col s3">-->
+                <!--<i class="material-icons prefix" style="margin-left: 1.5em">search</i>-->
+                <!--<input type="text" name="Search" style="padding-left:2.5em;" />-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div class="divider"></div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <a class="btn-floating btn-large waves-effect waves-light red right"
+                           style="margin-top:-.7em;margin-right:-.7em;" href="/activity"><i
+                                class="material-icons">add</i></a>
+                        <div class="card-panel">
+                            <h4 class="header2">活动</h4>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row">
+                                        <table class="striped centered">
+                                            <thead>
+                                            <tr>
+                                                <th>活动主题</th>
+                                                <th>活动时间</th>
+                                                <th>是否需要报名</th>
+                                                <th>报名人数</th>
+                                                <th>是否需要签到</th>
+                                                <th>签到人数</th>
+                                                <th>活动条件(积分)</th>
+                                                <th>活动奖励(积分)</th>
+                                                <th>状态</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="activity:${activities}">
+                                                <td th:text="${activity?.title}"></td>
+                                                <td th:text="${activity?.activity_time_start>0} ? (${#dates.format(activity?.activity_time_start,'yyyy-MM-dd')} + (${activity?.activity_time_end>0} ? ('~' + ${#dates.format(activity?.activity_time_end,'yyyy-MM-dd')}):''))"></td>
+                                                <td th:text="${activity?.isSignUp}"></td>
+                                                <td th:text="${activity?.is_sign_up} ? ${activity?.signUpCount} : '-'"></td>
+                                                <td th:text="${activity?.isSignIn}"></td>
+                                                <td th:text="${activity?.is_sign_in} ? ${activity?.signInCount} : '-'"></td>
+                                                <td th:text="${activity?.sign_up_points>0} ? ${activity?.sign_up_points} : '-'"></td>
+                                                <td th:text="${activity?.incentive_points>0} ? ${activity?.incentive_points} : '-'"></td>
+                                                <td th:text="${activity?.statusName}"></td>
+                                                <td>
+                                                    <a class="waves-effect waves-light"
+                                                       th:href="@{'/activity?activityId=' + ${activity?.activity_id}}"><i
+                                                            class="material-icons left">edit</i></a>
+                                                    <a class="waves-effect waves-light"
+                                                       th:href="@{'/delactivity?activityId=' + ${activity?.activity_id}}"><i
+                                                            class="material-icons left">delete_forever</i></a>
+                                                    <a class="waves-effect waves-light" th:if="${activity?.is_sign_in}"
+                                                       th:href="${activity?.qr_code}" download=""><i
+                                                            class="material-icons left">gradient</i></a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <!--<form id="pageForm" method="post" action="/activities">-->
+                                        <!--<input type="hidden" id="pageJson" name="pageJson" value="">-->
+                                    <!--</form>-->
+                                    <div class="row" ng-controller="PaginationController" th:object="${pageMap}">
+                                        <pagination class="right" th:attr="page=''+ *{index}+'',total=''+*{total}+''"
+                                                    page-size="10" show-prev-next="true" dots="...."
+                                                    hide-if-empty="false" adjacent="2" scroll-top="false"
+                                                    pagination-action="changePage(page)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--</form>-->
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+        <!-- START RIGHT SIDEBAR NAV-->
+        <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+        </aside>
+        <!-- END RIGHT SIDEBAR NAV-->
+
+        <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+            <a class="btn-floating btn-large modal-trigger" href="#data-filter">
+                <i class="material-icons">local_bar</i> //znn
+            </a>
+        </div>
+    </div>
+
+    <div id="data-filter" class="modal bottom-sheet">
+        <div class="modal-content">
+            <!--<h4>Modal Header</h4>-->
+            <span class="btn-floating btn modal-trigger" disabled style="margin-left:.8em">
+                    <i class="material-icons">find_in_page</i>
+                </span>
+            <span id="filter-reset" class="btn-floating btn right modal-trigger" style="margin-left:.8em">
+                    <i class="material-icons">find_replace</i>
+                </span>
+
+            <form id="form-filter" action="/activities/filter" method="post">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="input-field col s12">
+                            <input id="title" name="title"
+                                   type="text" data-parsley-ui-enabled="false">
+                            <label for="title">活动主题</label>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <select id="process" name="process">
+                                    <!--<option value="0" selected>所有商户</option>-->
+                                    <!--</select>-->
+                                    <!--<select>-->
+                                    <option value="-1" selected>活动进程</option>
+                                    <option value="0">未开始</option>
+                                    <option value="1">进行中</option>
+                                    <option value="2">已结束</option>
+                                </select>
+                            </div>
+                            <div class="input-field col s6">
+                                <select id="signInOrSignUp" name="signInOrSignUp">
+                                    <option value="-1" selected>活动类型</option>
+                                    <option value="0">报名</option>
+                                    <option value="1">签到</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="signUpCountMin" name="signUpCountMin"
+                                       type="number" min="0" value="0">
+                                <label for="signUpCountMin">报名人数(最小值)</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="signUpCountMax" name="signUpCountMax"
+                                       type="number" min="0" value="0">
+                                <label for="signUpCountMax">报名人数(最大值)</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="signInCountMin" name="signInCountMin"
+                                       type="number" min="0" value="0">
+                                <label for="signUpCountMin">签到人数(最小值)</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="signInCountMax" name="signInCountMax"
+                                       type="number" min="0" value="0">
+                                <label for="signUpCountMax">签到人数(最大值)</label>
+                            </div>
+                        </div>
+                        <div class="input-field col s12">
+                            <select id="isIncentive" name="isIncentive">
+                                <option value="-1" selected>奖励不限</option>
+                                <option value="0">没有奖励</option>
+                                <option value="1">有奖励</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <button type="button" id="filter-button" name="filter-button"
+                                        class="waves-effect waves-light btn right">
+                                    <i class="material-icons left">local_bar</i>筛&emsp;选
+                                </button>
+                            </div>
+                        </div>
+                        <input type="hidden" id="page" name="page" value="">
+                        <input type="hidden" id="size" name="size" value="">
+                        <input type="hidden" id="filterJson" name="filterJson" value="">
+                    </div>
+                </div>
+            </form>
+            <form action="/activities/reset" id="form-reset" method="post"></form>
+        </div>
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>
+<!--angularjs-->
+<script type="text/javascript" src="vendors/angular.min.js"></script>
+<script type="text/javascript" src="vendors/angular-materialize.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/angular-ui.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<script type="text/javascript" src="js/advanced-ui-modals.js"></script>
+<script th:inline="javascript">
+    $(document).ready(function () {
+
+        var filterData = /*[[${session.activities_filterJson}]]*/ undefined
+        log("out" + filterData);
+
+        if (filterData) {
+            log(filterData)
+            $('#filterJson').val(filterData)
+
+            JSON.parse(filterData, function(key, value) {
+                switch (key) {
+                    case 'title':
+                        $('#title').val(value)
+                        break;
+                    case 'process':
+                        $('#process').val(value)
+                        $('#process').material_select()
+                        break;
+                    case 'signInOrSignUp':
+                        $('#signInOrSignUp').val(value)
+                        $('#signInOrSignUp').material_select()
+                        break;
+                    case 'signUpCountMin':
+                        $('#signUpCountMin').val(value)
+                        break;
+                    case 'signUpCountMax':
+                        $('#signUpCountMax').val(value)
+                        break;
+                    case 'signInCountMin':
+                        $('#signInCountMin').val(value)
+                        break;
+                    case 'signInCountMax':
+                        $('#signInCountMax').val(value)
+                        break;
+                    case 'isIncentive':
+                        $('#isIncentive').val(value)
+                        $('#isIncentive').material_select()
+                        break;
+                }
+            }) //END json parse
+        }
+
+        $('#filter-button').on('click', function(event) {
+            var obj = {}
+            if ($('#title').val()) obj.title = $('#title').val()
+            if ($('#process').val() > -1) obj.process = $('#process').val()
+            if ($('#signInOrSignUp').val() > -1) obj.signInOrSignUp = $('#signInOrSignUp').val()
+
+            if ($('#signUpCountMin') && $('#signUpCountMax')) {
+                if ($('#signUpCountMin') > 0) obj.signUpCountMin = $('#signUpCountMin').val()
+                if ($('#signUpCountMax') > 0) obj.signUpCountMax = $('#signUpCountMax').val()
+            }
+
+            if ($('#signInCountMin') && $('#signInCountMax')) {
+                if ($('#signInCountMin') > 0) obj.signInCountMin = $('#signInCountMin').val()
+                if ($('#signInCountMax') > 0) obj.signInCountMax = $('#signInCountMax').val()
+            }
+
+            if ($('#isIncentive').val() > -1) obj.isIncentive = $('#isIncentive').val()
+
+            $('#filterJson').val(JSON.stringify(obj))
+            $('#page').val(1)
+            $('#size').val(10)
+
+            $('#form-filter').submit()
+        });
+
+        $('#filter-reset').on('click', function() {
+            $('#form-reset').submit()
+        })
+    });
+
+</script>
+</body>
+
+</html>

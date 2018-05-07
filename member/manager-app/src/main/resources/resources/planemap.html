@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+
+    <link href="dropify/dist/css/dropify.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+
+    <!-- PARSLEY CSS -->
+    <link href="css/parsley.css" type="text/css" rel="stylesheet" media="screen,projection">
+</head>
+
+<body class="active-plane-map">
+    <!-- Start Page Loading -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <!-- End Page Loading -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START HEADER -->
+    <header id="header" class="page-topbar">
+        <!-- start header nav-->
+        <div class="navbar-fixed" th:include="header :: header"></div>
+        <!-- end header nav-->
+    </header>
+    <!-- END HEADER -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START MAIN -->
+    <div id="main">
+        <!-- START WRAPPER -->
+        <div class="wrapper">
+            <!-- START LEFT SIDEBAR NAV-->
+            <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+            </aside>
+            <!-- END LEFT SIDEBAR NAV-->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!-- START CONTENT -->
+            <section id="content">
+                <!--breadcrumbs start-->
+                <div id="breadcrumbs-wrapper">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col s10 m6 l6">
+                                <h5 class="breadcrumbs-title">商场业态信息</h5>
+                                <ol class="breadcrumbs">
+                                    <li><a href="/">上海紫荆广场</a>
+                                    </li>
+                                    <li><a href="/planeMaps">楼层</a>
+                                    </li>
+                                    <li class="active">楼层信息 编辑</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--breadcrumbs end-->
+                <!-- //////////////////////////////////////////////////////////////////////////// -->
+                <!--start container-->
+                <div class="container">
+                    <div class="section">
+
+                    </div>
+
+                    <!-- ////////////////////////////////////// form start ////////////////////////////////////// -->
+                    <form method="POST" enctype="multipart/form-data" action="/saveMap" data-parsley-validate>
+                        <div class="row">
+                            <div class="col s0 m0 l2"></div>
+                            <div class="col s12 m12 l8">
+                                <div class="card-panel">
+                                    <h4 class="header2">楼层信息</h4>
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">dehaze</i>
+                                                    <input type="number" min="0" id="sortId" name="sortId" class="validate"
+                                                           th:value="${map?.sort_id}"
+                                                           equired data-parsley-required data-parsley-required-message="不能为空"
+                                                           data-parsley-type="integer" data-parsley-type-message="排序号必须是整数">
+                                                    <label for="sortid">排序号</label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">donut_large</i>
+                                                    <input type="text" id="mapName" name="mapName" class="validate" th:value="${map?.map_name}" equired data-parsley-required data-parsley-required-message="不能为空">
+                                                    <label for="mapName">楼层名称</label>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <input type="file" id="input-file-now1" name="file" class="dropify" data-default-file="" data-allowed-file-extensions="png jpg jpeg" data-show-remove="false"/>
+                                                </div>
+                                                <input type="hidden" name="mapId" th:value="${map?.map_id}">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s12" style="margin-top: .7em;">
+                                                    <!-- <a class="waves-effect waves-light btn right"><i class="material-icons right">send</i>保存</a> -->
+                                                    <button type="submit" class="waves-effect waves-light btn right"><i class="material-icons right">send</i>保&emsp;存</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s0 m0 l2"></div>
+                        </div>
+                    </form>
+                    <!-- ////////////////////////////////////// form end ////////////////////////////////////// -->
+                </div>
+                <!--end container-->
+            </section>
+            <!-- END CONTENT -->
+            <!-- START RIGHT SIDEBAR NAV-->
+            <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+            </aside>
+            <!-- END RIGHT SIDEBAR NAV-->
+        </div>
+        <!-- END WRAPPER -->
+    </div>
+    <!-- END MAIN -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START FOOTER -->
+    <footer class="page-footer gradient-45deg-light-cyan-cyan " th:include="footer :: footer ">
+    </footer>
+    <!-- END FOOTER -->
+    <!-- ================================================
+Scripts
+================================================ -->
+    <!-- jQuery Library -->
+    <!-- <script type="text/javascript " src="vendors/jquery-3.2.1.min.js "></script> -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/parsley.js/2.8.0/parsley.min.js"></script>
+    <!--materialize js-->
+    <script type="text/javascript " src="js/materialize.min.js "></script>
+    <!--scrollbar-->
+    <script type="text/javascript " src="vendors/perfect-scrollbar/perfect-scrollbar.min.js "></script>
+    <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+    <script type="text/javascript " src="js/plugins.js "></script>
+    <!--custom-script.js - Add your own theme custom JS-->
+    <script type="text/javascript " src="js/custom-script.js "></script>
+
+    <script src="dropify/dist/js/dropify.min.js"></script>
+
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            var picture = [[${map?.map_picture}]]
+
+            if (picture) {
+                $("#input-file-now1").attr("data-default-file", picture)
+            }
+
+            // Basic
+            $('.dropify').dropify({
+                messages: {
+                    'default': '点击或拖拽到这里上传楼层地图',
+                    'replace': '点击或拖拽进行替换楼层地图',
+                    'remove': '删除',
+                    'error': '文件格式错误'
+                },
+                error: {
+                    'fileSize': 'The file size is too big ({{ value }} max).',
+                    'fileExtension': '只能上传 ({{ value }}) 格式的文件.',
+                    'minWidth': 'The image width is too small ({{ value }}}px min).',
+                    'maxWidth': 'The image width is too big ({{ value }}}px max).',
+                    'minHeight': 'The image height is too small ({{ value }}}px min).',
+                    'maxHeight': 'The image height is too big ({{ value }}px max).',
+                    'imageFormat': '只能上传 ({{ value }}) 格式的文件.'
+                },
+                tpl: {
+                    wrap: '<div class="dropify-wrapper"></div>',
+                    loader: '<div class="dropify-loader"></div>',
+                    message: '<div class="dropify-message"><span class="file-icon" /> <p style="text-align:center">{{ default }}</p></div>',
+                    preview: '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
+                    filename: '<p class="dropify-filename"><span class="dropify-filename-inner"></span></p>',
+                    clearButton: '<button type="button" class="dropify-clear">{{ remove }}</button>',
+                    errorLine: '<p class="dropify-error">{{ error }}</p>',
+                    errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>'
+                }
+            })
+        })
+
+    </script>
+</body>
+
+</html>

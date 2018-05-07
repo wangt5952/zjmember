@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description"-->
+          <!--content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords"-->
+          <!--content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+
+    <!-- PARSLEY CSS -->
+    <link href="css/parsley.css" type="text/css" rel="stylesheet" media="screen,projection">
+</head>
+
+<body class="active-promotion-rule">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">积分规则</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="index.html">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">促销积分规则</a>
+                                </li>
+                                <li class="active">积分规则 录入</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!--start container-->
+            <div class="container">
+                <!--start tab-->
+                <div id="basic-tabs" class="section">
+                    <!--<h4 class="header">积分规则</h4>-->
+                    <div class="row">
+                        <!--<div class="col s12">-->
+                        <!--<p>When you click on each tab, only the container with the corresponding tab id will become-->
+                        <!--visible.</p>-->
+                        <!--</div>-->
+                        <div class="col s12">
+                            <!--remotion form start-->
+                            <form method="POST" enctype="multipart/form-data" action="/promotionRuleSave"
+                                  data-parsley-validate>
+                                <div class="row">
+                                    <div class="col s0 m0 l2"></div>
+                                    <div class="col s12 m12 l8">
+                                        <div class="card-panel" style="margin-top:2em;">
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    <p>通用规则</p>
+                                                    <div class="divider" style="margin-bottom:1em;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">lightbulb_outline</i>
+                                                    <input type="text" id="ruleName" name="ruleName"
+                                                           placeholder="规则名称"
+                                                           class="validate"
+                                                           th:value="${rule?.rule_name}" equired
+                                                           data-parsley-required
+                                                           data-parsley-required-message="不能为空">
+                                                    <label for="ruleName">规则名称</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">access_time</i>
+                                                    <input type="text" id="time1" name="time1"
+                                                           placeholder="2017-11-13 15:00:00"
+                                                           class="validate" equired
+                                                           data-parsley-required
+                                                           data-parsley-required-message="不能为空"
+                                                           pattern="([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9])"
+                                                           data-parsley-pattern="([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9])"
+                                                           data-parsley-pattern-message="字段内容不是正确的时间格式">
+                                                    <label for="time1">开始时间</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">access_time</i>
+                                                    <input type="text" id="time2" name="time2"
+                                                           placeholder="2017-11-13 17:00:00"
+                                                           class="validate" equired
+                                                           data-parsley-required
+                                                           data-parsley-required-message="不能为空"
+                                                           pattern="([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9])"
+                                                           data-parsley-pattern="([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9])"
+                                                           data-parsley-pattern-message="字段内容不是正确的时间格式">
+                                                    <label for="time2">结束时间</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">attach_money</i>
+                                                    <input type="number" step="0.01" min="0" id="amount" name="amount"
+                                                           placeholder="消费金额(兑换1积分)"
+                                                           class="validate"
+                                                           th:value="${rule?.amount}" equired
+                                                           data-parsley-required
+                                                           data-parsley-required-message="不能为空"
+                                                           data-parsley-type="number"
+                                                           data-parsley-max="99999999.99" data-parsley-max-message="金额超出最大范围">
+                                                    <label for="amount">消费金额</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    <p>特殊规则</p>
+                                                    <div class="divider" style="margin-bottom:1em;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">business</i>
+                                                    <select multiple id="industriesByRule" name="industriesByRule" class="rule-content">
+                                                        <option value="" disabled>请选择业态</option>
+                                                        <option th:each="industry:${industries}"
+                                                                th:value="${industry?.industry_id}"
+                                                                th:text="${industry?.industry_name}"
+                                                        ></option>
+                                                        <!--th:selected="(${industry?.industry_id})">餐饮</option>-->
+                                                    </select>
+                                                    <!--<label>Materialize Multiple Select</label>-->
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">subtitles</i>
+                                                    <select multiple id="shopsByRule" name="shopsByRule" class="rule-content">
+                                                        <!--th:onchange="'javascript:handleShops(event);'">-->
+                                                        <option value="" disabled>请选择商户</option>
+                                                        <!--<optgroup th:each="industry:${industries}"-->
+                                                        <!--th:label="${industry?.industry_name}">-->
+                                                        <option th:each="shop:${shops}"
+                                                                th:value="${shop?.shop_id}"
+                                                                th:text="${shop?.shop_name}"></option>
+                                                        <!--</optgroup>-->
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">assignment</i>
+                                                    <select multiple id="levelIds" name="levelIds" class="rule-content">
+                                                        <option value="" disabled>请选择等级</option>
+                                                        <option th:each="level:${levels}"
+                                                                th:value="${level?.level_id}"
+                                                                th:text="${level?.level_name}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s5">
+                                                    <i class="material-icons prefix">cake</i>
+                                                    <input type="text" class="validate"
+                                                           id="birthday1" name="birthday1"
+                                                           placeholder="01-01"
+                                                           pattern="((0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
+                                                           data-parsley-pattern="((0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
+                                                           data-parsley-pattern-message="字段内容不是正确的生日格式">
+                                                    <label for="birthday1">会员生日 (mm-dd)</label>
+                                                </div>
+                                                <div class="input-field col s1">
+                                                    <span style="margin-top:1.2em;width:100%;text-align:center;display:inline-block;">至</span>
+                                                </div>
+                                                <div class="input-field col s5">
+                                                    <input type="text" class="validate"
+                                                           id="birthday2" name="birthday2"
+                                                           placeholder="12-01"
+                                                           pattern="((0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
+                                                           data-parsley-pattern="((0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))"
+                                                           data-parsley-pattern-message="字段内容不是正确的生日格式">
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-top:1em">
+                                                <div class="col s12">
+                                                    <!-- <a class="waves-effect waves-light btn right"><i class="material-icons right">send</i>保存</a> -->
+                                                    <button type="submit"
+                                                            class="waves-effect waves-light btn right"><i
+                                                            class="material-icons right">send</i>保&emsp;存
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s0 m0 l2"></div>
+                                </div>
+                                <input type="hidden" id="ruleContent" name="ruleContent" th:value="${rule?.rule_content}">
+                                <input type="hidden" id="ruleId" name="ruleId" th:value="${rule?.ppr_id}">
+                                <input type="hidden" id="startTime" name="startTime" th:value="${rule?.start_date}">
+                                <input type="hidden" id="endTime" name="endTime" th:value="${rule?.end_date}">
+                                <input type="hidden" id="birthdayStart" name="birthdayStart" th:value="${rule?.birthday_start}">
+                                <input type="hidden" id="birthdayEnd" name="birthdayEnd" th:value="${rule?.birthday_end}">
+                            </form>
+                            <!--remotion form end-->
+                        </div>
+                    </div>
+                </div>
+                <!--end tab-->
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+        <!-- START RIGHT SIDEBAR NAV-->
+        <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+        </aside>
+        <!-- END RIGHT SIDEBAR NAV-->
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<!-- <script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/parsley.js/2.8.0/parsley.min.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<script th:inline="javascript">
+    var indusArr = []
+    var shopsArr = []
+    var levelsArr = []
+
+    var baseYear = '2000-'
+
+    $(document).ready(function () {
+        var tempDate
+
+        var ruleId = [[${rule?.ppr_id}]]
+
+        if (!ruleId) { // insert
+            $('#startTime').val(0)
+            $('#endTime').val(0)
+            $('#birthdayStart').val(0)
+            $('#birthdayEnd').val(0)
+        }
+
+        var start = [[${rule?.start_date}]]
+        console.log("start="+start)
+        if (start) {
+            tempDate = new Date(start)
+            $('#time1').val(dateTimeString(tempDate))
+        }
+
+        var end = [[${rule?.end_date}]]
+        console.log("end="+end)
+        if (end) {
+            tempDate = new Date(end)
+            $('#time2').val(dateTimeString(tempDate))
+        }
+
+        var content = [[${rule?.rule_content}]]
+        if (content) {
+            content = JSON.parse(content)
+
+            if (content.industries) {
+                var indus = []
+                for (var i = 0; i < content.industries.length; i++) {
+                    indus.push(content.industries[i].industry_id)
+                    indusArr.push({'industry_id':content.industries[i].industry_id,'industry_name':content.industries[i].industry_name})
+                }
+                $('#industriesByRule').val(indus)
+                $('#industriesByRule').material_select();
+            }
+
+            if (content.shops) {
+                var shops = []
+                for (var j = 0; j < content.shops.length; j++) {
+                    shops.push(content.shops[j].shop_id)
+                    shopsArr.push({'shop_id':content.shops[j].shop_id,'shop_name':content.shops[j].shop_name})
+                }
+                $('#shopsByRule').val(shops)
+                $('#shopsByRule').material_select();
+            }
+
+            if (content.levels) {
+                var levels = []
+                for (var k = 0; k < content.levels.length; k++) {
+                    levels.push(content.levels[k].level_id)
+                    levelsArr.push({'level_id':content.levels[k].level_id,'level_name':content.levels[k].level_name})
+                }
+                $('#levelIds').val(levels)
+                $('#levelIds').material_select();
+            }
+        }
+
+        var birthdayStart = [[${rule?.birthday_start}]]
+        if (birthdayStart) {
+            tempDate = new Date(birthdayStart)
+            $('#birthday1').val(dataWithoutYearString(tempDate))
+        }
+
+        var birthdayEnd = [[${rule?.birthday_end}]]
+        if (birthdayEnd) {
+            tempDate = new Date(birthdayEnd)
+            $('#birthday2').val(dataWithoutYearString(tempDate))
+        }
+
+        $('#industriesByRule').on('change', function(event) {
+            indusArr = []
+            $(event.currentTarget).find("option:selected").each(function (i, selected) {
+                indusArr.push({'industry_id':$(selected).val(),'industry_name':$(selected).text()})
+            })
+
+            setContent()
+        })
+
+        $('#shopsByRule').on('change', function(event) {
+            shopsArr = []
+            $(event.currentTarget).find("option:selected").each(function (i, selected) {
+                shopsArr.push({'shop_id':$(selected).val(),'shop_name':$(selected).text()})
+            })
+
+            setContent()
+        })
+
+        $('#levelIds').on('change', function(event) {
+            levelsArr = []
+            $(event.currentTarget).find("option:selected").each(function (i, selected) {
+                levelsArr.push({'level_id':$(selected).val(),'level_name':$(selected).text()})
+            })
+
+            setContent()
+        })
+
+        $('#time1').on('change', function(event) {
+            $('#startTime').val(dateToMilliseconds(event.target.value))
+            log($('#startTime').val())
+        })
+
+        $('#time2').on('change', function(event) {
+            $('#endTime').val(dateToMilliseconds(event.target.value))
+            log($('#endTime').val())
+        })
+
+        $('#birthday1').on('change', function(event) {
+            var milli = $.trim(event.target.value) ? dateToMilliseconds(baseYear + event.target.value) : 0
+            $('#birthdayStart').val(milli)
+        })
+
+        $('#birthday2').on('change', function(event) {
+            var milli = $.trim(event.target.value) ? dateToMilliseconds(baseYear + event.target.value) : 0
+            $('#birthdayEnd').val(milli)
+        })
+    })
+
+    function setContent() {
+        var obj = {'industries':indusArr, 'shops':shopsArr, 'levels':levelsArr}
+
+        $('#ruleContent').val(JSON.stringify(obj))
+        console.log(JSON.stringify(obj))
+    }
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':manager-core')
+}
+
+compileJava.dependsOn(processResources)
+
+jar {
+    archiveName "mall-for-api-${version}.jar"
+}

@@ -1,0 +1,5 @@
+spring:
+  profiles:
+#    active: dev # 使用xxx-prod.yml 配置文件
+#    active: prod # 使用xxx-prod.yml 配置文件
+    active: demo # 使用xxx-prod.yml 配置文件

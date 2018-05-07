@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+
+    <style>
+        .dropdown-content {
+            height:270px;
+        }
+    </style>
+</head>
+
+<body ng-app="materializeApp" class="active-detail">
+    <!-- Start Page Loading -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <!-- End Page Loading -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START HEADER -->
+    <header id="header" class="page-topbar">
+        <!-- start header nav-->
+        <div class="navbar-fixed" th:include="header :: header"></div>
+        <!-- end header nav-->
+    </header>
+    <!-- END HEADER -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START MAIN -->
+    <div id="main">
+        <!-- START WRAPPER -->
+        <div class="wrapper">
+            <!-- START LEFT SIDEBAR NAV-->
+            <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+            </aside>
+            <!-- END LEFT SIDEBAR NAV-->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!-- START CONTENT -->
+            <section id="content">
+                <!--breadcrumbs start-->
+                <div id="breadcrumbs-wrapper">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col s10 m6 l6">
+                                <h5 class="breadcrumbs-title">积分明细</h5>
+                                <ol class="breadcrumbs">
+                                    <li><a href="#">上海紫荆广场</a>
+                                    </li>
+                                    <li><a href="#">积分明细</a>
+                                    </li>
+                                    <li class="active">积分明细 列表</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--breadcrumbs end-->
+                <!-- //////////////////////////////////////////////////////////////////////////// -->
+                <!--start container-->
+                <div class="container">
+                    <!--<form method="POST" enctype="multipart/form-data" action="/shops" data-parsley-validate>-->
+                    <!--<div class="section">-->
+                        <!--<div class="row">-->
+                            <!--<div class="input-field col s2">-->
+                                <!--<select id="industry_id" name="industry_id">-->
+                                    <!--<option th:each="industry:${industries}" th:value="${industry?.industry_id}" th:text="${industry?.industry_name}"></option>-->
+                                <!--</select>-->
+                            <!--</div>-->
+                            <!--<div class="col s1"></div>-->
+                            <!--<div class="input-field col s2">-->
+                                <!--<select id="map_id" name="map_id">-->
+                                    <!--<option th:each="map:${maps}" th:value="${map.map_id}" th:text="${map.map_name}"></option>-->
+                                <!--</select>-->
+                            <!--</div>-->
+                            <!--<div class="col s2"></div>-->
+                            <!--<div class="input-field col s3">-->
+                                <!--<i class="material-icons prefix" style="margin-left: 1.5em">search</i>-->
+                                <!--<input type="text" name="Search" style="padding-left:2.5em;" />-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<br>-->
+                        <!--<div class="divider"></div>-->
+                    <!--</div>-->
+                    <!--<br>-->
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <div class="card-panel">
+                                <h4 class="header2">积分明细列表<a href="/export_points" class="waves-effect waves-light" target="_blank" style="margin-left:.7em">
+                                    <i class="material-icons">cloud_download</i></a></h4>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="row">
+                                            <table class="striped centered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>会员名称</th>
+                                                        <th>会员手机号</th>
+                                                        <th>支付金额</th>
+                                                        <th>消费时间</th>
+                                                        <th>消费商户</th>
+                                                        <th>业态</th>
+                                                        <th>消费单号</th>
+                                                        <th>积分</th>
+                                                        <th>来源</th>
+                                                        <th>操作人</th>
+                                                        <th>操作时间</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr th:each="point:${points}">
+                                                        <td th:text="${point?.member_name}"></td>
+                                                        <td th:text="${point?.member_mobile}"></td>
+                                                        <td th:text="${point?.amount}"></td>
+                                                        <td th:text="${point?.shopping_date>0} ? ${#dates.format(point?.shopping_date, 'yyyy-MM-dd')}"></td>
+                                                        <td th:text="${point?.shop_name}"></td>
+                                                        <td th:text="${point?.shop_industry}"></td>
+                                                        <td th:text="${point?.ticket_no}"></td>
+                                                        <td th:text="${point?.points}"></td>
+                                                        <td th:text="${point?.sourcesName}"></td>
+                                                        <td th:text="${point?.vc_name}"></td>
+                                                        <td th:text="${point?.handle_date>0} ? ${#dates.format(point?.handle_date, 'yyyy-MM-dd HH:mm')}"></td>
+
+                                                        <!--<td>-->
+                                                            <!--<a class="waves-effect waves-light" th:href="@{'/shop?shopId=' + ${shop?.shop_id}}"><i class="material-icons left">edit</i></a>-->
+                                                            <!--<a class="waves-effect waves-light" th:href="@{'/delShop?shopId=' + ${shop?.shop_id}}"><i class="material-icons left">delete_forever</i></a>-->
+                                                       <!--</td>-->
+                                                    </tr>
+                                                </tbody>
+                                                <!--<thead><tr><td style="padding:0;height:16px"></td></tr></thead>-->
+                                                 <!--<thead style="border-bottom: none">-->
+                                                    <!--<tr>-->
+                                                        <!--<th>总计</th>-->
+                                                        <!--<th></th>-->
+                                                        <!--<th></th>-->
+                                                        <!--<th></th>-->
+                                                        <!--<th></th>-->
+                                                        <!--<th></th>-->
+                                                        <!--<th th:text="${pointsSum}"></th>-->
+                                                        <!--<th></th>-->
+                                                        <!--<th></th>-->
+                                                        <!--<th th:text="${'共 '+pageMap['total']+' 条'}"></th>-->
+                                                    <!--</tr>-->
+                                                 <!--</thead>-->
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="row" ng-controller="PaginationController" th:object="${pageMap}">
+                                            <pagination class="right" th:attr="page=''+ *{index}+'',total=''+*{total}+''"
+                                                        page-size="10" show-prev-next="true" dots="...." hide-if-empty="false"
+                                                        adjacent="2" scroll-top="false" pagination-action="changePage(page)" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--</form>-->
+                </div>
+                <!--end container-->
+            </section>
+            <!-- END CONTENT -->
+            <!-- START RIGHT SIDEBAR NAV-->
+            <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+            </aside>
+            <!-- END RIGHT SIDEBAR NAV-->
+
+            <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+                <a class="btn-floating btn-large modal-trigger" href="#data-filter">
+                    <i class="material-icons">local_bar</i>
+                </a>
+            </div>
+        </div>
+
+        <div id="data-filter" class="modal bottom-sheet">
+            <div class="modal-content">
+                <!--<h4>Modal Header</h4>-->
+                <span class="btn-floating btn modal-trigger" disabled style="margin-left:.8em">
+                <i class="material-icons">find_in_page</i>
+            </span>
+                <span id="filter-reset" class="btn-floating btn right modal-trigger" style="margin-left:.8em">
+                <i class="material-icons">find_replace</i>
+            </span>
+                <!--<form id="form-filter" action="/tickets/filter" method="post" data-parsley-validate>-->
+                <form id="form-filter" action="/points/filter" method="post">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input id="username" name="username"
+                                           type="text" data-parsley-ui-enabled="false">
+                                    <label for="username">会员姓名</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input id="mobile" name="mobile" class="validate" type="tel"
+                                           pattern="(^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$)"
+                                           data-parsley-pattern="(^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$)"
+                                           data-parsley-pattern-message="字段内容不是正确的手机号格式">
+                                    <label for="mobile">会员手机号</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input id="amountsStart" name="amountsStart"
+                                           type="number" step="0.01" value="0">
+                                    <label for="amountsStart">支付金额(区间起始)</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input id="amountsEnd" name="amountsEnd" class=""
+                                           type="number" step="0.01" value="0">
+                                    <label for="amountsEnd">支付金额(区间结束)</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input id="pointsStart" name="pointsStart"
+                                           type="number" step="1" value="0">
+                                    <label for="pointsStart">获得积分(区间起始)</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input id="pointsEnd" name="pointsEnd" class=""
+                                           type="number" step="1" value="0">
+                                    <label for="pointsEnd">获得积分(区间结束)</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6" ng-controller="DateController">
+                                    <input input-date type="text" ng-model="currentTime" container="body"
+                                           format="yyyy-mm-dd"
+                                           months-full="{{ month }}" months-short="{{ monthShort }}"
+                                           weekdays-full="{{ weekdaysFull }}" weekdays-short="{{ weekdaysShort }}"
+                                           weekdays-letter="{{ weekdaysLetter }}"
+                                           disable="disable" min="{{ minDate }}" max="{{ maxDate }}"
+                                           today="today" clear="clear" close="close" select-years="10"
+                                           data-parsley-ui-enabled="false"
+                                           id="shopping-date-start" name="shopping-date-start" class="do-points">
+                                    <label for="shopping-date-start">消费时间(开始)</label>
+                                </div>
+                                <div class="input-field col s6" ng-controller="DateController">
+                                    <input input-date type="text" ng-model="currentTime" container="body"
+                                           format="yyyy-mm-dd"
+                                           months-full="{{ month }}" months-short="{{ monthShort }}"
+                                           weekdays-full="{{ weekdaysFull }}" weekdays-short="{{ weekdaysShort }}"
+                                           weekdays-letter="{{ weekdaysLetter }}"
+                                           disable="disable" min="{{ minDate }}" max="{{ maxDate }}"
+                                           today="today" clear="clear" close="close" select-years="10"
+                                           data-parsley-ui-enabled="false"
+                                           id="shopping-date-end" name="shopping-date-end" class="do-points">
+                                    <label for="shopping-date-end">消费时间(结束)</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <select id="shop" name="shop">
+                                        <option value="-1" selected>所有商户</option>
+                                        <optgroup th:label="${map?.map_name}" th:each="map:${maps}">
+                                            <option th:text="${shop?.shop_name}" th:value="${shop?.shop_id}" th:each="shop:${map?.shops}"></option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div class="input-field col s6">
+                                    <select id="sources" name="sources">
+                                        <option th:value="${source.value()}" th:text="${source.theName()}" th:each="source:${T(com.laf.manager.enums.Sources).values()}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <button type="button" id="filter-button" name="filter-button"
+                                            class="waves-effect waves-light btn right">
+                                        <i class="material-icons left">local_bar</i>筛&emsp;选
+                                    </button>
+                                </div>
+                            </div>
+                            <input type="hidden" id="shoppingDateStart" name="shoppingDateStart" value="">
+                            <input type="hidden" id="shoppingDateEnd" name="shoppingDateEnd" value="">
+                            <input type="hidden" id="page" name="page" value="">
+                            <input type="hidden" id="size" name="size" value="">
+                            <input type="hidden" id="filterJson" name="filterJson" value="">
+                        </div>
+                    </div>
+                </form>
+                <form action="/points/reset" id="form-reset" method="post"></form>
+            </div>
+        </div>
+        <!-- END WRAPPER -->
+    </div>
+    <!-- END MAIN -->
+    <!-- //////////////////////////////////////////////////////////////////////////// -->
+    <!-- START FOOTER -->
+    <footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+    </footer>
+    <!-- END FOOTER -->
+    <!-- ================================================
+Scripts
+================================================ -->
+    <!-- jQuery Library -->
+    <script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>
+    <!--materialize js-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!--angularjs-->
+    <script type="text/javascript" src="vendors/angular.min.js"></script>
+    <script type="text/javascript" src="vendors/angular-materialize.js"></script>
+    <!--scrollbar-->
+    <script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <!--custom-script.js - Add your own theme custom JS-->
+    <script type="text/javascript" src="js/angular-ui.js"></script>
+    <!--custom-script.js - Add your own theme custom JS-->
+    <script type="text/javascript" src="js/custom-script.js"></script>
+
+    <script type="text/javascript" src="js/advanced-ui-modals.js"></script>
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            var filterData = /*[[${session.points_filterJson}]]*/ undefined
+            if (filterData) {
+                log(filterData)
+                $('#filterJson').val(filterData)
+
+                JSON.parse(filterData, function(key, value) {
+                    switch (key) {
+                        case 'username':
+                            $('#username').val(value)
+                            break
+                        case 'mobile':
+                            $('#mobile').val(value)
+                            break
+                        case 'shoppingDateStart':
+                            $('#shopping-date-start').val(dateString(new Date(value)))
+                            $('#shoppingrDateStart').val(value)
+                            break
+                        case 'shoppingDateEnd':
+                            $('#shopping-date-end').val(dateString(new Date(value)))
+                            $('#shoppingDateEnd').val(value)
+                            break
+                        case 'shop':
+                            $('#shop').val(value)
+                            $('#shop').material_select()
+                            break
+                        case 'sources':
+                            $('#sources').val(value)
+                            $('#sources').material_select()
+                            break
+                        case 'amountsStart':
+                            $('#amountsStart').val(value)
+                            break
+                        case 'amountsEnd':
+                            $('#amountsEnd').val(value)
+                            break
+                        case 'pointsStart':
+                            $('#pointsStart').val(value)
+                            break
+                        case 'pointsEnd':
+                            $('#pointsEnd').val(value)
+                            break
+                    }
+                })
+
+//            $('select').material_select();
+            }
+            $('#filter-button').on('click', function (event) {
+                var obj = {}
+                if ($('#username').val()) obj.username = $('#username').val()
+                if ($('#mobile').val()) obj.mobile = $('#mobile').val()
+
+                if ($('#shopping-date-start').val() && $('#shopping-date-end').val()) {
+                    $('#shoppingDateStart').val(Number(dateToMilliseconds($('#shopping-date-start').val())))
+                    $('#shoppingDateEnd').val(Number(dateToMilliseconds($('#shopping-date-end').val())))
+                    obj.shoppingDateStart = Number($('#shoppingDateStart').val())
+                    obj.shoppingDateEnd = Number($('#registerDateEnd').val())
+                }
+
+                if ($('#shop').val() > -1) obj.shop = $('#shop').val()
+                if ($('#sources').val() > -1) obj.sources = $('#sources').val()
+
+                if ($('#amountsStart').val() && $('#amountsEnd').val()) {
+                    if ($('#amountsStart').val() > 0) obj.amountsStart = $('#amountsStart').val()
+                    if ($('#amountsEnd').val() > 0) obj.amountsEnd = $('#amountsEnd').val()
+                }
+
+                if ($('#pointsStart').val() && $('#pointsEnd').val()) {
+                    if ($('#pointsStart').val() > 0) obj.pointsStart = $('#pointsStart').val()
+                    if ($('#pointsEnd').val() > 0) obj.pointsEnd = $('#pointsEnd').val()
+                }
+
+                $('#filterJson').val(JSON.stringify(obj))
+                $('#page').val(1)
+                $('#size').val(10)
+
+                log('-------------')
+                log($('#createDateStart').val())
+                log($('#createDateEnd').val())
+
+                $('#form-filter').submit()
+            })
+
+            $('#filter-reset').on('click', function() {
+                $('#form-reset').submit()
+            })
+        })
+
+    </script>
+</body>
+
+</html>

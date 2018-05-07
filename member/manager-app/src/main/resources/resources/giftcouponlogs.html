@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
+    <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
+    <title>Materialize - Material Design Admin Template</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+</head>
+
+<body ng-app="materializeApp" class="active-gift-coupon-logs">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">礼品券记录</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">礼品券记录</a>
+                                </li>
+                                <li class="active">礼品券记录 列表</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!--start container-->
+            <div class="container">
+                <!--<form method="POST" enctype="multipart/form-data" action="/shops" data-parsley-validate>-->
+                <!--<div class="section">-->
+                <!--<div class="row">-->
+                <!--<div class="input-field col s2">-->
+                <!--<select id="industry_id" name="industry_id">-->
+                <!--<option th:each="industry:${industries}" th:value="${industry?.industry_id}" th:text="${industry?.industry_name}"></option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col s1"></div>-->
+                <!--<div class="input-field col s2">-->
+                <!--<select id="map_id" name="map_id">-->
+                <!--<option th:each="map:${maps}" th:value="${map.map_id}" th:text="${map.map_name}"></option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col s2"></div>-->
+                <!--<div class="input-field col s3">-->
+                <!--<i class="material-icons prefix" style="margin-left: 1.5em">search</i>-->
+                <!--<input type="text" name="Search" style="padding-left:2.5em;" />-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div class="divider"></div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card-panel">
+                            <h4 class="header2">礼品券记录<a href="/export_gift_coupon_logs" class="waves-effect waves-light" target="_blank" style="margin-left:.7em">
+                                <i class="material-icons">cloud_download</i></a></h4>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row">
+                                        <table class="striped centered">
+                                            <thead>
+                                            <tr>
+                                                <th>会员用户</th>
+                                                <th>会员手机号</th>
+                                                <th>礼品券名称</th>
+                                                <th>领取时间</th>
+                                                <th>成本单价</th>
+                                                <th>积分</th>
+                                                <th>状态</th>
+                                                <th>核销人</th>
+                                                <!--<th>核销人电话</th>-->
+                                                <th>核销人所属</th>
+                                                <th>核销时间</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="log:${logs}">
+                                                <td th:text="${log?.member_name}"></td>
+                                                <td th:text="${log?.member_mobile}"></td>
+                                                <td th:text="${log?.coupon_name}"></td>
+                                                <td th:text="${log?.receive_date>0} ? ${#dates.format(log?.receive_date, 'yyyy-MM-dd HH:mm')}"></td>
+                                                <td th:text="${log?.cost_price!=null} ? ${#numbers.formatDecimal(log?.cost_price,1,2)}"></td>
+                                                <td th:text="${log?.required_points==0} ? '-' : ${log?.required_points}"></td>
+                                                <td th:text="${log?.getStatusName(log?.coupon_type)}"></td>
+                                                <td th:text="${log?.vc_name}"></td>
+                                                <!--<td th:text="${log?.vc_mobile}"></td>-->
+                                                <td th:text="${log?.shop_name}"></td>
+                                                <td th:text="${log?.verification_date>0} ? ${#dates.format(log?.verification_date, 'yyyy-MM-dd HH:mm')}"></td>
+                                            </tr>
+                                            </tbody>
+                                            <thead><tr th:if="${logs?.size()!=0}"><td style="padding:0;height:16px"></td></tr></thead>
+                                            <thead style="border-bottom: none">
+                                            <tr th:if="${logs?.size()!=0}">
+                                                <th>总计</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th th:text="${costPriceSum!=null} ? ${#numbers.formatDecimal(costPriceSum,1,2)}"></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th th:text="${'共 '+pageMap['total']+' 条'}"></th>
+                                            </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row" ng-controller="PaginationController" th:object="${pageMap}">
+                                        <pagination class="right" th:attr="page=''+ *{index}+'',total=''+*{total}+''"
+                                                    page-size="10" show-prev-next="true" dots="...." hide-if-empty="false" adjacent="2"
+                                                    scroll-top="false" pagination-action="changePage(page)" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--</form>-->
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+        <!-- START RIGHT SIDEBAR NAV-->
+        <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+        </aside>
+        <!-- END RIGHT SIDEBAR NAV-->
+
+        <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+            <a class="btn-floating btn-large modal-trigger" href="#data-filter">
+                <i class="material-icons">local_bar</i>
+            </a>
+        </div>
+    </div>
+
+    <div id="data-filter" class="modal bottom-sheet">
+        <div class="modal-content">
+            <!--<h4>Modal Header</h4>-->
+            <span class="btn-floating btn modal-trigger" disabled style="margin-left:.8em">
+                <i class="material-icons">find_in_page</i>
+            </span>
+            <span id="filter-reset" class="btn-floating btn right modal-trigger" style="margin-left:.8em">
+                <i class="material-icons">find_replace</i>
+            </span>
+            <!--<form id="form-filter" action="/tickets/filter" method="post" data-parsley-validate>-->
+            <form id="form-filter" action="/giftCouponLogs/filter" method="post">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="memberName" name="memberName"
+                                       type="text" data-parsley-ui-enabled="false">
+                                <label for="memberName">会员姓名</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="mobile" name="mobile" class="validate" type="tel"
+                                       pattern="(^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$)"
+                                       data-parsley-pattern="(^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$)"
+                                       data-parsley-pattern-message="字段内容不是正确的手机号格式">
+                                <label for="mobile">会员手机号</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="couponName" name="couponName"
+                                       type="text" data-parsley-ui-enabled="false">
+                                <label for="couponName">券名称</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="vcName" name="vcName"
+                                       type="text" data-parsley-ui-enabled="false">
+                                <label for="vcName">核销人姓名</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select id="couponStatus" name="couponStatus">
+                                    <option th:value="${status.value()}" th:text="${status.theName()}" th:each="status:${T(com.laf.manager.enums.GiftCouponStatus).values()}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6" ng-controller="DateController">
+                                <input input-date type="text" ng-model="currentTime" container="body"
+                                       format="yyyy-mm-dd"
+                                       months-full="{{ month }}" months-short="{{ monthShort }}"
+                                       weekdays-full="{{ weekdaysFull }}" weekdays-short="{{ weekdaysShort }}"
+                                       weekdays-letter="{{ weekdaysLetter }}"
+                                       disable="disable" min="{{ minDate }}" max="{{ maxDate }}"
+                                       today="today" clear="clear" close="close" select-years="10"
+                                       data-parsley-ui-enabled="false"
+                                       id="receive-date-start" name="receive-date-start" class="do-points">
+                                <label for="receive-date-start">领取时间(开始)</label>
+                            </div>
+                            <div class="input-field col s6" ng-controller="DateController">
+                                <input input-date type="text" ng-model="currentTime" container="body"
+                                       format="yyyy-mm-dd"
+                                       months-full="{{ month }}" months-short="{{ monthShort }}"
+                                       weekdays-full="{{ weekdaysFull }}" weekdays-short="{{ weekdaysShort }}"
+                                       weekdays-letter="{{ weekdaysLetter }}"
+                                       disable="disable" min="{{ minDate }}" max="{{ maxDate }}"
+                                       today="today" clear="clear" close="close" select-years="10"
+                                       data-parsley-ui-enabled="false"
+                                       id="receive-date-end" name="receive-date-end" class="do-points">
+                                <label for="receive-date-end">领取时间(结束)</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6" ng-controller="DateController">
+                                <input input-date type="text" ng-model="currentTime" container="body"
+                                       format="yyyy-mm-dd"
+                                       months-full="{{ month }}" months-short="{{ monthShort }}"
+                                       weekdays-full="{{ weekdaysFull }}" weekdays-short="{{ weekdaysShort }}"
+                                       weekdays-letter="{{ weekdaysLetter }}"
+                                       disable="disable" min="{{ minDate }}" max="{{ maxDate }}"
+                                       today="today" clear="clear" close="close" select-years="10"
+                                       data-parsley-ui-enabled="false"
+                                       id="verification-date-start" name="verification-date-start" class="do-points">
+                                <label for="verification-date-start">核销时间(开始)</label>
+                            </div>
+                            <div class="input-field col s6" ng-controller="DateController">
+                                <input input-date type="text" ng-model="currentTime" container="body"
+                                       format="yyyy-mm-dd"
+                                       months-full="{{ month }}" months-short="{{ monthShort }}"
+                                       weekdays-full="{{ weekdaysFull }}" weekdays-short="{{ weekdaysShort }}"
+                                       weekdays-letter="{{ weekdaysLetter }}"
+                                       disable="disable" min="{{ minDate }}" max="{{ maxDate }}"
+                                       today="today" clear="clear" close="close" select-years="10"
+                                       data-parsley-ui-enabled="false"
+                                       id="verification-date-end" name="verification-date-end" class="do-points">
+                                <label for="verification-date-end">核销时间(结束)</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <button type="button" id="filter-button" name="filter-button"
+                                        class="waves-effect waves-light btn right">
+                                    <i class="material-icons left">local_bar</i>筛&emsp;选
+                                </button>
+                            </div>
+                        </div>
+                        <input type="hidden" id="receiveDateStart" name="receiveDateStart" value="">
+                        <input type="hidden" id="receiveDateEnd" name="receiveDateEnd" value="">
+                        <input type="hidden" id="verificationDateStart" name="verificationDateStart" value="">
+                        <input type="hidden" id="verificationDateEnd" name="verificationDateEnd" value="">
+                        <input type="hidden" id="page" name="page" value="">
+                        <input type="hidden" id="size" name="size" value="">
+                        <input type="hidden" id="filterJson" name="filterJson" value="">
+                    </div>
+                </div>
+            </form>
+            <form action="/giftCouponLogs/reset" id="form-reset" method="post"></form>
+        </div>
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>
+<!--angularjs-->
+<script type="text/javascript" src="vendors/angular.min.js"></script>
+<script type="text/javascript" src="vendors/angular-materialize.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/angular-ui.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<script type="text/javascript" src="js/advanced-ui-modals.js"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+        var filterData = /*[[${session.giftCouponLogs_filterJson}]]*/ undefined
+        if (filterData) {
+            log(filterData)
+            $('#filterJson').val(filterData)
+
+            JSON.parse(filterData, function(key, value) {
+                switch (key) {
+                    case 'memberName':
+                        $('#memberName').val(value)
+                        break
+                    case 'mobile':
+                        $('#mobile').val(value)
+                        break
+                    case 'receiveDateStart':
+                        $('#receive-date-start').val(dateString(new Date(value)))
+                        $('#receiveDateStart').val(value)
+                        break
+                    case 'receiveDateEnd':
+                        $('#receive-date-end').val(dateString(new Date(value)))
+                        $('#receiveDateEnd').val(value)
+                        break
+                    case 'couponStatus':
+                        $('#couponStatus').val(value)
+                        $('#couponStatus').material_select()
+                        break
+                    case 'couponName':
+                        $('#couponName').val(value)
+                        break
+                    case 'vcName':
+                        $('#vcName').val(value)
+                        break
+                    case 'verificationDateStart':
+                        $('#verification-date-start').val(dateString(new Date(value)))
+                        $('#verificationDateStart').val(value)
+                        break
+                    case 'verificationDateEnd':
+                        $('#verification-date-end').val(dateString(new Date(value)))
+                        $('#verificationDateEnd').val(value)
+                        break
+                }
+            })
+        }
+
+        $('#filter-button').on('click', function (event) {
+            var obj = {}
+            if ($('#memberName').val()) obj.memberName = $('#memberName').val()
+            if ($('#mobile').val()) obj.mobile = $('#mobile').val()
+
+            if ($('#receive-date-start').val() && $('#receive-date-end').val()) {
+                $('#receiveDateStart').val(Number(dateToMilliseconds($('#receive-date-start').val())))
+                $('#receiveDateEnd').val(Number(dateToMilliseconds($('#receive-date-end').val())))
+                obj.receiveDateStart = Number($('#receiveDateStart').val())
+                obj.receiveDateEnd = Number($('#receiveDateEnd').val())
+            }
+
+            if ($('#vcName').val()) obj.vcName = $('#vcName').val()
+            if ($('#couponName').val()) obj.couponName = $('#couponName').val()
+
+            if ($('#couponStatus').val() > -1) obj.couponStatus = $('#couponStatus').val()
+
+            if ($('#verification-date-start').val() && $('#verification-date-end').val()) {
+                $('#verificationDateStart').val(Number(dateToMilliseconds($('#verification-date-start').val())))
+                $('#verificationDateEnd').val(Number(dateToMilliseconds($('#verification-date-end').val())))
+                obj.verificationDateStart = Number($('#verificationDateStart').val())
+                obj.verificationDateEnd = Number($('#verificationDateEnd').val())
+            }
+
+            $('#filterJson').val(JSON.stringify(obj))
+            $('#page').val(1)
+            $('#size').val(10)
+
+
+            $('#form-filter').submit()
+        })
+
+        $('#filter-reset').on('click', function() {
+            $('#form-reset').submit()
+        })
+    })
+
+
+</script>
+</body>
+
+</html>

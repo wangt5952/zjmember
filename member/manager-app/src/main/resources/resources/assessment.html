@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description"-->
+    <!--content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords"-->
+    <!--content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+
+    <link href="dropify/dist/css/dropify.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/parsley.css" type="text/css" rel="stylesheet" media="screen,projection">
+
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            font-size: 13px;
+        }
+
+        #pickerBox {
+            position: absolute;
+            z-index: 9999;
+            top: 50px;
+            right: 30px;
+            width: 300px;
+        }
+
+        #pickerInput {
+            width: 200px;
+            padding: 5px 5px;
+        }
+
+        #poiInfo {
+            background: #fff;
+        }
+
+        .amap_lib_placeSearch .poibox.highlight {
+            background-color: #CAE1FF;
+        }
+
+        .amap_lib_placeSearch .poi-more {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body class="active-coupon">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <div id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">评价建议信息</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">评价建议</a>
+                                </li>
+                                <li class="active">评价建议 处理</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!--start container-->
+            <div class="container">
+                <div class="section">
+                    <!--<p class="caption">在下列表单中填写商场基本信息 上传商场轮播图片</p>-->
+                    <!--<div class="divider"></div>-->
+                </div>
+
+                <div class="row">
+                    <div class="col s0 m0 l2"></div>
+                    <div class="col s12 m12 l8">
+                        <div class="card-panel" style="margin-top:1.2em;">
+                            <h4 class="header2">评价建议信息</h4>
+                            <div class="row" th:object="${assessment}">
+
+                                <div class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s4">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="name" name="name" disabled
+                                                   th:value="${assessment?.member_name}"/>
+                                            <label for="name">建议人</label>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="tel" id="mobile" name="mobile" disabled
+                                                   th:value="${assessment?.member_mobile}"/>
+                                            <label for="mobile">联系电话</label>
+                                        </div>
+                                        <div class="input-field col s4">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="actionTime" name="actionTime" disabled
+                                                   th:value="${assessment?.action_time!=null} ? ${#dates.format(assessment?.action_time, 'yyyy-MM-dd HH:mm')}"/>
+                                            <label for="actionTime">建议时间</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="shopName" name="shopName" disabled
+                                                   th:value="${assessment?.shop_name}"/>
+                                            <label for="shopName">建议：</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <textarea id="comments" name="comments" class="materialize-textarea" disabled
+                                                      th:text="${assessment?.comments}" placeholder="建议内容"></textarea>
+                                            <label for="comments">建议内容:</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ////////////////////////////////////// form start ////////////////////////////////////// -->
+                                <form method="POST" enctype="multipart/form-data" action="/saveAssessment" data-parsley-validate>
+                                    <div class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">card_travel</i>
+                                                <textarea name="reply" id="reply" th:text="${assessment?.reply}"
+                                                          placeholder="回复" class="materialize-textarea"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <button type="submit" style="margin-right:.7em"
+                                                        class="waves-effect waves-light btn right"><i
+                                                        class="material-icons right">send</i>保&emsp;存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="assessmentId" name="assessmentId" th:value="${assessment?.assessment_id}"/>
+                                </form>
+                                <!-- ////////////////////////////////////// form end ////////////////////////////////////// -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s0 m0 l2"></div>
+                </div>
+            </div>
+        </div>
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+    </div>
+    <!--end container-->
+    </section>
+    <!-- END CONTENT -->
+    <!-- START RIGHT SIDEBAR NAV-->
+    <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+    </aside>
+    <!-- END RIGHT SIDEBAR NAV-->
+</div>
+<!-- END WRAPPER -->
+</div>
+<div class="section"></div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<!--<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/parsley.js/2.8.0/parsley.min.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<script src="dropify/dist/js/dropify.min.js"></script>
+<script src="ckeditor/ckeditor.js"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+
+//        var action_time = /*[[${assessment?.action_time}]]*/ undefined
+//        if (action_time) $('#actionTime').val(dateString(new Date(action_time)))
+
+    })
+</script>
+</body>
+
+</html>

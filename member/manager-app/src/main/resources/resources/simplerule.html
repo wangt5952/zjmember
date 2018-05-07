@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description"-->
+          <!--content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords"-->
+          <!--content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+
+    <!-- PARSLEY CSS -->
+    <link href="css/parsley.css" type="text/css" rel="stylesheet" media="screen,projection">
+</head>
+
+<body class="active-simple-rule">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">积分规则</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="index.html">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">普通积分规则</a>
+                                </li>
+                                <li class="active">积分规则 录入</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!--start container-->
+            <div class="container">
+                <!--start tab-->
+                <div id="basic-tabs" class="section">
+                    <!--<h4 class="header">积分规则</h4>-->
+                    <div class="row">
+                        <!--<div class="col s12">-->
+                        <!--<p>When you click on each tab, only the container with the corresponding tab id will become-->
+                        <!--visible.</p>-->
+                        <!--</div>-->
+                        <div class="col s12">
+                            <div id="test1" class="col s12">
+                                <!-- ////////////////////////////////////// simple form start ////////////////////////////////////// -->
+                                <form method="POST" enctype="multipart/form-data" action="/simpleRuleSave"
+                                      data-parsley-validate>
+                                    <div class="row">
+                                        <div class="col s0 m0 l2"></div>
+                                        <div class="col s12 m12 l8">
+                                            <div class="card-panel" style="margin-top:2em;">
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <p>通用规则</p>
+                                                        <div class="divider" style="margin-bottom:1em;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <i class="material-icons prefix">lightbulb_outline</i>
+                                                        <input type="text" id="ruleName" name="ruleName"
+                                                               placeholder="规则名称"
+                                                               class="validate"
+                                                               th:value="${rule?.rule_name}" equired
+                                                               data-parsley-required
+                                                               data-parsley-required-message="不能为空">
+                                                        <label for="ruleName">规则名称</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <i class="material-icons prefix">assignment</i>
+                                                        <select id="level" name="level">
+                                                            <option th:each="level:${levels}"
+                                                                    th:value="${level?.level_id}"
+                                                                    th:text="${level?.level_name}"
+                                                                    th:selected="(${level?.level_id == rule?.level_id})"></option>
+                                                        </select>
+                                                        <label for="levelId">会员等级</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <i class="material-icons prefix">attach_money</i>
+                                                        <input type="number" step="0.01" min="0" id="amount" name="amount"
+                                                               placeholder="消费金额(兑换1积分)"
+                                                               class="validate"
+                                                               th:value="${rule?.amount}" equired
+                                                               data-parsley-required
+                                                               data-parsley-required-message="不能为空"
+                                                               data-parsley-type="number"
+                                                               data-parsley-max="99999999.99" data-parsley-max-message="金额超出最大范围">
+                                                        <label for="amount">消费金额</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col s12">
+                                                        <p>特殊规则</p>
+                                                        <div class="divider" style="margin-bottom:1em;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <i class="material-icons prefix">business</i>
+                                                        <select multiple id="industriesByRule" name="industriesByRule">
+                                                            <option value="" disabled>请选择业态</option>
+                                                            <option th:each="industry:${industries}"
+                                                                    th:value="${industry?.industry_id}"
+                                                                    th:text="${industry?.industry_name}"
+                                                            ></option>
+                                                            <!--th:selected="(${industry?.industry_id})">餐饮</option>-->
+                                                        </select>
+                                                        <!--<label>Materialize Multiple Select</label>-->
+
+                                                        <div class="row">
+                                                            <div class="col s12">
+                                                                <ul class="collection" id="ele_indus">
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <i class="material-icons prefix">subtitles</i>
+                                                        <select multiple id="shopsByRule" name="shopsByRule">
+                                                            <!--th:onchange="'javascript:handleShops(event);'">-->
+                                                            <option value="" disabled>请选择商户</option>
+                                                            <!--<optgroup th:each="industry:${industries}"-->
+                                                            <!--th:label="${industry?.industry_name}">-->
+                                                            <option th:each="shop:${shops}"
+                                                                    th:value="${shop?.shop_id}"
+                                                                    th:text="${shop?.shop_name}"></option>
+                                                            <!--</optgroup>-->
+                                                        </select>
+                                                        <div class="row">
+                                                            <div class="col s12">
+                                                                <ul class="collection" id="ele_shops">
+
+                                                                </ul>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" style="margin-top:1em">
+                                                    <div class="col s12">
+                                                        <!-- <a class="waves-effect waves-light btn right"><i class="material-icons right">send</i>保存</a> -->
+                                                        <button type="submit"
+                                                                class="waves-effect waves-light btn right"><i
+                                                                class="material-icons right">send</i>保&emsp;存
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col s0 m0 l2"></div>
+                                    </div>
+                                    <input type="hidden" id="shopsRule" name="shopsRule" value="">
+                                    <input type="hidden" id="indusRule" name="indusRule" value="">
+                                    <input type="hidden" id="ruleId" name="ruleId" th:value="${rule?.spr_id}">
+                                    <input type="hidden" id="levelId", name="levelId" th:value="${rule?.level_id}">
+                                </form>
+                                <!-- ////////////////////////////////////// simple form end ////////////////////////////////////// -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end tab-->
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+        <!-- START RIGHT SIDEBAR NAV-->
+        <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+        </aside>
+        <!-- END RIGHT SIDEBAR NAV-->
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<!--<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/parsley.js/2.8.0/parsley.min.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+<script th:inline="javascript">
+    var selShops
+    var selIndus
+
+    $(document).ready(function () {
+        selShops = JSON.parse([[${shopsJson}]])
+        selIndus = JSON.parse([[${indusJson}]])
+
+        if (!selShops || !selIndus) {
+            selShops = []
+            selIndus = []
+        }
+
+        $('#shopsRule').val(JSON.stringify(selShops))
+        $('#indusRule').val(JSON.stringify(selIndus))
+
+        var old_values = []
+        var old_texts = []
+
+        var old_indus_values = []
+        var old_indus_texts = []
+
+        /*********************************** init start **********************************/
+        if (selShops.length > 0) {
+            $('#ele_indus').html('')
+            for (var n = 0; n < selShops.length; n++) {
+                old_values.push(selShops[n].id)
+                old_texts.push(selShops[n].name)
+
+                var html = "<li class='collection-item avatar'>\n" +
+                    "<i class='material-icons circle green'>insert_chart</i>\n" +
+                    "<span class=''>" + selShops[n].name + "</span>\n" +
+                    "<div class='row'>\n" +
+                    "<div class='col s2'>\n" +
+                    "<input type='number' min='0' step='0.01' equired data-parsley-required data-parsley-required-message='不能为空' data-parsley-max='99999999.99' data-parsley-max-message='金额超出最大范围' onchange='shopInput(event, " + selShops[n].id + ")' value='" + selShops[n].amount + "'>\n" +
+                    "</div>\n" +
+                    "<div class=\'col s3'>\n" +
+                    "    <span style='display:inline-block;padding-top:.7em;'>兑换1积分</span>\n" +
+                    "</div>\n" +
+                    "</div>\n" +
+                    "<a href='#!'\n" +
+                    "   class='secondary-content'>\n" +
+                    "    <i class='material-icons'>grade</i>\n" +
+                    "</a>\n" +
+                    "</li>"
+
+                $(html).appendTo('#ele_shops')
+            }
+
+            $("#shopsByRule").val(old_values)
+            $('#shopsByRule').material_select();
+
+            console.log($('#shopsByRule').val())
+        }
+
+
+        if (selIndus.length > 0) {
+            $('#ele_indus').html('')
+            for (var m = 0; m < selIndus.length; m++) {
+                old_indus_values.push(selIndus[m].id)
+                old_indus_texts.push(selIndus[m].name)
+
+                var html = "<li class='collection-item avatar'>\n" +
+                    "<i class='material-icons circle green'>insert_chart</i>\n" +
+                    "<span class=''>" + selIndus[m].name + "</span>\n" +
+                    "<div class='row'>\n" +
+                    "<div class='col s2'>\n" +
+                    "<input type='number' min='0' step='0.01' equired data-parsley-required data-parsley-required-message='不能为空' data-parsley-max='99999999.99' data-parsley-max-message='金额超出最大范围' onchange='indusInput(event, " + selIndus[m].id + ")' value='" + selIndus[m].amount + "'>\n" +
+                    "</div>\n" +
+                    "<div class=\'col s3'>\n" +
+                    "    <span style='display:inline-block;padding-top:.7em;'>兑换1积分</span>\n" +
+                    "</div>\n" +
+                    "</div>\n" +
+                    "<a href='#!'\n" +
+                    "   class='secondary-content'>\n" +
+                    "    <i class='material-icons'>grade</i>\n" +
+                    "</a>\n" +
+                    "</li>"
+
+                $(html).appendTo('#ele_indus')
+            }
+
+            $("#industriesByRule").val(old_indus_values)
+            $('#industriesByRule').material_select();
+        }
+        /*********************************** init end **********************************/
+
+        /*************************shop multiple select start***********************************************/
+        $("#shopsByRule").on("change", function (event) {
+            var values = []
+            var texts = []
+            // copy all option values from selected
+            $(event.currentTarget).find("option:selected").each(function (i, selected) {
+//                values[i] = $(selected).val()
+//                texts[i] = $(selected).text()
+
+                values.push(parseInt($(selected).val()))
+                texts.push($(selected).text())
+            })
+
+            var last = []
+            var lastT = []
+
+            // doing a diff of old_values gives the new values selected
+            if (values.length > old_values.length) { // add
+                last = $(values).not(old_values).get()
+                lastT = $(texts).not(old_texts).get()
+            }
+
+            // update old_values for future use
+            else if (old_values.length > values.length) {
+
+                last = $(old_values).not(values).get()
+                lastT = $(old_texts).not(texts).get()
+            }
+
+            old_values = values
+            old_texts = texts
+
+            if (values.length == 0) { // clean
+                selShops = []
+
+            } else if (values.length > selShops.length) { // add
+                selShops.push({
+                    'id': last[0], 'name': lastT[0], 'amount': 0
+                })
+
+            } else if (values.length < selShops.length) { // minus
+                var tempObjects = []
+
+                for (var i = 0; i < selShops.length; i++) {
+
+                    if (selShops[i]['id'] == last[0]) {
+                        continue
+                    }
+
+                    tempObjects.push(selShops[i])
+                }
+
+                selShops = tempObjects;
+            }
+
+            console.log(JSON.stringify(selShops))
+
+            $('#ele_shops').html('')
+            for (var j = 0; j < selShops.length; j++) {
+                var html = "<li class='collection-item avatar'>\n" +
+                    "<i class='material-icons circle green'>insert_chart</i>\n" +
+                    "<span class=''>" + selShops[j].name + "</span>\n" +
+                    "<div class='row'>\n" +
+                    "<div class='col s2'>\n" +
+                    "<input type='number' min='0' step='0.01' equired data-parsley-required data-parsley-required-message='不能为空' data-parsley-max='99999999.99' data-parsley-max-message='金额超出最大范围' onchange='shopInput(event, " + selShops[j].id + ")' value='" + selShops[j].amount + "'>\n" +
+                    "</div>\n" +
+                    "<div class=\'col s3'>\n" +
+                    "    <span style='display:inline-block;padding-top:.7em;'>兑换1积分</span>\n" +
+                    "</div>\n" +
+                    "</div>\n" +
+                    "<a href='#!'\n" +
+                    "   class='secondary-content'>\n" +
+                    "    <i class='material-icons'>grade</i>\n" +
+                    "</a>\n" +
+                    "</li>"
+
+                $(html).appendTo('#ele_shops')
+            }
+
+            $('#shopsRule').val(JSON.stringify(selShops))
+        });
+        /*************************shop multiple select end***********************************************/
+
+        /*************************industry multiple select start***********************************************/
+        $("#industriesByRule").on("change", function (event) {
+            var values = []
+            var texts = []
+            // copy all option values from selected
+            $(event.currentTarget).find("option:selected").each(function (i, selected) {
+//                values[i] = $(selected).val()
+//                texts[i] = $(selected).text()
+
+                values.push(parseInt($(selected).val()))
+                texts.push($(selected).text())
+            })
+
+            var last = []
+            var lastT = []
+
+            // doing a diff of old_values gives the new values selected
+            if (values.length > old_indus_values.length) { // add
+                last = $(values).not(old_indus_values).get()
+                lastT = $(texts).not(old_indus_texts).get()
+            }
+
+            // update old_values for future use
+            else if (old_indus_values.length > values.length) {
+
+                last = $(old_indus_values).not(values).get()
+                lastT = $(old_indus_texts).not(texts).get()
+            }
+
+            old_indus_values = values
+            old_indus_texts = texts
+
+            if (values.length == 0) { // clean
+                selIndus = []
+
+            } else if (values.length > selIndus.length) { // add
+                selIndus.push({
+                    'id': last[0], 'name': lastT[0], 'amount': 0
+                })
+
+            } else if (values.length < selIndus.length) { // minus
+                var tempObjects = []
+
+                for (var i = 0; i < selIndus.length; i++) {
+
+                    if (selIndus[i]['id'] == last[0]) {
+                        continue
+                    }
+
+                    tempObjects.push(selIndus[i])
+                }
+
+                selIndus = tempObjects;
+            }
+
+//            console.log(JSON.stringify(selIndus))
+
+            $('#ele_indus').html('')
+            for (var j = 0; j < selIndus.length; j++) {
+                var html = "<li class='collection-item avatar'>\n" +
+                    "<i class='material-icons circle green'>insert_chart</i>\n" +
+                    "<span class=''>" + selIndus[j].name + "</span>\n" +
+                    "<div class='row'>\n" +
+                    "<div class='col s2'>\n" +
+                    "<input type='number' min='0' step='0.01' equired data-parsley-required data-parsley-required-message='不能为空' data-parsley-max='99999999.99' data-parsley-max-message='金额超出最大范围' onchange='indusInput(event, " + selIndus[j].id + ")' value='" + selIndus[j].amount + "'>\n" +
+                    "</div>\n" +
+                    "<div class=\'col s3'>\n" +
+                    "    <span style='display:inline-block;padding-top:.7em;'>兑换1积分</span>\n" +
+                    "</div>\n" +
+                    "</div>\n" +
+                    "<a href='#!'\n" +
+                    "   class='secondary-content'>\n" +
+                    "    <i class='material-icons'>grade</i>\n" +
+                    "</a>\n" +
+                    "</li>"
+
+                $(html).appendTo('#ele_indus')
+            }
+
+            $('#indusRule').val(JSON.stringify(selIndus))
+        })
+        /*************************industry multiple select end***********************************************/
+
+        var pageStatus = [[${rule?.spr_id}]]
+
+        if (pageStatus) {
+            $('select[name="level"]').attr('disabled', 'disabled')
+            $('select[name="level"]').material_select()
+        } else {
+            $('#levelId').val($("#level option:selected").val())
+        }
+
+        $('#level').on('change', function(event) {
+            $('#levelId').val($("#level option:selected").val())
+        })
+    })
+
+    /**
+     * 保存shop对象状态
+     * @param event
+     * @param id
+     */
+    var shopInput = function (event, id) {
+        var v = event.target.value
+
+        for (var i = 0; i < selShops.length; i++) {
+            if (id == selShops[i].id) {
+                selShops[i].amount = v
+            }
+        }
+
+        $('#shopsRule').val(JSON.stringify(selShops))
+        console.log($('#shopsRule').val())
+    }
+
+    var indusInput = function (event, id) {
+        var v = event.target.value
+
+        for (var i = 0; i < selIndus.length; i++) {
+            if (id == selIndus[i].id) {
+                selIndus[i].amount = v
+            }
+        }
+
+        $('#indusRule').val(JSON.stringify(selIndus))
+        console.log($('#indusRule').val())
+    }
+
+</script>
+</body>
+
+</html>

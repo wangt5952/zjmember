@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+
+    <style>
+        .dropdown-content {
+            height:270px;
+        }
+    </style>
+</head>
+
+<body ng-app="materializeApp" class="active-tickets">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">会员小票处理</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">会员</a>
+                                </li>
+                                <li class="active">小票 列表</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!--start container-->
+            <div class="container">
+                <!--<form method="POST" enctype="multipart/form-data" action="/shops" data-parsley-validate>-->
+                <!--<div class="section">-->
+                <!--<div class="row">-->
+                <!--<div class="input-field col s2">-->
+                <!--<select id="industry_id" name="industry_id">-->
+                <!--<option th:each="industry:${industries}" th:value="${industry?.industry_id}" th:text="${industry?.industry_name}"></option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col s1"></div>-->
+                <!--<div class="input-field col s2">-->
+                <!--<select id="map_id" name="map_id">-->
+                <!--<option th:each="map:${maps}" th:value="${map.map_id}" th:text="${map.map_name}"></option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col s2"></div>-->
+                <!--<div class="input-field col s3">-->
+                <!--<i class="material-icons prefix" style="margin-left: 1.5em">search</i>-->
+                <!--<input type="text" name="Search" style="padding-left:2.5em;" />-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div class="divider"></div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card-panel" style="margin-top:1.2em;">
+                            <h4 class="header2">小票列表</h4>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row">
+                                        <table class="striped centered">
+                                            <thead>
+                                            <tr>
+                                                <th>会员姓名</th>
+                                                <th>手机号码</th>
+                                                <!--<th>小票图片</th>-->
+                                                <th>上传时间</th>
+                                                <th>消费商户</th>
+                                                <th>消费金额</th>
+                                                <th>消费时间</th>
+                                                <th>处理状态</th>
+                                                <th>处理人</th>
+                                                <th>处理人电话</th>
+                                                <th>处理时间</th>
+                                                <th>操作</th>
+                                                <!--<th>回复</th>-->
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr th:each="ticket:${tickets}" th:switch="${ticket?.handle_status}">
+                                                <td th:text="${ticket?.member_name}"></td>
+                                                <td th:text="${ticket?.member_mobile}"></td>
+                                                <!--<td><img th:src="${ticket?.file_url}" style="width:3em;height:3em"/>-->
+                                                </td>
+                                                <td th:text="${ticket?.upload_date>0} ? ${#dates.format(ticket?.upload_date, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                                <td th:text="${ticket?.shop_name}"></td>
+                                                <td th:if="${ticket?.amounts == null}"></td>
+                                                <td th:if="${ticket?.amounts != null}" th:text="|￥${#numbers.formatDecimal(ticket?.amounts, 0, 'COMMA', 2, 'POINT')}|"></td>
+                                                <td th:text="${ticket?.shopping_date>0} ? ${#dates.format(ticket?.shopping_date, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                                <td th:case="0">已处理</td>
+                                                <td th:case="1">未通过</td>
+                                                <td th:case="2">未处理</td>
+                                                <td th:case="3">手动录入</td>
+                                                <td th:text="${ticket?.vc_name}"></td>
+                                                <td th:text="${ticket?.vc_phone}"></td>
+                                                <td th:text="${ticket?.handle_date>0} ? ${#dates.format(ticket?.handle_date, 'yyyy-MM-dd HH:mm')}"></td>
+                                                <td th:if="${ticket?.handle_status==2}"><a class="waves-effect waves-light"
+                                                        th:href="@{'/ticket?ticketId=' + ${ticket?.ticket_id} + '&memberId=' + ${ticket?.member_id}}"><i
+                                                        class="material-icons">mouse</i></a></td>
+                                                <td th:if="${ticket?.handle_status!=2}"><a class="waves-effect waves-light "
+                                                        th:href="@{'/ticketView?ticketId=' + ${ticket?.ticket_id} + '&memberId=' + ${ticket?.member_id}}"><i
+                                                        class="material-icons">pageview</i></a></td>
+                                                <!--<td><input type="text"/></td>-->
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row" ng-controller="PaginationController" th:object="${pageMap}">
+                                        <pagination class="right" th:attr="page=''+ *{index}+'',total=''+*{total}+''"
+                                                    page-size="10" show-prev-next="true" dots="...."
+                                                    hide-if-empty="false" adjacent="2" scroll-top="false"
+                                                    pagination-action="changePage(page)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--</form>-->
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+        <!-- START RIGHT SIDEBAR NAV-->
+        <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+        </aside>
+        <!-- END RIGHT SIDEBAR NAV-->
+
+        <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+            <a class="btn-floating btn-large modal-trigger" href="#data-filter">
+                <i class="material-icons">local_bar</i>
+            </a>
+        </div>
+    </div>
+
+    <div id="data-filter" class="modal bottom-sheet">
+        <div class="modal-content">
+            <!--<h4>Modal Header</h4>-->
+            <span class="btn-floating btn modal-trigger" disabled style="margin-left:.8em">
+                <i class="material-icons">find_in_page</i>
+            </span>
+            <span id="filter-reset" class="btn-floating btn right modal-trigger" style="margin-left:.8em">
+                <i class="material-icons">find_replace</i>
+            </span>
+            <!--<form id="form-filter" action="/tickets/filter" method="post" data-parsley-validate>-->
+            <form id="form-filter" action="/tickets/filter" method="post">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="username" name="username"
+                                       type="text" data-parsley-ui-enabled="false">
+                                <label for="username">会员姓名</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="mobile" name="mobile" class="validate" type="tel"
+                                       pattern="(^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$)"
+                                       data-parsley-pattern="(^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$)"
+                                       data-parsley-pattern-message="字段内容不是正确的手机号格式">
+                                <label for="mobile">会员手机号</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6" ng-controller="DateController">
+                                <input input-date type="text" ng-model="currentTime" container="body"
+                                       format="yyyy-mm-dd"
+                                       months-full="{{ month }}" months-short="{{ monthShort }}"
+                                       weekdays-full="{{ weekdaysFull }}" weekdays-short="{{ weekdaysShort }}"
+                                       weekdays-letter="{{ weekdaysLetter }}"
+                                       disable="disable" min="{{ minDate }}" max="{{ maxDate }}"
+                                       today="today" clear="clear" close="close" select-years="10"
+                                       data-parsley-ui-enabled="false"
+                                       id="create-date-start" name="create-date-start" class="do-points">
+                                <label for="create-date-start">上传时间(开始)</label>
+                            </div>
+                            <div class="input-field col s6" ng-controller="DateController">
+                                <input input-date type="text" ng-model="currentTime" container="body"
+                                       format="yyyy-mm-dd"
+                                       months-full="{{ month }}" months-short="{{ monthShort }}"
+                                       weekdays-full="{{ weekdaysFull }}" weekdays-short="{{ weekdaysShort }}"
+                                       weekdays-letter="{{ weekdaysLetter }}"
+                                       disable="disable" min="{{ minDate }}" max="{{ maxDate }}"
+                                       today="today" clear="clear" close="close" select-years="10"
+                                       data-parsley-ui-enabled="false"
+                                       id="create-date-end" name="create-date-end" class="do-points">
+                                <label for="create-date-end">上传时间(结束)</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <select id="shop" name="shop">
+                                    <!--<option value="0" selected>所有商户</option>-->
+                                    <!--</select>-->
+                                    <!--<select>-->
+                                    <option value="-1" selected>所有商户</option>
+                                    <optgroup th:label="${map?.map_name}" th:each="map:${maps}">
+                                        <option th:text="${shop?.shop_name}" th:value="${shop?.shop_id}" th:each="shop:${map?.shops}"></option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="input-field col s6">
+                                <select id="status" name="status">
+                                    <option value="-1" selected>所有状态</option>
+                                    <option value="0">已处理</option>
+                                    <option value="1">未通过</option>
+                                    <option value="2">未处理</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="amountStart" name="amountStart"
+                                       type="number" step="0.01" min="0" value="0">
+                                <label for="amountStart">交易金额(区间起始)</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="amountEnd" name="amountEnd" class=""
+                                       type="number" step="0.01" min="0" value="0">
+                                <label for="amountEnd">交易金额(区间结束)</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6" ng-controller="DateController">
+                                <input input-date type="text" ng-model="currentTime" container="body"
+                                       format="yyyy-mm-dd"
+                                       months-full="{{ month }}" months-short="{{ monthShort }}"
+                                       weekdays-full="{{ weekdaysFull }}" weekdays-short="{{ weekdaysShort }}"
+                                       weekdays-letter="{{ weekdaysLetter }}"
+                                       disable="disable" min="{{ minDate }}" max="{{ maxDate }}"
+                                       today="today" clear="clear" close="close" select-years="10"
+                                       data-parsley-ui-enabled="false"
+                                       id="action-date-start" name="action-date-start" class="do-points">
+                                <label for="action-date-start">交易时间(开始)</label>
+                            </div>
+                            <div class="input-field col s6" ng-controller="DateController">
+                                <input input-date type="text" ng-model="currentTime" container="body"
+                                       format="yyyy-mm-dd"
+                                       months-full="{{ month }}" months-short="{{ monthShort }}"
+                                       weekdays-full="{{ weekdaysFull }}" weekdays-short="{{ weekdaysShort }}"
+                                       weekdays-letter="{{ weekdaysLetter }}"
+                                       disable="disable" min="{{ minDate }}" max="{{ maxDate }}"
+                                       today="today" clear="clear" close="close" select-years="10"
+                                       data-parsley-ui-enabled="false"
+                                       id="action-date-end" name="action-date-end" class="do-points">
+                                <label for="action-date-end">交易时间(结束)</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6" ng-controller="DateController">
+                                <input input-date type="text" ng-model="currentTime" container="body"
+                                       format="yyyy-mm-dd"
+                                       months-full="{{ month }}" months-short="{{ monthShort }}"
+                                       weekdays-full="{{ weekdaysFull }}" weekdays-short="{{ weekdaysShort }}"
+                                       weekdays-letter="{{ weekdaysLetter }}"
+                                       disable="disable" min="{{ minDate }}" max="{{ maxDate }}"
+                                       today="today" clear="clear" close="close" select-years="10"
+                                       data-parsley-ui-enabled="false"
+                                       id="handle-date-start" name="handle-date-start" class="do-points">
+                                <label for="handle-date-start">处理时间(开始)</label>
+                            </div>
+                            <div class="input-field col s6" ng-controller="DateController">
+                                <input input-date type="text" ng-model="currentTime" container="body"
+                                       format="yyyy-mm-dd"
+                                       months-full="{{ month }}" months-short="{{ monthShort }}"
+                                       weekdays-full="{{ weekdaysFull }}" weekdays-short="{{ weekdaysShort }}"
+                                       weekdays-letter="{{ weekdaysLetter }}"
+                                       disable="disable" min="{{ minDate }}" max="{{ maxDate }}"
+                                       today="today" clear="clear" close="close" select-years="10"
+                                       data-parsley-ui-enabled="false"
+                                       id="handle-date-end" name="handle-date-end" class="do-points">
+                                <label for="handle-date-end">处理时间(结束)</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <button type="button" id="filter-button" name="filter-button"
+                                        class="waves-effect waves-light btn right">
+                                    <i class="material-icons left">local_bar</i>筛&emsp;选
+                                </button>
+                            </div>
+                        </div>
+                        <input type="hidden" id="createDateStart" name="createDateStart" value="">
+                        <input type="hidden" id="createDateEnd" name="createDateEnd" value="">
+                        <input type="hidden" id="actionDateStart" name="actionDateStart" value="">
+                        <input type="hidden" id="actionDateEnd" name="actionDateEnd" value="">
+                        <input type="hidden" id="handleDateStart" name="handleDateStart" value="">
+                        <input type="hidden" id="handleDateEnd" name="handleDateEnd" value="">
+                        <input type="hidden" id="page" name="page" value="">
+                        <input type="hidden" id="size" name="size" value="">
+                        <input type="hidden" id="filterJson" name="filterJson" value="">
+                    </div>
+                </div>
+            </form>
+            <form action="/tickets/reset" id="form-reset" method="post"></form>
+        </div>
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<!--<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/parsley.js/2.8.0/parsley.min.js"></script>
+<!--angularjs-->
+<script type="text/javascript" src="vendors/angular.min.js"></script>
+<script type="text/javascript" src="vendors/angular-materialize.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/angular-ui.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<script type="text/javascript" src="js/advanced-ui-modals.js"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+
+        var filterData = /*[[${session.tickets_filterJson}]]*/ undefined
+        if (filterData) {
+            log(filterData)
+            $('#filterJson').val(filterData)
+
+            JSON.parse(filterData, function(key, value) {
+                switch (key) {
+                    case 'username':
+                        $('#username').val(value)
+                        break
+                    case 'mobile':
+                        $('#mobile').val(value)
+                        break
+                    case 'createDateStart':
+                        $('#create-date-start').val(dateString(new Date(value)))
+                        $('#createDateStart').val(value)
+                        break
+                    case 'createDateEnd':
+                        $('#create-date-end').val(dateString(new Date(value)))
+                        $('#createDateEnd').val(value)
+                        break
+                    case 'shop':
+                        $('#shop').val(value)
+                        $('#shop').material_select()
+                        break
+                    case 'status':
+                        $('#status').val(value)
+                        $('#status').material_select()
+                        break
+                    case 'amountStart':
+                        $('#amountStart').val(value)
+                        break
+                    case 'amountEnd':
+                        $('#amountEnd').val(value)
+                        break
+                    case 'actionDateStart':
+                        value = Number(value)
+                        $('#action-date-start').val(dateString(new Date(value)))
+                        $('#actionDateStart').val(value)
+                        break
+                    case 'actionDateEnd':
+                        $('#action-date-end').val(dateString(new Date(value)))
+                        $('#actionDateEnd').val(value)
+                        break
+                    case 'handleDateStart':
+                        $('#handle-date-start').val(dateString(new Date(value)))
+                        $('#handleDateStart').val(value)
+                        break
+                    case 'handleDateEnd':
+                        $('#handle-date-end').val(dateString(new Date(value)))
+                        $('#handleDateEnd').val(value)
+                        break
+                }
+            })
+
+//            $('select').material_select();
+        }
+
+        $('#filter-button').on('click', function (event) {
+            var obj = {}
+            if ($('#username').val()) obj.username = $('#username').val()
+            if ($('#mobile').val()) obj.mobile = $('#mobile').val()
+
+            if ($('#create-date-start').val() && $('#create-date-end').val()) {
+                $('#createDateStart').val(Number(dateToMilliseconds($('#create-date-start').val())))
+                $('#createDateEnd').val(Number(dateToMilliseconds($('#create-date-end').val())))
+                obj.createDateStart = Number($('#createDateStart').val())
+                obj.createDateEnd = Number($('#createDateEnd').val())
+            }
+
+            if ($('#shop').val() > -1) obj.shop = $('#shop').val()
+            if ($('#status').val() > -1) obj.status = $('#status').val()
+
+            if ($('#amountStart').val() && $('#amountEnd').val()) {
+                if ($('#amountStart').val() > 0) obj.amountStart = $('#amountStart').val()
+                if ($('#amountEnd').val() > 0) obj.amountEnd = $('#amountEnd').val()
+            }
+
+            if ($('#action-date-start').val() && $('#action-date-end').val()) {
+                $('#actionDateStart').val(Number(dateToMilliseconds($('#action-date-start').val())))
+                $('#actionDateEnd').val(Number(dateToMilliseconds($('#action-date-end').val())))
+                obj.actionDateStart = Number($('#actionDateStart').val())
+                obj.actionDateEnd = Number($('#actionDateEnd').val())
+            }
+
+            if ($('#handle-date-start').val() && $('#handle-date-end').val()) {
+                $('#handleDateStart').val(Number(dateToMilliseconds($('#handle-date-start').val())))
+                $('#handleDateEnd').val(Number(dateToMilliseconds($('#handle-date-end').val())))
+                obj.handleDateStart = Number($('#handleDateStart').val())
+                obj.handleDateEnd = Number($('#handleDateEnd').val())
+            }
+
+            $('#filterJson').val(JSON.stringify(obj))
+            $('#page').val(1)
+            $('#size').val(10)
+
+            log('-------------')
+            log($('#createDateStart').val())
+            log($('#createDateEnd').val())
+
+            $('#form-filter').submit()
+        })
+
+        $('#filter-reset').on('click', function() {
+            $('#form-reset').submit()
+        })
+    })
+
+</script>
+</body>
+
+</html>

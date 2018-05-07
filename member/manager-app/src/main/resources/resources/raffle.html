@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description"-->
+    <!--content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords"-->
+    <!--content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+
+    <!--sweetalert-->
+    <link href="css/sweetalert.css" type="text/css" rel="stylesheet">
+    <link href="css/themes/google/google.css" type="text/css" rel="stylesheet">
+
+    <link href="dropify/dist/css/dropify.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/parsley.css" type="text/css" rel="stylesheet" media="screen,projection">
+
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            font-size: 13px;
+        }
+
+        #pickerBox {
+            position: absolute;
+            z-index: 9999;
+            top: 50px;
+            right: 30px;
+            width: 300px;
+        }
+
+        #pickerInput {
+            width: 200px;
+            padding: 5px 5px;
+        }
+
+        #poiInfo {
+            background: #fff;
+        }
+
+        .amap_lib_placeSearch .poibox.highlight {
+            background-color: #CAE1FF;
+        }
+
+        .amap_lib_placeSearch .poi-more {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body class="active-raffle">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <div id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">抽奖基本信息</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">抽奖</a>
+                                </li>
+                                <li class="active">基本信息 录入</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!--start container-->
+            <div class="container">
+                <div class="section">
+                    <!--<p class="caption">在下列表单中填写商场基本信息 上传商场轮播图片</p>-->
+                    <!--<div class="divider"></div>-->
+                </div>
+
+                <!-- ////////////////////////////////////// form start ////////////////////////////////////// -->
+                <form id="raffle-form" method="POST" enctype="multipart/form-data" action="/saveRaffle" data-parsley-validate>
+                    <div class="row">
+                        <div class="col s0 m0 l2"></div>
+                        <div class="col s12 m12 l8">
+                            <div class="card-panel" style="margin-top:1.2em;">
+                                <h4 class="header2">抽奖基础信息</h4>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">card_membership</i>
+                                                <input type="text" id="raffleTitle" name="raffleTitle" class="validate"
+                                                       th:value="${raffle?.title}" required data-parsley-required
+                                                       data-parsley-required-message="不能为空">
+                                                <label for="raffleTitle">标题</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s5">
+                                                <i class="material-icons prefix">view_day</i>
+                                                <input type="text" class="validate"
+                                                       id="raffleTimeStart1" name="raffleTimeStart1"
+                                                       placeholder="1980-01-01"
+                                                       equired data-parsley-required
+                                                       data-parsley-required-message="不能为空"
+                                                       pattern="(([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])))"
+                                                       data-parsley-pattern="(([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])))"
+                                                       data-parsley-pattern-message="字段内容不是正确的日期格式">
+                                                <label for="raffleTimeStart1">抽奖时间</label>
+                                            </div>
+                                            <div class="input-field col s1">
+                                                <span style="margin-top:1.2em;width:100%;text-align:center;display:inline-block;">至</span>
+                                            </div>
+                                            <div class="input-field col s5">
+                                                <input type="text" class="validate"
+                                                       id="raffleTimeEnd1" name="raffleTimeEnd1"
+                                                       placeholder="1980-12-01"
+                                                       equired data-parsley-required
+                                                       data-parsley-required-message="不能为空"
+                                                       pattern="(([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])))"
+                                                       data-parsley-pattern="(([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])))"
+                                                       data-parsley-pattern-message="字段内容不是正确的日期格式">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <i class="material-icons prefix">monetization_on</i>
+                                                <input type="number" id="requiredPoints" name="requiredPoints"
+                                                       class="validate"
+                                                       min="0" step="1"
+                                                       th:value="${raffle?.required_points}" required
+                                                       data-parsley-required
+                                                       data-parsley-required-message="不能为空"
+                                                       data-parsley-max="99999"
+                                                       data-parsley-max-message="数值超出最大范围">
+                                                <label for="requiredPoints">抽奖所需积分</label>
+                                            </div>
+                                            <!--<div class="input-field col s6">-->
+                                                <!--<i class="material-icons prefix">monetization_on</i>-->
+                                                <!--<input type="number" id="doActionTimes" name="doActionTimes"-->
+                                                       <!--class="validate"-->
+                                                       <!--min="1" step="1"-->
+                                                       <!--th:value="${raffle?.required_points}" required-->
+                                                       <!--data-parsley-required-->
+                                                       <!--data-parsley-required-message="不能为空"-->
+                                                       <!--data-parsley-max="999"-->
+                                                       <!--data-parsley-max-message="数值超出最大范围">-->
+                                                <!--<label for="doActionTimes">抽奖次数</label>-->
+                                            <!--</div>-->
+                                            <div class="input-field col s6">
+                                                <i class="material-icons prefix">filter_1</i>
+                                                <input type="text" id="activityCode" name="activityCode"
+                                                       class="validate"
+                                                       th:value="${raffle?.activity_code}" required
+                                                       data-parsley-required
+                                                       data-parsley-required-message="不能为空">
+                                                <label for="activityCode">活动编号</label>
+                                            </div>
+                                        </div>
+
+                                        <!--<div class="row">-->
+                                            <!--<div class="input-field col s12">-->
+                                                <!--<i class="material-icons prefix">monetization_on</i>-->
+                                                <!--<input type="text" id="activity-code" name="activity-code"-->
+                                                       <!--class="validate"-->
+                                                       <!--th:value="${raffle?.required_points}" required-->
+                                                       <!--data-parsley-required-->
+                                                       <!--data-parsley-required-message="不能为空">-->
+                                                <!--<label for="activity-code">活动编号</label>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                        <!-- ///////////////////////////////////// raffle reward start //////////////////////////////////////////////// -->
+                                        <div class="row">
+                                            <div class="input-field col s12" id="ele_rewards">
+
+                                            </div>
+                                        </div>
+                                        <!-- ///////////////////////////////////// raffle reward end //////////////////////////////////////////////// -->
+
+                                        <div class="row">
+                                            <div class="input-field col s12 center">
+                                                <a id="btn-add-reward" class="btn-floating btn-large waves-effect waves-light"><i
+                                                        class="material-icons">add</i></a>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-top: 1em">
+                                            <div class="input-field col s12">
+                                                            <textarea name="intro" id="intro"
+                                                                      th:text="${raffle?.intro}"
+                                                                      class="materialize-textarea">
+                                                                <p style="font-size:8pt">抽奖活动描述</p>
+                                                            </textarea>
+                                            </div>
+                                            <div class="input-field col s12">
+                                                <a id="btn-submit" style="margin-right:.7em"
+                                                        class="waves-effect waves-light btn right"><i
+                                                        class="material-icons right">send</i>保&emsp;存
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s0 m0 l2"></div>
+
+                    <input type="hidden" id="raffleId" name="raffleId" th:value="${raffle?.raffle_id}">
+                    <input type="hidden" id="raffleTimeStart" name="raffleTimeStart" th:value="${raffle?.raffle_time_start}">
+                    <input type="hidden" id="raffleTimeEnd" name="raffleTimeEnd" th:value="${raffle?.raffle_time_end}">
+                    <input type="hidden" id="rewardsData" name="rewardsData">
+                    <input type="hidden" id="introId" name="introId" th:value="${raffle?.intro_id}">
+                </form>
+                <!-- ////////////////////////////////////// form end ////////////////////////////////////// -->
+            </div>
+        </div>
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+    </div>
+    <!--end container-->
+    </section>
+    <!-- END CONTENT -->
+    <!-- START RIGHT SIDEBAR NAV-->
+    <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+    </aside>
+    <!-- END RIGHT SIDEBAR NAV-->
+</div>
+<!-- END WRAPPER -->
+</div>
+<div class="section"></div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<!--<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/parsley.js/2.8.0/parsley.min.js"></script>
+<!--angularjs-->
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<script type="text/javascript" src="js/sweetalert.min.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<script src="dropify/dist/js/dropify.min.js"></script>
+<script src="ckeditor/ckeditor.js"></script>
+
+<script th:inline="javascript">
+    /****************************************************************
+     * Introduction：奖品编辑界面逻辑 非DOM模式，仅使用于少量界面元素场景
+     * 奖品数量有限且少量，故场景适用。
+     * Author: laf
+     *
+     * Reward: 奖品类(class)
+     * rewards: 奖品对象数组
+     * rewards_file: 因为安全因素，浏览器不支持代码控制【文件域】数据还原，用一个文件域元素对象数组保存文件域状态，用于数据还原
+     * editFlag: 奖品数据修改标记，新增数据与编辑数据在数据还原方面有较大差别，用这个标记区分实现逻辑
+     * baseImageUrl: 图片服务器地址
+     *
+     * **************************************************************/
+    function Reward(name, inventory, hit_rate, picture, type, value, panel_coupon, panel_gift, panel_points, sel_coupon, sel_gift, points) {
+        this.name = { $id:name, $v:undefined }
+        this.inventory = { $id:inventory, $v:undefined }
+        this.hit_rate = { $id:hit_rate, $v:undefined }
+        this.picture = { $id:picture, $v:undefined, $filename:'' }
+        this.type = { $id:type, $v:0 }
+        this.value = { $id:value, $v:undefined }
+        this.panel_coupon = { $id:panel_coupon, $v:undefined }
+        this.panel_gift = { $id:panel_gift, $v:undefined }
+        this.panel_points = { $id:panel_points, $v:undefined }
+        this.sel_coupon = { $id:sel_coupon, $v:undefined }
+        this.sel_gift = { $id:sel_gift, $v:undefined }
+        this.points = { $id:points, $v:undefined }
+    }
+
+    var rewards = []
+    var rewards_file = []
+    var editFlag = false
+    var baseImageUrl = undefined
+
+    $(document).ready(function () {
+        var coupons = undefined
+        var couponOptions = ''
+        initCoupons()
+
+        var giftCoupons = undefined
+        var giftCouponOptions = ''
+        initGiftCoupons()
+
+        editFlag = /*[[${edit_flag}]]*/ undefined
+
+        if (editFlag) {
+
+            baseImageUrl = /*[[${base_image_url}]]*/ undefined
+
+            var raffle_time_start = /*[[${raffle?.raffle_time_start}]]*/ undefined
+            if (raffle_time_start) $('#raffleTimeStart1').val(dateString(new Date(raffle_time_start)))
+            var raffle_time_end = /*[[${raffle?.raffle_time_end}]]*/ undefined
+            if (raffle_time_end) $('#raffleTimeEnd1').val(dateString(new Date(raffle_time_end)))
+
+            initData()
+            handleView()
+        }
+
+        $('#raffleTimeStart1').on('change', function (event) {
+            $('#raffleTimeStart').val(dateToMilliseconds(event.target.value))
+        })
+
+        $('#raffleTimeEnd1').on('change', function (event) {
+            $('#raffleTimeEnd').val(dateToMilliseconds(event.target.value))
+        })
+
+        function initCoupons() {
+            coupons = /*[[${coupons}]]*/ undefined
+
+            if (coupons) {
+                coupons = JSON.parse(coupons)
+            } else {
+                coupons = []
+            }
+
+            if (!coupons || coupons.length <= 0)
+                couponOptions += '<option value="0">No Reward</option>\n'
+            else {
+                for (var c = 0; c < coupons.length; c++) {
+                    var couponId = coupons[c]["id"]
+                    var couponName = coupons[c]["name"]
+                    couponOptions += '<option value="' + couponId + '">' + couponName + '</option>\n'
+                }
+            }
+//        log(couponOptions)
+        }
+
+        function initGiftCoupons() {
+            giftCoupons = /*[[${giftcoupons}]]*/ undefined
+
+            if (giftCoupons) {
+                giftCoupons = JSON.parse(giftCoupons)
+            } else {
+                giftCoupons = []
+            }
+
+            if (!giftCoupons || giftCoupons.length <= 0)
+                giftCouponOptions += '<option value="0">No Reward</option>\n'
+            else {
+                for (var c = 0; c < giftCoupons.length; c++) {
+                    var couponId = giftCoupons[c]["id"]
+                    var couponName = giftCoupons[c]["name"]
+                    giftCouponOptions += '<option value="' + couponId + '">' + couponName + '</option>\n'
+                }
+            }
+//        log(giftCouponOptions)
+        }
+
+        function addReward() {
+            handleReward()
+
+            var index = rewards ? rewards.length : 0
+            var name = 'reward-name-' + index
+            var inventory = 'reward-inventory-' + index
+            var hit_rate = 'reward-hit-rate-' + index
+            var picture = 'input-file-now' + index
+            var value = 'reward-value-' + index
+            var type = 'reward-type-' + index
+            var panel_coupon = 'panel-coupon-' + index
+            var panel_gift = 'panel-gift-' + index
+            var panel_points = 'panel-points-' + index
+            var sel_coupon = 'sel-coupon-' + index
+            var sel_gift = 'sel-gift-' + index
+            var points = 'reward-points-' + index
+            var reward = new Reward(name, inventory, hit_rate, picture, type, value,
+                panel_coupon, panel_gift, panel_points, sel_coupon, sel_gift, points)
+            rewards.push(reward)
+
+            handleView()
+        }
+
+        function removeReward(index) {
+            handleReward()
+            rewards.splice(index, 1)
+            rewards_file.splice(index, 1)
+            handleElementId()
+            handleView()
+        }
+
+        function handleView() {
+            $('#ele_rewards').html('')
+
+            for (var i = 0; i < rewards.length; i++) {
+                var $$ = rewards[i]
+                var html = '<div class="card-panel" style="margin-top:2.2em">\n' +
+                    '<div class="row">\n' +
+                    '<a class="btn-floating btn-small waves-effect waves-light right btn-remove-reward"\n' +
+                    'style="position:relative;right:-2em;top:-3em"><i reward_index=' + i + '\n' +
+                    'class="material-icons">remove</i></a>' +
+                    '<div class="col s8">\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="input-field col s12">\n' +
+                    '            <input type="text" id="' + $$.name.$id + '"\n' +
+                    '                   required\n' +
+                    '                   data-parsley-required\n' +
+                    '                   data-parsley-required-message="不能为空"\n' +
+                    '                   class="validate">\n' +
+                    '            <label for="reward-name-1">奖品名称</label>\n' +
+                    '        </div>\n' +
+                    '        <div class="input-field col s12">\n' +
+                    '            <input type="number" id="' + $$.inventory.$id + '"\n' +
+                    '                   min="1" step="1"\n' +
+                    '                   value="1"\n' +
+                    '                   required\n' +
+                    '                   data-parsley-required\n' +
+                    '                   data-parsley-required-message="不能为空"\n' +
+                    '                   data-parsley-type="integer"\n' +
+                    '                   data-parsley-type-message="必须是整数"\n' +
+                    '                   data-parsley-max="99999999"\n' +
+                    '                   data-parsley-max-message="数值超出最大范围"\n' +
+                    '                   class="validate">\n' +
+                    '            <label for="reward-name-1">库存</label>\n' +
+                    '        </div>\n' +
+                    '        <div class="input-field col s12">\n' +
+                    '            <input type="number" id="' + $$.hit_rate.$id + '"\n' +
+                    '                   min="0.0" step="0.000001"\n' +
+                    '                   value="1"\n' +
+                    '                   required\n' +
+                    '                   data-parsley-required\n' +
+                    '                   data-parsley-required-message="不能为空"\n' +
+                    '                   data-parsley-max="99999999"\n' +
+                    '                   data-parsley-max-message="数值超出最大范围"\n' +
+                    '                   class="validate">\n' +
+                    '            <label for="reward-name-1">中奖概率</label>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '</div>\n' +
+                    '<div class="col s4">\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="input-field col s12" id="filePanel' + i + '">\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '</div>\n' +
+                    '<div class="col s12" style="display:inline-block;height:1.7em;"></div>\n' +
+                    '<div class="row">\n' +
+                    '<div class="col s12">\n' +
+                    '    <ul class="tabs tab-demo z-depth-1">\n' +
+                    '        <li class="tab col s3">\n' +
+                    '            <a href="#' + $$.panel_coupon.$id + '" class="tab-type" reward-type="0" tab-index=' + i +'>优惠券</a>\n' +
+                    '        </li>\n' +
+                    '        <li class="tab col s3">\n' +
+                    '            <a href="#' + $$.panel_gift.$id + '" class="tab-type" reward-type="1" tab-index=' + i +'>礼品券</a>\n' +
+                    '        </li>\n' +
+                    '        <li class="tab col s3">\n' +
+                    '            <a href="#' + $$.panel_points.$id + '" class="tab-type" reward-type="2" tab-index=' + i +'>积分</a>\n' +
+                    '        </li>\n' +
+                    '    </ul>\n' +
+                    '</div>\n' +
+                    '<div id="' + $$.panel_coupon.$id + '" class="col s12">\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="input-field col s12">\n' +
+                    '            <div class="card-panel" style="margin-top:0em;">\n' +
+                    '                <div class="row">\n' +
+                    '                    <div class="input-field col s12">\n' +
+                    '                        <select id="' + $$.sel_coupon.$id + '">\n' +
+                        couponOptions +
+                    '                        </select>\n' +
+                    '                    </div>\n' +
+                    '                </div>\n' +
+                    '            </div>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '</div>\n' +
+                    '<div id="' + $$.panel_gift.$id + '" class="col s12">\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="input-field col s12">\n' +
+                    '            <div class="card-panel" style="margin-top:0em;">\n' +
+                    '                <div class="row">\n' +
+                    '                    <div class="input-field col s12">\n' +
+                    '                        <select id="' + $$.sel_gift.$id + '">\n' +
+                        giftCouponOptions +
+                    '                        </select>\n' +
+                    '                    </div>\n' +
+                    '                </div>\n' +
+                    '            </div>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '</div>\n' +
+                    '<div id="' + $$.panel_points.$id + '" class="col s12">\n' +
+                    '    <div class="row">\n' +
+                    '        <div class="input-field col s12">\n' +
+                    '            <div class="card-panel" style="margin-top:0em;">\n' +
+                    '                <div class="row">\n' +
+                    '                    <div class="input-field col s12">\n' +
+                    '                        <i class="material-icons prefix"></i>\n' +
+                    '                        <input type="number"\n' +
+                    '                               value="1"\n' +
+                    '                               id="' + $$.points.$id + '"\n' +
+                    '                               min="1"\n' +
+                    '                               step="1"\n' +
+                    '                               name="requiredPoints"\n' +
+                    '                               class="validate"\n' +
+                    '                               data-parsley-type="integer"\n' +
+                    '                               data-parsley-type-message="积分必须是整数"\n' +
+                    '                               data-parsley-max="99999999"\n' +
+                    '                               data-parsley-max-message="数值超出最大范围">\n' +
+                    '                    </div>\n' +
+                    '                </div>\n' +
+                    '            </div>\n' +
+                    '        </div>\n' +
+                    '    </div>\n' +
+                    '</div>\n' +
+                    '</div>\n' +
+                    '</div>\n' +
+                    '</div>\n'
+
+                $(html).appendTo('#ele_rewards')
+                createFile(i)
+                if (editFlag && baseImageUrl && $$.picture.$filename) {
+                    $("#input-file-now"+i).attr("data-default-file", baseImageUrl + $$.picture.$filename)
+                } else {
+                    $("#input-file-now"+i).attr("data-default-file", '')
+                }
+
+                // Basic
+                $('.dropify').dropify({
+                    messages: {
+                        'default': '点击或拖拽到这里',
+                        'replace': '点击或拖拽进行替换',
+                        'remove': '删除',
+                        'error': '文件格式错误'
+                    },
+                    error: {
+                        'fileSize': 'The file size is too big ({{ value }} max).',
+                        'fileExtension': '只能上传 ({{ value }}) 格式的文件.',
+                        'minWidth': 'The image width is too small ({{ value }}}px min).',
+                        'maxWidth': 'The image width is too big ({{ value }}}px max).',
+                        'minHeight': 'The image height is too small ({{ value }}}px min).',
+                        'maxHeight': 'The image height is too big ({{ value }}px max).',
+                        'imageFormat': '只能上传 ({{ value }}) 格式的文件.'
+                    },
+                    tpl: {
+                        wrap: '<div class="dropify-wrapper"></div>',
+                        loader: '<div class="dropify-loader"></div>',
+                        message: '<div class="dropify-message"><span class="file-icon" /> <p style="text-align:center">{{ default }}</p></div>',
+                        preview: '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
+                        filename: '<p class="dropify-filename"><span class="dropify-filename-inner"></span></p>',
+                        clearButton: '<button type="button" class="dropify-clear">{{ remove }}</button>',
+                        errorLine: '<p class="dropify-error">{{ error }}</p>',
+                        errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>'
+                    }
+                })
+            }
+
+            $('.btn-remove-reward').on('click', function(event) {
+                var index = parseInt(event.target.getAttribute('reward_index'))
+                removeReward(index)
+            })
+
+            $('.tab-type').on('click', function(event) {
+                var index = parseInt(event.target.getAttribute('tab-index'))
+                var type = parseInt(event.target.getAttribute('reward-type'))
+                var id = event.target.getAttribute('href')
+                id = id.substr(1, id.length-1) // 去掉 "#"
+
+                var r = rewards[index]
+                r.type.$v = type
+                r.type.$id = id
+            })
+
+            $('.reward-pic').on('change', function(event) {
+                readURL(event.target)
+            })
+
+            $('ul.tabs').tabs();
+            loadRewards()
+            Materialize.updateTextFields()
+            $('select').material_select()
+        }
+
+        function handleReward() {
+            for (var i = 0; i < rewards.length; i++) {
+                var $$ = rewards[i]
+
+                $$.name.$v = $('#'+$$.name.$id).val()
+                $$.inventory.$v = parseInt($('#'+$$.inventory.$id).val())
+                $$.hit_rate.$v = parseFloat($('#'+$$.hit_rate.$id).val())
+
+                if ($$.type.$v == 0) {
+                    $$.value.$v = parseInt($('#'+$$.sel_coupon.$id).val())
+                    if (!$$.value.$v) {
+                        $$.value.$v = coupons[0]["id"]
+                        $('#'+$$.sel_coupon.$id).val(coupons[0]["id"])
+                    }
+                } else if ($$.type.$v == 1) {
+                    $$.value.$v = parseInt($('#'+$$.sel_gift.$id).val())
+
+                    if (!$$.value.$v) {
+                        $$.value.$v = coupons[0]["id"]
+                        $('#'+$$.sel_gift.$id).val(coupons[0]["id"])
+                    }
+                } else {
+                    $$.value.$v = parseInt($('#'+$$.points.$id).val())
+                }
+            }
+
+//            var data = JSON.stringify(rewards)
+//            log(data)
+        }
+
+        function rewards2data() {
+            var data = []
+
+            for (var i = 0; i < rewards.length; i++) {
+                var $$ = rewards[i]
+
+                if (!$$.picture.$v && !$$.picture.$filename) {
+                    log('pictures have none')
+                    return false
+                }
+
+                var r = {
+                    name: $$.name.$v,
+                    inventory: $$.inventory.$v,
+                    hit_rate: $$.hit_rate.$v,
+                    type: $$.type.$v,
+                    value: $$.value.$v,
+                    pictureName: $$.picture.$filename
+                }
+
+                data.push(r)
+            }
+
+            $('#rewardsData').val(JSON.stringify(data))
+            log(JSON.stringify(data))
+        }
+
+        function loadRewards() {
+            for (var i = 0; i < rewards.length; i++) {
+                var $$ = rewards[i]
+
+                $('#'+$$.name.$id).val($$.name.$v)
+                $('#'+$$.inventory.$id).val($$.inventory.$v)
+                $('#'+$$.hit_rate.$id).val($$.hit_rate.$v)
+
+                if ($$.type.$v == 1 || $$.type.$v == 2) {
+                    $('ul.tabs').tabs('select_tab', $$.type.$id)
+                }
+
+                if ($$.type.$v == 0) {
+                    // sel_coupon select
+                    $('#'+$$.sel_coupon.$id).val($$.value.$v)
+//                    $('#'+$$.sel_coupon.$id).val(27)
+                    $('#'+$$.sel_coupon.$id).material_select()
+                } else if ($$.type.$v == 1) {
+                    // sel_gift select
+                    $('#'+$$.sel_gift.$id).val($$.value.$v)
+                    $('#'+$$.sel_gift.$id).material_select()
+                } else {
+                    $('#'+$$.points.$id).val($$.value.$v)
+                }
+
+                if ($$.picture.$v) {
+                    var drEvent = $('#'+$$.picture.$id)
+                    drEvent = drEvent.data('dropify')
+                    drEvent.setPreview(true, $$.picture.$v)
+                }
+            }
+        }
+
+        $('#btn-add-reward').on('click', function(event) {
+            addReward()
+        })
+
+        $('#btn-submit').on('click', function(event) {
+            if (rewards && rewards.length > 0) {
+                handleReward()
+                if (rewards2data() === false) {
+                    errorDialog('奖品信息不完整')
+                    return false
+                }
+
+            } else {
+                errorDialog('奖品未编辑')
+                return false
+            }
+
+            $('#raffleTimeStart').val(dateToMilliseconds($('#raffleTimeStart1').val()))
+            $('#raffleTimeEnd').val(dateToMilliseconds($('#raffleTimeEnd1').val()))
+
+//            log('data success')
+            $('#raffle-form').submit()
+        })
+
+        function readURL(input) {
+            var reader = new FileReader()
+            var index = parseInt(input.getAttribute('file-index'))
+
+            reader.onload = function (event) {
+                rewards[index].picture.$filename = ''
+                rewards[index].picture.$v = event.target.result
+            }
+
+            reader.readAsDataURL(input.files[0])
+        }
+
+        function createFile(index) {
+
+            var fileField = undefined
+
+            if (rewards_file && rewards_file.length > index) {
+                fileField = rewards_file[index]
+            } else {
+
+                fileField = $('<input type="file" id="input-file-now' + index + '" name="file"\n' +
+                    'data-show-remove="false" file-index=' + index + '\n' +
+                    'class="dropify dropify-event reward-pic"\n' +
+                    'data-default-file=""\n' +
+                    'data-allowed-file-extensions="png jpg jpeg"/>\n')
+
+                rewards_file.push(fileField)
+            }
+
+            var filePanel = $('#filePanel'+index)
+//            log(filePanel)
+            filePanel.append(fileField)
+        }
+
+        function initData() {
+            var $rewards = /*[[${raffle_rewards}]]*/ undefined
+
+            if ($rewards) {
+
+                for (var index = 0; index < $rewards.length; index++) {
+                    var $$ = $rewards[index]
+
+                    var name = 'reward-name-' + index
+                    var inventory = 'reward-inventory-' + index
+                    var hit_rate = 'reward-hit-rate-' + index
+                    var picture = 'input-file-now' + index
+                    var value = 'reward-value-' + index
+                    var type = 'reward-type-' + index
+                    var panel_coupon = 'panel-coupon-' + index
+                    var panel_gift = 'panel-gift-' + index
+                    var panel_points = 'panel-points-' + index
+                    var sel_coupon = 'sel-coupon-' + index
+                    var sel_gift = 'sel-gift-' + index
+                    var points = 'reward-points-' + index
+                    var reward = new Reward(name, inventory, hit_rate, picture, type, value,
+                        panel_coupon, panel_gift, panel_points, sel_coupon, sel_gift, points)
+
+                    reward.name.$v = $$.reward_name
+                    reward.inventory.$v = $$.inventory
+                    reward.hit_rate.$v = $$.hit_rate
+                    reward.type.$v = $$.reward_type
+
+                    if ($$.reward_type == 0) reward.type.$id = panel_coupon
+                    else if ($$.reward_type == 1) reward.type.$id = panel_gift
+                    else reward.type.$id = panel_points
+
+                    reward.value.$v = $$.reward_value
+                    reward.picture.$filename = $$.reward_picture
+                    rewards.push(reward)
+                }
+            }
+
+        }
+
+        function handleElementId() {
+            if (rewards && rewards.length > 0) {
+                for (var i = 0; i < rewards.length; i++) {
+                    var name = 'reward-name-' + i
+                    var inventory = 'reward-inventory-' + i
+                    var hit_rate = 'reward-hit-rate-' + i
+                    var picture = 'input-file-now' + i
+                    var value = 'reward-value-' + i
+                    var type = 'reward-type-' + i
+                    var panel_coupon = 'panel-coupon-' + i
+                    var panel_gift = 'panel-gift-' + i
+                    var panel_points = 'panel-points-' + i
+                    var sel_coupon = 'sel-coupon-' + i
+                    var sel_gift = 'sel-gift-' + i
+                    var points = 'reward-points-' + i
+
+                    var $$ = rewards[i]
+                    $$.name.$id = name
+                    $$.inventory.$id = inventory
+                    $$.hit_rate.$id = hit_rate
+                    $$.picture.$id = picture
+                    $$.value.$id = value
+
+                    if ($$.type.$v == 0) $$.type.$id = panel_coupon
+                    else if ($$.type.$v == 1) $$.type.$id = panel_gift
+                    else $$.type.$id = panel_points
+
+                    $$.panel_coupon.$id = panel_coupon
+                    $$.panel_gift.$id = panel_gift
+                    $$.panel_points.$id = panel_points
+                    $$.sel_coupon.$id = sel_coupon
+                    $$.sel_gift.$id = sel_gift
+                    $$.points.$id = points
+
+                    var $file = rewards_file[i]
+                    $file.attr('id', picture)
+                }
+            }
+        }
+    })
+
+    CKEDITOR.replace('intro', {
+        height: '20em'
+    })
+</script>
+</body>
+
+</html>

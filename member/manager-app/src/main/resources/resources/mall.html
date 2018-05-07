@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description"-->
+          <!--content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords"-->
+          <!--content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+
+    <link href="dropify/dist/css/dropify.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/parsley.css" type="text/css" rel="stylesheet" media="screen,projection">
+
+    <!-- ibs.amap.com -->
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css">
+    <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="http://webapi.amap.com/maps?v=1.4.0&key=639296d0ac073b20f28b281f1110fa8c"></script>
+    <script src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script src="http://webapi.amap.com/ui/1.0/main.js?v=1.0.11"></script>
+
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            font-size: 13px;
+        }
+
+        #pickerBox {
+            position: absolute;
+            z-index: 9999;
+            top: 50px;
+            right: 30px;
+            width: 300px;
+        }
+
+        #pickerInput {
+            width: 200px;
+            padding: 5px 5px;
+        }
+
+        #poiInfo {
+            background: #fff;
+        }
+
+        .amap_lib_placeSearch .poibox.highlight {
+            background-color: #CAE1FF;
+        }
+
+        .amap_lib_placeSearch .poi-more {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body class="active-mall">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">商场基本信息</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">商场</a>
+                                </li>
+                                <li class="active">基本信息 录入</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!--start container-->
+            <div class="container">
+                <div class="section">
+                    <!--<p class="caption">在下列表单中填写商场基本信息 上传商场轮播图片</p>-->
+                    <!--<div class="divider"></div>-->
+                </div>
+                <!-- ////////////////////////////////////// form start ////////////////////////////////////// -->
+                <form method="POST" enctype="multipart/form-data" action="/saveMall" data-parsley-validate>
+                    <div class="row">
+                        <div class="col s12 m12 l6">
+                            <div class="card-panel" style="height:60em;">
+                                <h4 class="header2">商场基础信息</h4>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">card_travel</i>
+                                                <select id="mallName" name="mallName">
+                                                    <option th:value="${mall.mall_name}" th:text="${mall.mall_name}"
+                                                            selected></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">link</i>
+                                                <input id="home" name="home" class="validate" th:value="${mall.home}"
+                                                       type="url" required data-parsley-required
+                                                       data-parsley-required-message="不能为空" data-parsley-type="url"
+                                                       data-parsley-type-message="字段内容不是正确的URL格式">
+                                                <label for="home">官方主页</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">local_phone</i>
+                                                <input id="phone" name="phone" class="validate"
+                                                       th:value="${mall.mall_phone}" type="text" required
+                                                       data-parsley-required data-parsley-required-message="不能为空"
+                                                       pattern="((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)"
+                                                       data-parsley-pattern="((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)"
+                                                       data-parsley-pattern-message="字段内容不是正确的电话号码格式">
+                                                <label for="phone">联系电话</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">edit_location</i>
+                                                <input id="address" name="address" class="validate"
+                                                       th:value="${mall.address}" type="text" required
+                                                       data-parsley-required data-parsley-required-message="不能为空">
+                                                <label for="address">地址</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12 l4">
+                                                <i class="material-icons prefix">gps_not_fixed</i>
+                                                <input id="longitude" placeholder="121.440641"
+                                                       th:value="${mall.longitude}" name="longitude" type="text" equired
+                                                       data-parsley-required data-parsley-required-message="不能为空">
+                                                <label for="longitude">经度</label>
+                                            </div>
+                                            <div class="input-field col s12 l4">
+                                                <i class="material-icons prefix">gps_not_fixed</i>
+                                                <input id="latitude" placeholder="31.193908" th:value="${mall.latitude}"
+                                                       name="latitude" type="text" equired data-parsley-required
+                                                       data-parsley-required-message="不能为空">
+                                                <label for="latitude">纬度</label>
+                                            </div>
+                                            <a class="waves-effect waves-light btn modal-trigger lighten-1"
+                                               href="#modal1"><i class="material-icons left">my_location</i>高德地图</a>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">access_time</i>
+                                                <input id="businessHours" name="businessHours" class="validate"
+                                                       th:value="${mall.business_hours}" type="text" equired
+                                                       data-parsley-required data-parsley-required-message="不能为空">
+                                                <label for="businessHours">营业时间</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">person_pin</i>
+                                                <input type="text" id="appid" name="appid" class="validate"
+                                                       th:value="${mall.appId}" equired data-parsley-required
+                                                       data-parsley-required-message="不能为空">
+                                                <label for="appid">微信AppID</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">security</i>
+                                                <input type="text" id="appsecret" name="appsecret" class="validate"
+                                                       th:value="${mall.appSecret}" equired data-parsley-required
+                                                       data-parsley-required-message="不能为空">
+                                                <label for="appsecret">微信AppSecret</label>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="mallId" name="mallId" th:value="${mall.mall_id}"/>
+                                        <!--<br><br>-->
+                                        <!--<br><br>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m12 l6">
+                            <div class="card-panel" style="height:60em;">
+                                <h4 class="header2">商场轮播图片</h4>
+                                <div class="row section">
+                                    <div class="col s4">
+                                        <input type="file" id="input-file-now1" name="file"
+                                               class="dropify dropify-event" data-default-file=""
+                                               data-allowed-file-extensions="png jpg jpeg"/>
+                                    </div>
+                                    <div class="col s4">
+                                        <input type="file" id="input-file-now2" name="file" class="dropify dropify-event"
+                                               data-default-file="" data-allowed-file-extensions="png jpg jpeg"/>
+                                    </div>
+                                    <div class="col s4">
+                                        <input type="file" id="input-file-now3" name="file" class="dropify dropify-event"
+                                               data-default-file="" data-allowed-file-extensions="png jpg jpeg"/>
+                                    </div>
+                                </div>
+                                <div class="row section">
+                                    <div class="col s4">
+                                        <input type="file" id="input-file-now4" name="file" class="dropify dropify-event"
+                                               data-default-file="" data-allowed-file-extensions="png jpg jpeg"/>
+                                    </div>
+                                    <div class="col s4">
+                                        <input type="file" id="input-file-now5" name="file" class="dropify dropify-event"
+                                               data-default-file="" data-allowed-file-extensions="png jpg jpeg"/>
+                                    </div>
+                                    <div class="col s4">
+                                        <input type="file" id="input-file-now6" name="file" class="dropify dropify-event"
+                                               data-default-file="" data-allowed-file-extensions="png jpg jpeg"/>
+                                    </div>
+                                </div>
+                                <div class="row section">
+                                    <div class="col s4">
+                                        <input type="file" id="input-file-now7" name="file" class="dropify dropify-event"
+                                               data-default-file="" data-allowed-file-extensions="png jpg jpeg"/>
+                                    </div>
+                                    <div class="col s4">
+                                        <input type="file" id="input-file-now8" name="file" class="dropify dropify-event"
+                                               data-default-file="" data-allowed-file-extensions="png jpg jpeg"/>
+                                    </div>
+                                    <!--<div class="col s4">-->
+                                    <!--<input type="file" id="input-file-now3" class="dropify" data-default-file=""/>-->
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                    </div>
+                    <div class="divider"></div>
+                    <div class="section">
+                    </div>
+
+                    <!-- ////////////////////////////////////// ckeditor start ////////////////////////////////////// -->
+                    <div class="row">
+                        <div class="col s12 m12 l7">
+                            <div class="card-panel">
+                                <h4 class="header2">商场简介</h4>
+                                <textarea name="intro" id="intro" rows="10" cols="80" th:text="${mall.intro}"
+                                          class="materialize-textarea">
+                                    <p style="font-size:8pt">商场简介</p>
+                                </textarea>
+                                <br><br>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <!-- <a class="waves-effect waves-light btn right"><i class="material-icons right">send</i>保存</a> -->
+                                        <button type="submit" class="waves-effect waves-light btn right"><i
+                                                class="material-icons right">send</i>保&emsp;存
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ////////////////////////////////////// ckeditor end ////////////////////////////////////// -->
+                    <input type="hidden" name="mallImages" id="mallImages" value="">
+                </form>
+                <!-- ////////////////////////////////////// form end ////////////////////////////////////// -->
+
+                <!-- //////////////////////////////////////////////////////////////////////////// -->
+
+                <div id="modal1" class="modal modal-fixed-footer">
+                    <div class="modal-content">
+                        <!-- <div id="ibsmap"></div> -->
+                        <div id="container"></div>
+                        <div id="pickerBox">
+                            <input id="pickerInput" placeholder="输入关键字选取地点"
+                                   style="border-radius: .3em; border: 1px solid black; background-color: white; padding: 0 5px; margin: 0;"/>
+                            <div id="poiInfo"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat "><i
+                                class="material-icons right">pin_drop</i>Agree</a>
+                        <!-- imap button -->
+                    </div>
+                </div>
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+        <!-- START RIGHT SIDEBAR NAV-->
+        <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+        </aside>
+        <!-- END RIGHT SIDEBAR NAV-->
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<div class="section"></div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<!--<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/parsley.js/2.8.0/parsley.min.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<script src="dropify/dist/js/dropify.min.js"></script>
+<script src="ckeditor/ckeditor.js"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+
+        /*=============================== dropify start ====================================================================*/
+        // [{"id":"1","mapUrl": "http://121.196.208.176:9354/upload/images/article_1509690733343.png"}]
+
+        var images = []
+
+        /******************初始化***************************/
+        var pics = [[${mall?.pictures}]]
+        if (pics) {
+            var parr = JSON.parse(pics)
+
+            for (var i = 1; i <= parr.length; i++) {
+                var pic = parr[i - 1]["mapUrl"]
+                $("#input-file-now" + i).attr("data-default-file", pic)
+                images.push(pic)
+            }
+
+            if (images.length < 8) {
+                for (var j = images.length; j < 8; j++) {
+                    images.push('')
+                }
+            }
+
+            $('#mallImages').val(getImages(images))
+        }
+        /*****************初始化 end***************************/
+
+        // Basic
+        $('.dropify').dropify({
+            messages: {
+                'default': '点击或拖拽到这里',
+                'replace': '点击或拖拽进行替换',
+                'remove': '删除',
+                'error': '文件格式错误'
+            },
+            error: {
+                'fileSize': 'The file size is too big ({{ value }} max).',
+                'fileExtension': '只能上传 ({{ value }}) 格式的文件.',
+                'minWidth': 'The image width is too small ({{ value }}}px min).',
+                'maxWidth': 'The image width is too big ({{ value }}}px max).',
+                'minHeight': 'The image height is too small ({{ value }}}px min).',
+                'maxHeight': 'The image height is too big ({{ value }}px max).',
+                'imageFormat': '只能上传 ({{ value }}) 格式的文件.'
+            },
+            tpl: {
+                wrap: '<div class="dropify-wrapper"></div>',
+                loader: '<div class="dropify-loader"></div>',
+                message: '<div class="dropify-message"><span class="file-icon" /> <p style="text-align:center">{{ default }}</p></div>',
+                preview: '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
+                filename: '<p class="dropify-filename"><span class="dropify-filename-inner"></span></p>',
+                clearButton: '<button type="button" class="dropify-clear">{{ remove }}</button>',
+                errorLine: '<p class="dropify-error">{{ error }}</p>',
+                errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>'
+            }
+        })
+
+
+        // Used events
+        var drEvent = $('.dropify-event').dropify()
+        drEvent.on('dropify.fileReady', function (event, previewable, src) {
+            var targetId = event.target.id
+            targetId = targetId.substring('input-file-now'.length)
+            images[targetId-1] = event.target.value
+
+            $('#mallImages').val(getImages(images))
+        })
+
+        drEvent.on('dropify.afterClear', function(event, element) {
+            var targetId = event.target.id
+            targetId = targetId.substring('input-file-now'.length)
+            images[targetId-1] = ''
+
+            $('#mallImages').val(getImages(images))
+        });
+        /*=============================== dropify end ====================================================================*/
+
+        $('select').material_select();
+
+        $('.modal').modal();
+    });
+
+    function getImages(images) {
+        var imgs = ''
+
+        for (var i= 0; i < images.length; i++) {
+            if (images[i]) {
+                imgs += images[i] + ','
+            }
+        }
+
+        console.log(imgs)
+        return imgs
+    }
+
+    CKEDITOR.replace('intro');
+
+
+    /*=============================== 高德地图 amap start ====================================================================*/
+    var map = new AMap.Map('container', {
+        resizeEnable: true,
+        zoom: 11
+        // center: [116.397428, 39.90923]
+    });
+
+    AMap.service(["AMap.Geocoder"], function () { //加载地理编码
+        geocoder = new AMap.Geocoder({
+            radius: 1000,
+            extensions: "all"
+        })
+    })
+
+    function dogeocoder() {
+        var geocoder = new AMap.Geocoder({
+            city: "010", //城市，默认：“全国”
+            radius: 1000 //范围，默认：500
+        });
+        //地理编码,返回地理编码结果
+        //            var address = document.getElementById("pickerInput").getValue();
+        geocoder.getLocation("北京市海淀区苏州街", function (status, result) {
+            if (status === 'complete' && result.info === 'OK') {
+                geocoder_CallBack(result);
+            }
+        });
+    }
+
+    function addMarker(i, d) {
+        var marker = new AMap.Marker({
+            map: map,
+            position: [d.location.getLng(), d.location.getLat()]
+        });
+        var infoWindow = new AMap.InfoWindow({
+            content: d.formattedAddress,
+            offset: {
+                x: 0,
+                y: -30
+            }
+        });
+        marker.on("mouseover", function (e) {
+            infoWindow.open(map, marker.getPosition());
+        });
+    }
+
+    //地理编码返回结果展示
+    function geocoder_CallBack(data) {
+        var resultStr = "";
+        //地理编码结果数组
+        var geocode = data.geocodes;
+        for (var i = 0; i < geocode.length; i++) {
+            //拼接输出html
+            resultStr += "<span style=\"font-size: 12px;padding:0px 0 4px 2px; border-bottom:1px solid #C1FFC1;\">" + "<b>地址</b>：" + geocode[i].formattedAddress + "" + "&nbsp;&nbsp;<b>的地理编码结果是:</b><b>&nbsp;&nbsp;&nbsp;&nbsp;坐标</b>：" + geocode[i].location.getLng() + ", " + geocode[i].location.getLat() + "" + "<b>&nbsp;&nbsp;&nbsp;&nbsp;匹配级别</b>：" + geocode[i].level + "</span>";
+            addMarker(i, geocode[i]);
+
+            console.log(geocode[i].location.getLng() + "");
+            console.log(geocode[i].location.getLat() + '');
+        }
+        map.setFitView();
+        // document.getElementById("result").innerHTML = resultStr;
+    }
+
+    AMapUI.loadUI(['misc/PoiPicker'], function (PoiPicker) {
+
+        var poiPicker = new PoiPicker({
+            //city:'北京',
+            input: 'pickerInput'
+        });
+
+        //初始化poiPicker
+        poiPickerReady(poiPicker);
+    });
+
+    function poiPickerReady(poiPicker) {
+
+        window.poiPicker = poiPicker;
+
+        var marker = new AMap.Marker();
+
+        var infoWindow = new AMap.InfoWindow({
+            offset: new AMap.Pixel(0, -20)
+        });
+
+        //选取了某个POI
+        poiPicker.on('poiPicked', function (poiResult) {
+
+            var source = poiResult.source,
+                poi = poiResult.item,
+                info = {
+                    source: source,
+                    id: poi.id,
+                    name: poi.name,
+                    location: poi.location.toString(),
+                    address: poi.address
+                };
+
+            marker.setMap(map);
+            infoWindow.setMap(map);
+
+            marker.setPosition(poi.location);
+            infoWindow.setPosition(poi.location);
+
+            infoWindow.setContent('POI信息: <pre>' + JSON.stringify(info, null, 2) + '</pre>');
+            infoWindow.open(map, marker.getPosition());
+
+            var location = info.location;
+            var lng = location.split(',')[0];
+            var lat = location.split(',')[1];
+
+            // <labellongitude for="latitude">纬度</labellongitude>
+            $('#longitude').val(lng);
+            $('#latitude').val(lat);
+
+            map.setCenter(marker.getPosition());
+        });
+
+        poiPicker.onCityReady(function () {
+            poiPicker.suggest('美食');
+        });
+        /*=============================== 高德地图 amap end ====================================================================*/
+    }
+</script>
+</body>
+
+</html>

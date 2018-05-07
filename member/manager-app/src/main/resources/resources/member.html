@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+
+    <!-- PARSLEY CSS -->
+    <link href="css/parsley.css" type="text/css" rel="stylesheet" media="screen,projection">
+
+    <style>
+        .dropdown-content {
+            height: 270px;
+        }
+    </style>
+</head>
+
+<body class="active-member">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">会员信息</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="/members">会员信息</a>
+                                </li>
+                                <li class="active">会员信息</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!--start container-->
+            <div class="container">
+                <div class="section">
+
+                </div>
+
+                <div class="row">
+                    <div class="col s0 m0 l2"></div>
+                    <div class="col s12 m12 l8">
+                        <div class="card-panel">
+                            <h4 class="header2">会员信息</h4>
+                            <div class="row">
+                                <div class="col s12" th:object="${member}">
+
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="tel" id="mobile" name="mobile" disabled th:value="*{mobile}">
+                                            <label for="mobile">手机号</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="memberName" name="memberName" disabled
+                                                   th:value="*{name}">
+                                            <label for="memberName">姓名</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="sex" name="sex" disabled th:value="*{sex}">
+                                            <label for="sex">性别</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="occupation" name="occupation" disabled
+                                                   th:value="*{occupation}">
+                                            <label for="occupation">职业</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="level" name="level" disabled th:value="*{level}">
+                                            <label for="level">等级</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="cumulateAmount" name="cumulateAmount" disabled
+                                                   th:value="*{cumulateAmount}">
+                                            <label for="cumulateAmount">累计消费</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="birthday" name="birthday" disabled
+                                                   th:value="*{birthday}">
+                                            <label for="birthday">生日</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="registDate" name="registDate" disabled
+                                                   th:value="*{registDate}">
+                                            <label for="registDate">注册时间</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="degreeOfEducation" name="degreeOfEducation" disabled
+                                                   th:value="*{degreeOfEducation}">
+                                            <label for="degreeOfEducation">学历</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="email" name="email" disabled th:value="*{email}">
+                                            <label for="email">email</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="wechatAccount" name="wechatAccount" disabled
+                                                   th:value="*{wechatAccount}">
+                                            <label for="wechatAccount">微信账号</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="memberCardNo" name="memberCardNo" disabled
+                                                   th:value="*{memberCardNo}">
+                                            <label for="memberCardNo">会员卡号</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="usablePoints" name="usablePoints" disabled
+                                                   th:value="*{usablePoints}">
+                                            <label for="usablePoints">当前可用积分</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="cumulatePoints" name="cumulatePoints" disabled
+                                                   th:value="*{cumulatePoints}">
+                                            <label for="cumulatePoints">累计积分</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="address" name="address" disabled
+                                                   th:value="*{address}">
+                                            <label for="address">地址</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s0 m0 l2"></div>
+                </div>
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+        <!-- START RIGHT SIDEBAR NAV-->
+        <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+        </aside>
+        <!-- END RIGHT SIDEBAR NAV-->
+        <div class="fixed-action-btn" style="top:80px; right:19px;">
+            <a href="/members" class="btn-floating btn-large">
+                <i class="material-icons">reply_all</i>
+            </a>
+            <!--<a class="btn-floating btn-large">-->
+                <!--<i class="material-icons">settings</i>-->
+            <!--</a>-->
+            <!--<ul>-->
+                <!--<li>-->
+                    <!--<a href="/members" class="btn-floating green">-->
+                        <!--<i class="material-icons">reply_all</i>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="cards-extended.html" class="btn-floating red">-->
+                        <!--<i class="material-icons">phonelink_off</i>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="app-calendar.html" class="btn-floating amber">-->
+                        <!--<i class="material-icons">today</i>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="app-email.html" class="btn-floating red">-->
+                        <!--<i class="material-icons">mail_outline</i>-->
+                    <!--</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+        </div>
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan " th:include="footer :: footer ">
+</footer>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<!-- <script type="text/javascript " src="vendors/jquery-3.2.1.min.js "></script> -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/parsley.js/2.8.0/parsley.min.js"></script>
+<!--materialize js-->
+<script type="text/javascript " src="js/materialize.min.js "></script>
+<!--scrollbar-->
+<script type="text/javascript " src="vendors/perfect-scrollbar/perfect-scrollbar.min.js "></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript " src="js/plugins.js "></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript " src="js/custom-script.js "></script>
+</body>
+
+</html>

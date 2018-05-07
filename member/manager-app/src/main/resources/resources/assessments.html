@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+
+    <style>
+        .dropdown-content {
+            height:270px;
+        }
+    </style>
+</head>
+
+<body ng-app="materializeApp" class="active-assessments">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">评价建议</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">会员</a>
+                                </li>
+                                <li class="active">评价建议</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!--start container-->
+            <div class="container">
+                <!--<form method="POST" enctype="multipart/form-data" action="/shops" data-parsley-validate>-->
+                <!--<div class="section">-->
+                <!--<div class="row">-->
+                <!--<div class="input-field col s2">-->
+                <!--<select id="industry_id" name="industry_id">-->
+                <!--<option th:each="industry:${industries}" th:value="${industry?.industry_id}" th:text="${industry?.industry_name}"></option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col s1"></div>-->
+                <!--<div class="input-field col s2">-->
+                <!--<select id="map_id" name="map_id">-->
+                <!--<option th:each="map:${maps}" th:value="${map.map_id}" th:text="${map.map_name}"></option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col s2"></div>-->
+                <!--<div class="input-field col s3">-->
+                <!--<i class="material-icons prefix" style="margin-left: 1.5em">search</i>-->
+                <!--<input type="text" name="Search" style="padding-left:2.5em;" />-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div class="divider"></div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card-panel" style="margin-top:1.2em;">
+                            <h4 class="header2">评价建议</h4>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row">
+                                        <table class="striped centered">
+                                            <thead>
+                                            <tr>
+                                                <th>会员姓名</th>
+                                                <th>手机号码</th>
+                                                <th>建议类型</th>
+                                                <th>建议</th>
+                                                <th>建议时间</th>
+                                                <th>处理状态</th>
+                                                <th>回复</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr th:each="assessment:${assessments}">
+                                                <td th:text="${assessment?.member_name}"></td>
+                                                <td th:text="${assessment?.member_mobile}"></td>
+                                                <td th:text="'商户'"></td>
+                                                <td th:text="${assessment?.shop_name}"></td>
+                                                <td th:text="${assessment?.action_time!=null} ? ${#dates.format(assessment?.action_time, 'yyyy-MM-dd HH:mm')}"></td>
+                                                <td th:text="${assessment?.status!=null} ? ${T(com.laf.manager.enums.AssessmentStatus).valueOf(assessment?.status).theName()}"></td>
+                                                <td th:text="${assessment?.reply}"></td>
+                                                <td>
+                                                    <a class="waves-effect waves-light"
+                                                       th:href="@{'/assessment?assessmentId=' + ${assessment?.assessment_id}}"><i
+                                                            class="material-icons left">edit</i></a>
+                                                    <a class="waves-effect waves-light"
+                                                       th:href="@{'/delAssessment?assessmentId=' + ${assessment?.assessment_id}}"><i
+                                                            class="material-icons left">delete_forever</i></a>
+                                                </td>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row" ng-controller="PaginationController" th:object="${pageMap}">
+                                        <pagination class="right" th:attr="page=''+ *{index}+'',total=''+*{total}+''"
+                                                    page-size="10" show-prev-next="true" dots="...."
+                                                    hide-if-empty="false" adjacent="2" scroll-top="false"
+                                                    pagination-action="changePage(page)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--</form>-->
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+        <!-- START RIGHT SIDEBAR NAV-->
+        <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+        </aside>
+        <!-- END RIGHT SIDEBAR NAV-->
+
+        <!--<div class="fixed-action-btn" style="bottom: 50px; right: 19px;">-->
+            <!--<a class="btn-floating btn-large modal-trigger" href="#data-filter">-->
+                <!--<i class="material-icons">local_bar</i>-->
+            <!--</a>-->
+        <!--</div>-->
+    </div>
+
+<!-- todo 筛选 -->
+    <form id="form-filter" action="/assessments/filter" method="post">
+        <input type="hidden" id="page" name="page" value=""/>
+        <input type="hidden" id="size" name="size" value=""/>
+    </form>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<!--<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/parsley.js/2.8.0/parsley.min.js"></script>
+<!--angularjs-->
+<script type="text/javascript" src="vendors/angular.min.js"></script>
+<script type="text/javascript" src="vendors/angular-materialize.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/angular-ui.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<script type="text/javascript" src="js/advanced-ui-modals.js"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+    })
+
+</script>
+</body>
+
+</html>

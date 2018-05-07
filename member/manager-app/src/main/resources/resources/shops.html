@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+</head>
+
+<body ng-app="materializeApp" class="active-shop">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">商户信息</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">商户</a>
+                                </li>
+                                <li class="active">商户信息 列表</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!--start container-->
+            <div class="container">
+                <form id="form-filter" method="POST" action="/shops/filter" data-parsley-validate>
+                    <div class="section">
+                        <div class="row">
+                            <div class="input-field col s3" style="margin-right: 24px">
+                                <select id="industry_id" name="industry_id">
+                                    <option th:each="industry:${industries}" th:value="${industry?.industry_id}"
+                                            th:text="${industry?.industry_name}"></option>
+                                </select>
+                            </div>
+                            <div class="input-field col s3">
+                                <select id="map_id" name="map_id">
+                                    <option th:each="map:${maps}" th:value="${map.map_id}"
+                                            th:text="${map.map_name}"></option>
+                                </select>
+                            </div>
+                            <div class="col s3" style="margin-left:12px;position:relative;top:1.3em">
+                                <button type="button" id="filter-button" name="filter-button"
+                                        class="waves-effect waves-light btn right">
+                                    <i class="material-icons left">local_bar</i>筛&emsp;选
+                                </button>
+                            </div>
+                            <input type="hidden" id="page" name="page" value="">
+                            <input type="hidden" id="size" name="size" value="">
+                            <input type="hidden" id="filterJson" name="filterJson" value="">
+                            <!--<div class="col s2"></div>-->
+                            <!--<div class="input-field col s3">-->
+                            <!--<i class="material-icons prefix" style="margin-left: 1.5em">search</i>-->
+                            <!--<input type="text" name="Search" style="padding-left:2.5em;" />-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <a class="btn-floating btn-large waves-effect waves-light red right"
+                           style="margin-top:-.7em;margin-right:-.7em;" href="/shop"><i
+                                class="material-icons">add</i></a>
+                        <div class="card-panel">
+                            <h4 class="header2">商户信息列表<a href="/export_shops" class="waves-effect waves-light" target="_blank" style="margin-left:.7em">
+                                <i class="material-icons">cloud_download</i>
+                            </a></h4>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row">
+                                        <table class="striped centered">
+                                            <thead>
+                                            <tr>
+                                                <th>排序号</th>
+                                                <th>商户名称</th>
+                                                <th>业态</th>
+                                                <th>楼层</th>
+                                                <th>品牌名称</th>
+                                                <th>位置</th>
+                                                <th>联系人</th>
+                                                <th>联系电话</th>
+                                                <!--<th>状态</th>-->
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr th:each="shop:${shops}">
+                                                <td th:text="${shop?.sort}"></td>
+                                                <td th:text="${shop?.shop_name}"></td>
+                                                <td th:text="${shop?.industry_name}"></td>
+                                                <td th:text="${shop?.map_name}"></td>
+                                                <td th:text="${shop?.brand}"></td>
+                                                <td th:text="${shop?.berth_number}"></td>
+                                                <td th:text="${shop?.linkman}"></td>
+                                                <td th:text="${shop?.phone}"></td>
+                                                <!--<td th:text="${shop?.status_name}"></td>-->
+                                                <td>
+                                                    <a class="waves-effect waves-light"
+                                                       th:href="@{'/shop?shopId=' + ${shop?.shop_id}}"><i
+                                                            class="material-icons left">edit</i></a>
+                                                    <a class="waves-effect waves-light"
+                                                       th:href="@{'/delShop?shopId=' + ${shop?.shop_id}}"><i
+                                                            class="material-icons left">delete_forever</i></a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row" ng-controller="PaginationController" th:object="${pageMap}">
+                                        <pagination class="right" th:attr="page=''+ *{index}+'',total=''+*{total}+''"
+                                                    page-size="10" show-prev-next="true" dots="...."
+                                                    hide-if-empty="false" adjacent="2" scroll-top="false"
+                                                    pagination-action="changePage(page)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+        <!-- START RIGHT SIDEBAR NAV-->
+        <aside id="right-sidebar-nav">
+            <ul id="chat-out" class="side-nav rightside-navigation">
+                <li class="li-hover">
+                    <div class="row">
+                        <div class="col s12 border-bottom-1 mt-5">
+                            <ul class="tabs">
+                                <li class="tab col s4">
+                                    <a href="#activity" class="active">
+                                        <span class="material-icons">graphic_eq</span>
+                                    </a>
+                                </li>
+                                <li class="tab col s4">
+                                    <a href="#chatapp">
+                                        <span class="material-icons">face</span>
+                                    </a>
+                                </li>
+                                <li class="tab col s4">
+                                    <a href="#settings">
+                                        <span class="material-icons">settings</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="settings" class="col s12">
+                            <h6 class="mt-5 mb-3 ml-3">GENERAL SETTINGS</h6>
+                            <ul class="collection border-none">
+                                <li class="collection-item border-none">
+                                    <div class="m-0">
+                                        <span class="font-weight-600">Notifications</span>
+                                        <div class="switch right">
+                                            <label>
+                                                <input checked type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <p>Use checkboxes when looking for yes or no answers.</p>
+                                </li>
+                                <li class="collection-item border-none">
+                                    <div class="m-0">
+                                        <span class="font-weight-600">Show recent activity</span>
+                                        <div class="switch right">
+                                            <label>
+                                                <input checked type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <p>The for attribute is necessary to bind our custom checkbox with the input.</p>
+                                </li>
+                                <li class="collection-item border-none">
+                                    <div class="m-0">
+                                        <span class="font-weight-600">Notifications</span>
+                                        <div class="switch right">
+                                            <label>
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <p>Use checkboxes when looking for yes or no answers.</p>
+                                </li>
+                                <li class="collection-item border-none">
+                                    <div class="m-0">
+                                        <span class="font-weight-600">Show recent activity</span>
+                                        <div class="switch right">
+                                            <label>
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <p>The for attribute is necessary to bind our custom checkbox with the input.</p>
+                                </li>
+                                <li class="collection-item border-none">
+                                    <div class="m-0">
+                                        <span class="font-weight-600">Show your emails</span>
+                                        <div class="switch right">
+                                            <label>
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <p>Use checkboxes when looking for yes or no answers.</p>
+                                </li>
+                                <li class="collection-item border-none">
+                                    <div class="m-0">
+                                        <span class="font-weight-600">Show Task statistics</span>
+                                        <div class="switch right">
+                                            <label>
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <p>The for attribute is necessary to bind our custom checkbox with the input.</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="chatapp" class="col s12">
+                            <div class="collection border-none">
+                                <a href="#!" class="collection-item avatar border-none">
+                                    <img src="images/avatar/avatar-1.png" alt="" class="circle cyan">
+                                    <span class="line-height-0">Elizabeth Elliott </span>
+                                    <span class="medium-small right blue-grey-text text-lighten-3">5.00 AM</span>
+                                    <p class="medium-small blue-grey-text text-lighten-3">Thank you </p>
+                                </a>
+                                <a href="#!" class="collection-item avatar border-none">
+                                    <img src="images/avatar/avatar-2.png" alt="" class="circle deep-orange accent-2">
+                                    <span class="line-height-0">Mary Adams </span>
+                                    <span class="medium-small right blue-grey-text text-lighten-3">4.14 AM</span>
+                                    <p class="medium-small blue-grey-text text-lighten-3">Hello Boo </p>
+                                </a>
+                                <a href="#!" class="collection-item avatar border-none">
+                                    <img src="images/avatar/avatar-3.png" alt="" class="circle teal accent-4">
+                                    <span class="line-height-0">Caleb Richards </span>
+                                    <span class="medium-small right blue-grey-text text-lighten-3">9.00 PM</span>
+                                    <p class="medium-small blue-grey-text text-lighten-3">Keny ! </p>
+                                </a>
+                                <a href="#!" class="collection-item avatar border-none">
+                                    <img src="images/avatar/avatar-4.png" alt="" class="circle cyan">
+                                    <span class="line-height-0">June Lane </span>
+                                    <span class="medium-small right blue-grey-text text-lighten-3">4.14 AM</span>
+                                    <p class="medium-small blue-grey-text text-lighten-3">Ohh God </p>
+                                </a>
+                                <a href="#!" class="collection-item avatar border-none">
+                                    <img src="images/avatar/avatar-5.png" alt="" class="circle red accent-2">
+                                    <span class="line-height-0">Edward Fletcher </span>
+                                    <span class="medium-small right blue-grey-text text-lighten-3">5.15 PM</span>
+                                    <p class="medium-small blue-grey-text text-lighten-3">Love you </p>
+                                </a>
+                                <a href="#!" class="collection-item avatar border-none">
+                                    <img src="images/avatar/avatar-6.png" alt="" class="circle deep-orange accent-2">
+                                    <span class="line-height-0">Crystal Bates </span>
+                                    <span class="medium-small right blue-grey-text text-lighten-3">8.00 AM</span>
+                                    <p class="medium-small blue-grey-text text-lighten-3">Can we </p>
+                                </a>
+                                <a href="#!" class="collection-item avatar border-none">
+                                    <img src="images/avatar/avatar-7.png" alt="" class="circle cyan">
+                                    <span class="line-height-0">Nathan Watts </span>
+                                    <span class="medium-small right blue-grey-text text-lighten-3">9.53 PM</span>
+                                    <p class="medium-small blue-grey-text text-lighten-3">Great! </p>
+                                </a>
+                                <a href="#!" class="collection-item avatar border-none">
+                                    <img src="images/avatar/avatar-8.png" alt="" class="circle red accent-2">
+                                    <span class="line-height-0">Willard Wood </span>
+                                    <span class="medium-small right blue-grey-text text-lighten-3">4.20 AM</span>
+                                    <p class="medium-small blue-grey-text text-lighten-3">Do it </p>
+                                </a>
+                                <a href="#!" class="collection-item avatar border-none">
+                                    <img src="images/avatar/avatar-9.png" alt="" class="circle teal accent-4">
+                                    <span class="line-height-0">Ronnie Ellis </span>
+                                    <span class="medium-small right blue-grey-text text-lighten-3">5.30 PM</span>
+                                    <p class="medium-small blue-grey-text text-lighten-3">Got that </p>
+                                </a>
+                                <a href="#!" class="collection-item avatar border-none">
+                                    <img src="images/avatar/avatar-1.png" alt="" class="circle cyan">
+                                    <span class="line-height-0">Gwendolyn Wood </span>
+                                    <span class="medium-small right blue-grey-text text-lighten-3">4.34 AM</span>
+                                    <p class="medium-small blue-grey-text text-lighten-3">Like you </p>
+                                </a>
+                                <a href="#!" class="collection-item avatar border-none">
+                                    <img src="images/avatar/avatar-2.png" alt="" class="circle red accent-2">
+                                    <span class="line-height-0">Daniel Russell </span>
+                                    <span class="medium-small right blue-grey-text text-lighten-3">12.00 AM</span>
+                                    <p class="medium-small blue-grey-text text-lighten-3">Thank you </p>
+                                </a>
+                                <a href="#!" class="collection-item avatar border-none">
+                                    <img src="images/avatar/avatar-3.png" alt="" class="circle teal accent-4">
+                                    <span class="line-height-0">Sarah Graves </span>
+                                    <span class="medium-small right blue-grey-text text-lighten-3">11.14 PM</span>
+                                    <p class="medium-small blue-grey-text text-lighten-3">Okay you </p>
+                                </a>
+                                <a href="#!" class="collection-item avatar border-none">
+                                    <img src="images/avatar/avatar-4.png" alt="" class="circle red accent-2">
+                                    <span class="line-height-0">Andrew Hoffman </span>
+                                    <span class="medium-small right blue-grey-text text-lighten-3">7.30 PM</span>
+                                    <p class="medium-small blue-grey-text text-lighten-3">Can do </p>
+                                </a>
+                                <a href="#!" class="collection-item avatar border-none">
+                                    <img src="images/avatar/avatar-5.png" alt="" class="circle cyan">
+                                    <span class="line-height-0">Camila Lynch </span>
+                                    <span class="medium-small right blue-grey-text text-lighten-3">2.00 PM</span>
+                                    <p class="medium-small blue-grey-text text-lighten-3">Leave it </p>
+                                </a>
+                            </div>
+                        </div>
+                        <div id="activity" class="col s12">
+                            <h6 class="mt-5 mb-3 ml-3">RECENT ACTIVITY</h6>
+                            <div class="activity">
+                                <div class="col s3 mt-2 center-align recent-activity-list-icon">
+                                    <i class="material-icons white-text icon-bg-color deep-purple lighten-2">add_shopping_cart</i>
+                                </div>
+                                <div class="col s9 recent-activity-list-text">
+                                    <a href="#" class="deep-purple-text medium-small">just now</a>
+                                    <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">Jim Doe
+                                        Purchased new equipments for zonal office.</p>
+                                </div>
+                                <div class="recent-activity-list chat-out-list row mb-0">
+                                    <div class="col s3 mt-2 center-align recent-activity-list-icon">
+                                        <i class="material-icons white-text icon-bg-color cyan lighten-2">airplanemode_active</i>
+                                    </div>
+                                    <div class="col s9 recent-activity-list-text">
+                                        <a href="#" class="cyan-text medium-small">Yesterday</a>
+                                        <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">Your Next
+                                            flight for USA will be on 15th August 2015.</p>
+                                    </div>
+                                </div>
+                                <div class="recent-activity-list chat-out-list row mb-0">
+                                    <div class="col s3 mt-2 center-align recent-activity-list-icon medium-small">
+                                        <i class="material-icons white-text icon-bg-color green lighten-2">settings_voice</i>
+                                    </div>
+                                    <div class="col s9 recent-activity-list-text">
+                                        <a href="#" class="green-text medium-small">5 Days Ago</a>
+                                        <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">Natalya
+                                            Parker Send you a voice mail for next conference.</p>
+                                    </div>
+                                </div>
+                                <div class="recent-activity-list chat-out-list row mb-0">
+                                    <div class="col s3 mt-2 center-align recent-activity-list-icon">
+                                        <i class="material-icons white-text icon-bg-color amber lighten-2">store</i>
+                                    </div>
+                                    <div class="col s9 recent-activity-list-text">
+                                        <a href="#" class="amber-text medium-small">1 Week Ago</a>
+                                        <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">Jessy Jay
+                                            open a new store at S.G Road.</p>
+                                    </div>
+                                </div>
+                                <div class="recent-activity-list row">
+                                    <div class="col s3 mt-2 center-align recent-activity-list-icon">
+                                        <i class="material-icons white-text icon-bg-color deep-orange lighten-2">settings_voice</i>
+                                    </div>
+                                    <div class="col s9 recent-activity-list-text">
+                                        <a href="#" class="deep-orange-text medium-small">2 Week Ago</a>
+                                        <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">voice mail
+                                            for conference.</p>
+                                    </div>
+                                </div>
+                                <div class="recent-activity-list chat-out-list row mb-0">
+                                    <div class="col s3 mt-2 center-align recent-activity-list-icon medium-small">
+                                        <i class="material-icons white-text icon-bg-color brown lighten-2">settings_voice</i>
+                                    </div>
+                                    <div class="col s9 recent-activity-list-text">
+                                        <a href="#" class="brown-text medium-small">1 Month Ago</a>
+                                        <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">Natalya
+                                            Parker Send you a voice mail for next conference.</p>
+                                    </div>
+                                </div>
+                                <div class="recent-activity-list chat-out-list row mb-0">
+                                    <div class="col s3 mt-2 center-align recent-activity-list-icon">
+                                        <i class="material-icons white-text icon-bg-color deep-purple lighten-2">store</i>
+                                    </div>
+                                    <div class="col s9 recent-activity-list-text">
+                                        <a href="#" class="deep-purple-text medium-small">3 Month Ago</a>
+                                        <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">Jessy Jay
+                                            open a new store at S.G Road.</p>
+                                    </div>
+                                </div>
+                                <div class="recent-activity-list row">
+                                    <div class="col s3 mt-2 center-align recent-activity-list-icon">
+                                        <i class="material-icons white-text icon-bg-color grey lighten-2">settings_voice</i>
+                                    </div>
+                                    <div class="col s9 recent-activity-list-text">
+                                        <a href="#" class="grey-text medium-small">1 Year Ago</a>
+                                        <p class="mt-0 mb-2 fixed-line-height font-weight-300 medium-small">voice mail
+                                            for conference.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+        <!-- END RIGHT SIDEBAR NAV-->
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>
+<!--angularjs-->
+<script type="text/javascript" src="vendors/angular.min.js"></script>
+<script type="text/javascript" src="vendors/angular-materialize.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/angular-ui.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+
+        var filterData = /*[[${session.shops_filterJson}]]*/ undefined
+        log("out" + filterData);
+
+        if (filterData) {
+            log(filterData)
+            $('#filterJson').val(filterData)
+
+            JSON.parse(filterData, function(key, value) {
+                switch (key) {
+                    case 'industry_id':
+                        $('#industry_id').val(value)
+                        $('#industry_id').material_select()
+                        break;
+                    case 'map_id':
+                        $('#map_id').val(value)
+                        $('#map_id').material_select()
+                        break;
+                }
+            }) //END json parse
+        }
+
+        $('#filter-button').on('click', function(event) {
+            var obj = {}
+            if ($('#industry_id').val()) obj.industry_id = $('#industry_id').val()
+            if ($('#map_id').val() > -1) obj.map_id = $('#map_id').val()
+
+            $('#filterJson').val(JSON.stringify(obj))
+            $('#page').val(1)
+            $('#size').val(10)
+
+            $('#form-filter').submit()
+        });
+
+    });
+
+</script>
+</body>
+
+</html>

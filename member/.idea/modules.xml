@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mall-api/mall-api.iml" filepath="$PROJECT_DIR$/.idea/modules/mall-api/mall-api.iml" group="mall-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mall-api/mall-api_main.iml" filepath="$PROJECT_DIR$/.idea/modules/mall-api/mall-api_main.iml" group="mall-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mall-api/mall-api_test.iml" filepath="$PROJECT_DIR$/.idea/modules/mall-api/mall-api_test.iml" group="mall-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mall-for-api/mall-for-api.iml" filepath="$PROJECT_DIR$/.idea/modules/mall-for-api/mall-for-api.iml" group="mall-for-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mall-for-api/mall-for-api_main.iml" filepath="$PROJECT_DIR$/.idea/modules/mall-for-api/mall-for-api_main.iml" group="mall-for-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mall-for-api/mall-for-api_test.iml" filepath="$PROJECT_DIR$/.idea/modules/mall-for-api/mall-for-api_test.iml" group="mall-for-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mall-manager.iml" filepath="$PROJECT_DIR$/.idea/modules/mall-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mall-manager_main.iml" filepath="$PROJECT_DIR$/.idea/modules/mall-manager_main.iml" group="mall-manager" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mall-manager_test.iml" filepath="$PROJECT_DIR$/.idea/modules/mall-manager_test.iml" group="mall-manager" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/manager-app/manager-app.iml" filepath="$PROJECT_DIR$/.idea/modules/manager-app/manager-app.iml" group="manager-app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/manager-app/manager-app_main.iml" filepath="$PROJECT_DIR$/.idea/modules/manager-app/manager-app_main.iml" group="manager-app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/manager-app/manager-app_test.iml" filepath="$PROJECT_DIR$/.idea/modules/manager-app/manager-app_test.iml" group="manager-app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/manager-core/manager-core.iml" filepath="$PROJECT_DIR$/.idea/modules/manager-core/manager-core.iml" group="manager-core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/manager-core/manager-core_main.iml" filepath="$PROJECT_DIR$/.idea/modules/manager-core/manager-core_main.iml" group="manager-core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/manager-core/manager-core_test.iml" filepath="$PROJECT_DIR$/.idea/modules/manager-core/manager-core_test.iml" group="manager-core" />
+    </modules>
+  </component>
+</project>

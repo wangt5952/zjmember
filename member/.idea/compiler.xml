@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mall-api_main" target="1.8" />
+      <module name="mall-api_test" target="1.8" />
+      <module name="mall-for-api_main" target="1.8" />
+      <module name="mall-for-api_test" target="1.8" />
+      <module name="mall-manager_main" target="1.8" />
+      <module name="mall-manager_test" target="1.8" />
+      <module name="manager-app_main" target="1.8" />
+      <module name="manager-app_test" target="1.8" />
+      <module name="manager-core_main" target="1.8" />
+      <module name="manager-core_test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

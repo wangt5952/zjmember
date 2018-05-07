@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description"-->
+    <!--content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords"-->
+    <!--content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+
+    <link href="dropify/dist/css/dropify.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/parsley.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <!--sweetalert-->
+    <link href="css/sweetalert.css" type="text/css" rel="stylesheet">
+    <link href="css/themes/google/google.css" type="text/css" rel="stylesheet">
+
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            font-size: 13px;
+        }
+
+        #pickerBox {
+            position: absolute;
+            z-index: 9999;
+            top: 50px;
+            right: 30px;
+            width: 300px;
+        }
+
+        #pickerInput {
+            width: 200px;
+            padding: 5px 5px;
+        }
+
+        #poiInfo {
+            background: #fff;
+        }
+
+        .amap_lib_placeSearch .poibox.highlight {
+            background-color: #CAE1FF;
+        }
+
+        .amap_lib_placeSearch .poi-more {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body ng-app="materializeApp" class="active-tickets">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">会员小票处理</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">会员</a>
+                                </li>
+                                <li class="active">小票 处理</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!--start container-->
+            <div class="container">
+                <div class="section">
+                    <!--<p class="caption">在下列表单中填写商场基本信息 上传商场轮播图片</p>-->
+                    <!--<div class="divider"></div>-->
+                </div>
+
+                <!--<div class="row">-->
+                    <!--<div class="col s12 m12 l12">-->
+                        <!--<div id="ticket-picture" class="card-panel center rotate-0">-->
+                            <!--<img id="img1" th:src="${ticketPicture}">-->
+                            <!--&lt;!&ndash;<img id="img1" src="http://localhost:9002/upload/img/7614_1512201946088.jpg">&ndash;&gt;-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card-panel">
+                            <h4 class="header2">会员信息</h4>
+                            <div class="row">
+                                <div class="col s12" th:object="${member}">
+
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="tel" id="mobile" name="mobile" disabled th:value="*{mobile}">
+                                            <label for="mobile">手机号</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="memberName" name="memberName" disabled
+                                                   th:value="*{name}">
+                                            <label for="memberName">姓名</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="sex" name="sex" disabled th:value="*{sex}">
+                                            <label for="sex">性别</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="occupation" name="occupation" disabled
+                                                   th:value="*{occupation}">
+                                            <label for="occupation">职业</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="address" name="address" disabled
+                                                   th:value="*{address}">
+                                            <label for="address">地址</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" disabled th:value="*{usablePoints}">
+                                            <label for="usablePoints">当前可用积分</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" disabled th:value="*{cumulatePoints}">
+                                            <label for="cumulatePoints">累计积分</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ////////////////////////////////////// form start ////////////////////////////////////// -->
+                        <form id="save-ticket" method="POST" enctype="multipart/form-data" action="/saveTicket" data-parsley-validate>
+                            <div class="card-panel" th:object="${member}">
+                                <input type="hidden" id="birthday" , name="birthday" th:value="*{birthday}">
+                                <input type="hidden" id="levelId" , name="levelId" th:value="*{levelId}">
+                                <input type="hidden" id="memberId" name="memberId" th:value="*{memberId}">
+                                <input type="hidden" id="shopName" name="shopName" th:value="${ticket?.shop_name}">
+                                <input type="hidden" id="shoppingDate" name="shoppingDate" th:value="${ticket?.shopping_date}">
+                                <input type="hidden" id="cumulatePoints" name="cumulatePoints"
+                                       th:value="*{cumulatePoints}">
+                                <input type="hidden" id="usablePoints" name="usablePoints" th:value="*{usablePoints}">
+                                <input type="hidden" id="cumulateAmount" name="cumulateAmount"
+                                       th:value="*{cumulateAmount}">
+                                <input type="hidden" id="points" name="points" th:value="${ticket?.handle_status==2} ? (${ticket?.ticket_no} == 'NA' ? '0' : ${ticket?.ticket_no}) : ${ticket?.points}">
+                                <h4 class="header2">处理情况</h4>
+                                <div class="row">
+                                    <div class="col s8">
+                                        <div class="row">
+                                            <!--<div class="input-field col s6">-->
+                                            <!--<i class="material-icons prefix">card_travel</i>-->
+                                            <!--<select id="map" name="map">-->
+                                            <!--<option>一楼</option>-->
+                                            <!--<option>二楼</option>-->
+                                            <!--<option>三楼</option>-->
+                                            <!--&lt;!&ndash; <option th:each="map:${maps}" th:value="${map?.map_id}"-->
+                                            <!--th:text="${map?.map_name}"-->
+                                            <!--th:selected="(${map.map_id == shop?.plane_map})"></option> &ndash;&gt;-->
+                                            <!--</select>-->
+                                            <!--<label for="map">楼层</label>-->
+                                            <!--</div>-->
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">card_travel</i>
+                                                <!--<select id="shopId" name="shopId" class="do-points">-->
+                                                    <!--<option th:each="shop:${shops}" th:text="${shop?.shop_name}"-->
+                                                            <!--th:value="${shop?.shop_id}"></option>-->
+                                                <!--</select>-->
+                                                <select id="shopId" name="shopId">
+                                                    <!--<option value="0" selected>所有商户</option>-->
+                                                    <!--</select>-->
+                                                    <!--<select>-->
+                                                    <option value="" selected disabled>请选择商户</option>
+                                                    <optgroup th:label="${map?.map_name}" th:each="map:${maps}">
+                                                        <option th:text="${shop?.shop_name}" th:value="${shop?.shop_id}" th:each="shop:${map?.shops}" th:selected="(${shop?.shop_id == ticket?.shop_id})"></option>
+                                                    </optgroup>
+                                                </select>
+                                                <label for="shopId">商户</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <i class="material-icons prefix">card_travel</i>
+                                                <input type="text" id="ticketNo" name="ticketNo" class="validate"
+                                                       th:value="${ticket?.handle_status!=2} ? ${ticket?.ticket_no}"
+                                                       equired
+                                                       data-parsley-required
+                                                       data-parsley-required-message="不能为空">
+                                                <label for="ticketNo">单据号</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <i class="material-icons prefix">card_travel</i>
+                                                <input type="text" id="shoppingDate1" name="shoppingDate1"
+                                                       placeholder="2017-11-13 15:00:00"
+                                                       class="validate do-points"
+                                                       equired
+                                                       data-parsley-required
+                                                       data-parsley-required-message="不能为空"
+                                                       pattern="([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9])"
+                                                       data-parsley-pattern="([0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9])"
+                                                       data-parsley-pattern-message="字段内容不是正确的时间格式">
+                                                <label for="shoppingDate1">交易时间 (YYYY-MM-DD hh:mm:ss)</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <i class="material-icons prefix">card_travel</i>
+                                                <input type="number" id="amount" name="amount"
+                                                       class="validate do-points"
+                                                       th:value="${ticket?.amounts!=null} ? ${ticket?.amounts}"
+                                                       equired min="0" step="0.01"
+                                                       data-parsley-required
+                                                       data-parsley-required-message="不能为空"
+                                                       data-parsley-max="99999999.99"
+                                                       data-parsley-max-message="金额超出最大范围">
+                                                <label for="amount">交易金额</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <i class="material-icons prefix">card_travel</i>
+                                                <input type="text" id="points1" name="points1"
+                                                       th:value="${ticket?.handle_status==2} ? (${ticket?.ticket_no} == 'NA' ? '0' : ${ticket?.ticket_no}) : ${ticket?.points}" disabled
+                                                       placeholder="0">
+                                                <label for="points1">获得积分</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">card_travel</i>
+                                                <!--<select id="hflx" name="hflx">-->
+                                                <!--<option>请选择....</option>-->
+                                                <!--&lt;!&ndash; <option th:each="map:${maps}" th:value="${map?.map_id}"-->
+                                                <!--th:text="${map?.map_name}"-->
+                                                <!--th:selected="(${map.map_id == shop?.plane_map})"></option> &ndash;&gt;-->
+                                                <!--</select>-->
+                                                <textarea id="responses" name="responses" class="materialize-textarea"
+                                                          placeholder="回复" th:value="${!#strings.isEmpty(ticket?.responses)} ? ${ticket?.responses}"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col s12">
+                                                <!-- <a class="waves-effect waves-light btn right"><i class="material-icons right">send</i>保存</a> -->
+                                                <button type="button" id="pass" name="pass" class="waves-effect waves-light btn green"><i
+                                                        class="material-icons right">done</i>通过
+                                                </button>
+                                                <a id="nopass" class="waves-effect waves-light btn"><i
+                                                        class="material-icons right">do_not_disturb_alt</i>不通过
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s4">
+                                        <div class="row">
+                                            <div class="col s12 m12 l12">
+                                                <div id="ticket-picture">
+                                                    <img materialboxed id="img1" class="materialboxed" data-caption="" width="100%" th:src="${ticketPicture}">
+                                                    <!--<img materialboxed id="img1" width="250" src="http://localhost:9002/upload/img/7614_1512201946088.jpg">-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="ticketId" name="ticketId" th:value="${ticketId}">
+                        </form>
+                        <!-- ////////////////////////////////////// form end ////////////////////////////////////// -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!--end container-->
+    <!-- END CONTENT -->
+    <!-- START RIGHT SIDEBAR NAV-->
+    <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+    </aside>
+    <!-- END RIGHT SIDEBAR NAV-->
+
+    <div class="fixed-action-btn" style="top:80px; right:19px;">
+        <a class="btn-floating btn-large modal-trigger" href="/tickets">
+            <i class="material-icons">reply_all</i>
+        </a>
+    </div>
+</div>
+<!-- END WRAPPER -->
+</div>
+<div class="section"></div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<!--<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/parsley.js/2.8.0/parsley.min.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--angularjs-->
+<script type="text/javascript" src="vendors/angular.min.js"></script>
+<script type="text/javascript" src="vendors/angular-materialize.js"></script>
+<script type="text/javascript" src="js/angular-ui.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<script src="dropify/dist/js/dropify.min.js"></script>
+<script src="ckeditor/ckeditor.js"></script>
+
+<script type="text/javascript" src="js/sweetalert.min.js"></script>
+<!--<script type="text/javascript" src="https://cdn.bootcss.com/exif-js/2.3.0/exif.min.js"></script>-->
+
+<th:block th:include="baseScript :: base-script"></th:block>
+
+<script th:inline="javascript">
+    //    function getExif() {
+    //        var pic = document.getElementById('img1')
+    //        var Orientation = undefined
+    //
+    //        EXIF.getData(pic, function () {
+    //            Orientation = EXIF.getTag(this, "Orientation");
+    //            log('Orientation == ' + Orientation)
+    //            if (Orientation === 6) {
+    //                $('#ticket-picture').addClass('rotate-90')
+    //            } else {
+    //                $('#ticket-picture').addClass('rotate-0')
+    //            }
+    //        });
+    //    }
+
+    //    window.onload = getExif
+
+    var shoppingDate = /*[[${ticket?.shopping_date}]]*/ undefined
+    var amounts = /*[[${ticket?.amounts}]]*/ undefined
+    var shopId = /*[[${ticket?.shop_id}]]*/ undefined
+
+    $(document).ready(function () {
+log(amounts)
+        var shopping_date = [[${ticket?.shopping_date}]]
+        if (shopping_date) $('#shoppingDate1').val(dateTimeString(new Date(shopping_date)))
+
+        shopId = $('#shopId').val()
+        $('#shopName').val($("#shopId option:selected").text())
+
+
+        $('#shoppingDate1').on('change', function (event) {
+            shoppingDate = dateToMilliseconds(event.target.value)
+            $('#shoppingDate').val(shoppingDate)
+
+            getPoints()
+        })
+
+        $('#amount').on('change', function (event) {
+            amounts = event.target.value
+
+            getPoints()
+        })
+
+        $('#shopId').on('change', function (event) {
+            shopId = event.target.value
+            console.log($("#shopId option:selected").text())
+            $('#shopName').val($("#shopId option:selected").text())
+
+            getPoints()
+        })
+
+//        $('.do-points').on('change', function(event) {
+//            $.get('', function(data, status) {
+//
+//            })
+//        })
+    })
+
+    $('#nopass').click(function () {
+        //response,ticketid
+        var apiUrl = base_api + 'ticket/ticketfail'
+
+        var condition = {
+            responses: $('#responses').val(),
+            ticketId: $('#ticketId').val()
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: apiUrl,
+            data: JSON.stringify(condition),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                window.location.href = base + 'tickets'
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                if (xhr.status == 404 || xhr.status == 400) {
+                    url = base + 'error'
+                    window.location.href = base + 'error'
+                }
+            }
+        });
+    });
+
+    $('#pass').on('click', function(event) {
+        var apiUrl = base_api + 'ticket/verifyticketno'
+//        var apiUrl = 'http://121.196.208.176:9001/' + 'ticket/verifyticketno'
+
+        var condition = {
+            ticketNo: $('#ticketNo').val()
+        }
+
+        if (!condition.ticketNo || condition.ticketNo.length <= 0) {
+            errorDialog('订单号不能为空')
+            return false
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: apiUrl,
+            data: JSON.stringify(condition),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+log('data= ' + data)
+                $('#save-ticket').submit()
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+log('xhr.status= ' + xhr.status + ' xhr= ' + xhr)
+                if (xhr.status == 403) {
+                    errorDialog('订单号不能重复')
+                }
+            }
+        })
+    })
+
+    function getPoints() {
+        if (shoppingDate && amounts && shopId) {
+            var levelId = $('#levelId').val()
+            var birthday = $('#birthday').val()
+            var url = base_api + 'points/promotion?levelId=' + levelId + '&shopId=' + shopId + '&birthday=' + birthday + '&today=' + shoppingDate
+            console.log(url)
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+                dataType: 'json',
+                success: function (response) {
+                    $('#points1').val(Math.round(amounts / response))
+                    $('#points').val(Math.round(amounts / response))
+                },
+                error: function (xhr, ajasOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+
+                    if (xhr.status == 404) {
+                        url = base_api + 'points/simple?levelId=' + levelId + '&shopId=' + shopId
+                        $.ajax({
+                            type: 'GET',
+                            url: url,
+                            dataType: 'json',
+                            success: function (response) {
+                                console.log("success")
+                                console.log(response)
+                                $('#points1').val(Math.round(amounts / response))
+                                $('#points').val(Math.round(amounts / response))
+                            },
+                            error: function (xhr, ajasOptions, thrownError) {
+                                console.log(xhr.status);
+                                console.log(thrownError);
+                            }
+                        })
+                    }
+                }
+            })
+        }
+    }
+
+//    $('#pass').on('click', function(event) {
+//        $('#save-ticket').submit()
+//    })
+</script>
+</body>
+
+</html>

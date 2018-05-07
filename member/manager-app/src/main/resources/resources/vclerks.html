@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description"-->
+          <!--content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords"-->
+          <!--content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+    <!--sweetalert-->
+    <link href="css/sweetalert.css" type="text/css" rel="stylesheet">
+    <link href="css/themes/google/google.css" type="text/css" rel="stylesheet">
+</head>
+
+<body ng-app="materializeApp" class="active-clerk">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">工作人员审核</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">审核</a>
+                                </li>
+                                <li class="active">工作人员 列表</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!--start container-->
+            <div class="container">
+                <!--<form method="POST" enctype="multipart/form-data" action="/shops" data-parsley-validate>-->
+                <!--<div class="section">-->
+                <!--<div class="row">-->
+                <!--<div class="input-field col s2">-->
+                <!--<select id="industry_id" name="industry_id">-->
+                <!--<option th:each="industry:${industries}" th:value="${industry?.industry_id}" th:text="${industry?.industry_name}"></option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col s1"></div>-->
+                <!--<div class="input-field col s2">-->
+                <!--<select id="map_id" name="map_id">-->
+                <!--<option th:each="map:${maps}" th:value="${map.map_id}" th:text="${map.map_name}"></option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col s2"></div>-->
+                <!--<div class="input-field col s3">-->
+                <!--<i class="material-icons prefix" style="margin-left: 1.5em">search</i>-->
+                <!--<input type="text" name="Search" style="padding-left:2.5em;" />-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div class="divider"></div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card-panel" style="margin-top:1.2em;">
+                            <h4 class="header2">工作人员列表</h4>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row">
+                                        <table class="striped centered">
+                                            <thead>
+                                            <tr>
+                                                <th>姓名</th>
+                                                <th>电话</th>
+                                                <th>所属身份</th>
+                                                <th>商户</th>
+                                                <th>是否为负责人</th>
+                                                <th>用户账户</th>
+                                                <th>登记时间</th>
+                                                <th>状态</th>
+                                                <th>操作</th>
+                                                <!--<th>回复</th>-->
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr th:each="vclerk:${verificationClerks}">
+                                                <td th:text="${vclerk?.vc_name}"></td>
+                                                <td th:text="${vclerk?.phone}"></td>
+                                                <td th:if="${vclerk?.vc_type==0}">工作人员</td>
+                                                <td th:if="${vclerk?.vc_type==1}">商户核销人员</td>
+                                                <td th:text="${vclerk?.shop_name}"></td>
+                                                <td th:if="${vclerk?.is_manager}">是</td>
+                                                <td th:if="${vclerk?.is_manager==false}">否</td>
+                                                <td th:text="${vclerk?.member_name}"></td>
+                                                <td th:text="${vclerk?.reg_date>0} ? ${#dates.format(vclerk?.reg_date, 'yyyy-MM-dd HH:mm')}"></td>
+                                                <td th:if="${vclerk?.status==0}">已审核</td>
+                                                <td th:if="${vclerk?.status==1}">未审核</td>
+                                                <td th:if="${vclerk?.status==2}">未通过</td>
+                                                <td th:if="${vclerk?.status==0}">
+                                                    <i class="material-icons"
+                                                       style="color:grey;margin-right:1em;">done</i>
+                                                    <i class="material-icons"
+                                                       style="color:grey;margin-right:1em;">block</i>
+                                                    <a class="waves-effect waves-light"
+                                                       th:onclick="'javascript:doDel(' + ${vclerk?.vc_id} + ')'"><i
+                                                            class="material-icons">delete_forever</i></a></td>
+                                                <td th:if="${vclerk?.status==1}">
+                                                    <a class="waves-effect waves-light"
+                                                       th:onclick="'javascript:doCheck(' + ${vclerk?.vc_id} + ',0)'"><i
+                                                            class="material-icons"
+                                                            style="margin-right:1em;">done</i></a>
+                                                    <a class="waves-effect waves-light"
+                                                       th:onclick="'javascript:doCheck(' + ${vclerk?.vc_id} + ',2)'"><i
+                                                            class="material-icons"
+                                                            style="margin-right:1em;">block</i></a>
+                                                    <a class="waves-effect waves-light"
+                                                       th:onclick="'javascript:doDel(' + ${vclerk?.vc_id} + ')'"><i
+                                                            class="material-icons">delete_forever</i></a></td>
+                                                <td th:if="${vclerk?.status==2}">
+                                                    <i class="material-icons"
+                                                       style="color:grey;margin-right:1em;">done</i>
+                                                    <i class="material-icons"
+                                                       style="color:grey;margin-right:1em;">block</i>
+                                                    <a class="waves-effect waves-light"
+                                                       th:onclick="'javascript:doDel(' + ${vclerk?.vc_id} + ')'"><i
+                                                            class="material-icons">delete_forever</i></a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <form id="pageForm" method="post" action="/vClerks">
+                                        <input type="hidden" id="pageJson" name="pageJson" value="">
+                                    </form>
+                                    <div class="row" ng-controller="PaginationController" th:object="${pageMap}">
+                                        <pagination class="right" th:attr="page=''+ *{index}+'',total=''+*{total}+''"
+                                                    page-size="10" show-prev-next="true" dots="...."
+                                                    hide-if-empty="false" adjacent="2" scroll-top="false"
+                                                    pagination-action="changePage(page)"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <form id="checkForm" action="/vClerkPass" method="post">
+                                <input type="hidden" id="checkJson" name="checkJson" value="">
+                            </form>
+                            <form id="delForm" action="/delVclerk" method="post">
+                                <input type="hidden" id="delJson" name="delJson" value="">
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <!--</form>-->
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+        <!-- START RIGHT SIDEBAR NAV-->
+        <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+        </aside>
+        <!-- END RIGHT SIDEBAR NAV-->
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+
+<!--<div id="card-alert" class="card cyan">-->
+<!--<div class="card-content white-text">-->
+<!--<img src="../../images/avatar/avatar-3.png" alt="avatar" class="alert-circle responsive-img valign profile-image" />-->
+<!--<span class="card-title white-text darken-1">Some Message</span>-->
+<!--<p id="modalMsg">Lorem ipsum Minim ad pariatur eiusmod ea ut nulla aliqua est quis id dolore minim voluptate.</p>-->
+<!--</div>-->
+<!--<div class="card-action cyan darken-1">-->
+<!--<a href="#" class="white-text">Ok</a>-->
+<!--<a href="#" class="white-text">Cancel</a>-->
+<!--</div>-->
+<!--<button type="button" class="close white-text" data-dismiss="alert" aria-label="Close">-->
+<!--<span aria-hidden="true">×</span>-->
+<!--</button>-->
+<!--</div>-->
+
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<!--<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<!--angularjs-->
+<script type="text/javascript" src="vendors/angular.min.js"></script>
+<script type="text/javascript" src="vendors/angular-materialize.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/angular-ui.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+<!--<script type="text/javascript" src="js/advanced-ui-modals.js"></script>-->
+<!--extra-components-sweetalert-->
+<script type="text/javascript" src="js/sweetalert.min.js"></script>
+<!--<script type="text/javascript" src="js/extra-components-sweetalert.js"></script>-->
+
+<script>
+
+    $(document).ready(function () {
+
+    })
+
+    function doCheck(vcId, status) {
+        var msg = ''
+        var confirmMsg = ''
+
+        if (status == 0) {
+            msg = '确定【通过】该工作人员的审核?'
+            confirmMsg = 'Yes, 通过审核!'
+        }
+        else if (status == 2) {
+            msg = '确定【拒绝】该工作人员的审核?'
+            confirmMsg = 'Yes, 拒绝审核!'
+        }
+
+        var obj = {
+            vcId: parseInt(vcId),
+            status: parseInt(status)
+        }
+
+        defaultConfirmDialog(msg, confirmMsg, function() {
+            $('#checkJson').val(JSON.stringify(obj))
+            $('#checkForm').submit()
+        })
+    }
+
+    function doDel(vcId) {
+        var msg = '确定【删除】该工作人员?'
+        var confirmMsg = 'Yes, 确定删除!'
+
+        var obj = {
+            vcId: parseInt(vcId)
+        }
+
+        defaultConfirmDialog(msg, confirmMsg, function() {
+            $('#delJson').val(JSON.stringify(obj))
+            $('#delForm').submit()
+        })
+    }
+
+</script>
+</body>
+
+</html>

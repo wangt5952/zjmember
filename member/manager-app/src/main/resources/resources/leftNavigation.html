@@ -1,0 +1,278 @@
+<div th:fragment="navigation" xmlns:th="http://www.w3.org/1999/xhtml">
+    <ul id="slide-out" class="side-nav fixed leftside-navigation">
+        <li class="user-details cyan darken-2">
+            <div class="row">
+                <div class="col col s4 m4 l4">
+                    <img src="images/avatar/avatar-7.png" alt=""
+                         class="circle responsive-img valign profile-image cyan">
+                </div>
+                <div class="col col s8 m8 l8">
+                    <!--<ul id="profile-dropdown-nav" class="dropdown-content">-->
+                    <!--<li>-->
+                    <!--<a href="#" class="grey-text text-darken-1">-->
+                    <!--<i class="material-icons">face</i> Profile</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#" class="grey-text text-darken-1">-->
+                    <!--<i class="material-icons">settings</i> Settings</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#" class="grey-text text-darken-1">-->
+                    <!--<i class="material-icons">live_help</i> Help</a>-->
+                    <!--</li>-->
+                    <!--<li class="divider"></li>-->
+                    <!--<li>-->
+                    <!--<a href="#" class="grey-text text-darken-1">-->
+                    <!--<i class="material-icons">lock_outline</i> Lock</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#" class="grey-text text-darken-1">-->
+                    <!--<i class="material-icons">keyboard_tab</i> Logout</a>-->
+                    <!--</li>-->
+                    <!--</ul>-->
+                    <!--<a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown-nav">John Doe<i class="mdi-navigation-arrow-drop-down right"></i></a>-->
+                    <span class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn"
+                          data-activates="profile-dropdown-nav" th:text="${#authentication.name}"><i
+                            class="mdi-navigation-arrow-drop-down right"></i></span>
+                    <p class="user-roal">Administrator</p>
+                </div>
+            </div>
+        </li>
+        <li class="no-padding">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li class="bold active-data-chart" th:if="${#authentication.name=='admin'}">
+                    <a href="/" class="waves-effect waves-cyan">
+                        <i class="material-icons">dashboard</i>
+                        <span class="nav-text">首页</span>
+                    </a>
+                </li>
+
+                <li class="bold active-mall" th:if="${#authentication.name=='admin'}">
+                    <a href="/mall" class="waves-effect waves-cyan">
+                        <i class="material-icons">local_mall</i>
+                        <span class="nav-text">商场</span>
+                    </a>
+                </li>
+                <!--
+                                <td th:if="${vclerk?.status==2}">
+                                    <i class="material-icons"
+                                       style="color:grey;margin-right:1em;">done</i>
+                                    <i class="material-icons"
+                                       style="color:grey;margin-right:1em;">block</i>
+                                    <a class="waves-effect waves-light"
+                                       th:onclick="'javascript:doDel(' + ${vclerk?.vc_id} + ')'"><i
+                                            class="material-icons">delete_forever</i></a></td>
+                                -->
+                <li class="bold active-industry" th:if="${#authentication.name=='admin'}">
+                    <a href="/industries" class="waves-effect waves-cyan">
+                        <i class="material-icons">business</i>
+                        <span class="nav-text">业态</span>
+                    </a>
+                </li>
+
+                <li class="bold active-plane-map" th:if="${#authentication.name=='admin'}">
+                    <a href="/planeMaps" class="waves-effect waves-cyan">
+                        <i class="material-icons">map</i>
+                        <span class="nav-text">楼层</span>
+                    </a>
+                </li>
+
+                <li class="bold active-shop" th:if="${#authentication.name=='admin'}">
+                    <a href="/shops" class="waves-effect waves-cyan">
+                        <i class="material-icons">shop</i>
+                        <span class="nav-text">商户</span>
+                    </a>
+                </li>
+
+                <li class="bold active-level" th:if="${#authentication.name=='admin'}">
+                    <a href="/levels" class="waves-effect waves-cyan">
+                        <i class="material-icons">assignment</i>
+                        <span class="nav-text">会员等级</span>
+                    </a>
+                </li>
+
+                <li class="bold active-member" th:if="${#authentication.name=='admin'}">
+                    <a href="/members" class="waves-effect waves-cyan">
+                        <i class="material-icons">group</i>
+                        <span class="nav-text">会员信息管理</span>
+                    </a>
+                </li>
+
+                <li class="bold active-member-count" th:if="${#authentication.name=='admin'}">
+                    <a href="/membercharts" class="waves-effect waves-cyan">
+                        <i class="material-icons">assessment</i>
+                        <span class="nav-text">会员信息统计</span>
+                    </a>
+                </li>
+
+                <li class="bold active-simple-rule" th:if="${#authentication.name=='admin'}">
+                    <a href="/simpleRules" class="waves-effect waves-cyan">
+                        <i class="material-icons">hdr_strong</i>
+                        <span class="nav-text">普通积分规则</span>
+                    </a>
+                </li>
+
+                <li class="bold active-promotion-rule" th:if="${#authentication.name=='admin'}">
+                    <a href="/promotionRules" class="waves-effect waves-cyan">
+                        <i class="material-icons">hdr_weak</i>
+                        <span class="nav-text">促销积分规则</span>
+                    </a>
+                </li>
+
+                <!--<li class="bold active-paycash-rule" th:if="${#authentication.name=='admin'}">-->
+                <!--<a href="/pointsPayCashRules" class="waves-effect waves-cyan">-->
+                <!--<i class="material-icons">hdr_strong</i>-->
+                <!--<span class="nav-text">积分抵现规则</span>-->
+                <!--</a>-->
+                <!--</li>-->
+
+                <li class="bold active-tickets">
+                    <a href="/tickets" class="waves-effect waves-cyan">
+                        <i class="material-icons">image_aspect_ratio</i>
+                        <span class="nav-text">小票管理</span>
+                    </a>
+                </li>
+
+                <li class="bold active-handle-points">
+                    <a href="/handlePoints" class="waves-effect waves-cyan">
+                        <i class="material-icons">dvr</i>
+                        <span class="nav-text">小票录入</span>
+                    </a>
+                </li>
+
+                <li class="bold active-manual-points">
+                    <a href="/manualPoints" class="waves-effect waves-cyan">
+                        <i class="material-icons">grain</i>
+                        <span class="nav-text">积分调整</span>
+                    </a>
+                </li>
+
+                <li class="bold active-detail">
+                    <a href="/pointsDetail" class="waves-effect waves-cyan">
+                        <i class="material-icons">view_quilt</i>
+                        <span class="nav-text">积分明细</span>
+                    </a>
+                </li>
+
+                <li class="bold active-coupon" th:if="${#authentication.name=='admin'}">
+                    <a href="/coupons" class="waves-effect waves-cyan">
+                        <i class="material-icons">card_membership</i>
+                        <span class="nav-text">优惠券管理</span>
+                    </a>
+                </li>
+
+                <!--<li class="bold active-receive-logs" th:if="${#authentication.name=='admin'}">-->
+                <!--<a href="/receiveLogs" class="waves-effect waves-cyan">-->
+                <!--<i class="material-icons">local_laundry_service</i>-->
+                <!--<span class="nav-text">优惠券领取记录</span>-->
+                <!--</a>-->
+                <!--</li>-->
+
+                <!--<li class="bold active-verification-logs" th:if="${#authentication.name=='admin'}">-->
+                <!--<a href="/verificationLogs" class="waves-effect waves-cyan">-->
+                <!--<i class="material-icons">speaker_phone</i>-->
+                <!--<span class="nav-text">优惠券核销历史</span>-->
+                <!--</a>-->
+                <!--</li>-->
+
+                <li class="bold active-coupon-logs" th:if="${#authentication.name=='admin'}">
+                    <a href="/couponLogs" class="waves-effect waves-cyan">
+                        <i class="material-icons">folder_shared</i>
+                        <span class="nav-text">券记录</span>
+                    </a>
+                </li>
+
+                <li class="bold active-activity" th:if="${#authentication.name=='admin'}">
+                    <a href="/activities" class="waves-effect waves-cyan">
+                        <i class="material-icons">card_giftcard</i>
+                        <span class="nav-text">活动</span>
+                    </a>
+                </li>
+
+                <li class="bold active-activity-logs" th:if="${#authentication.name=='admin'}">
+                    <a href="/activityLogs" class="waves-effect waves-cyan">
+                        <i class="material-icons">casino</i>
+                        <span class="nav-text">活动记录</span>
+                    </a>
+                </li>
+
+                <li class="bold active-assessments" th:if="${#authentication.name=='admin'}">
+                    <a href="/assessments" class="waves-effect waves-cyan">
+                        <i class="material-icons">record_voice_over</i>
+                        <span class="nav-text">评价建议</span>
+                    </a>
+                </li>
+
+                <li class="bold active-raffle" th:if="${#authentication.name=='admin'}">
+                    <a href="/raffles" class="waves-effect waves-cyan">
+                        <i class="material-icons">games</i>
+                        <span class="nav-text">抽奖</span>
+                    </a>
+                </li>
+
+                <li class="bold active-raffle-logs" th:if="${#authentication.name=='admin'}">
+                    <a href="/raffleLogs" class="waves-effect waves-cyan">
+                        <i class="material-icons">texture</i>
+                        <span class="nav-text">抽奖记录</span>
+                    </a>
+                </li>
+
+                <li class="bold active-gift-coupon" th:if="${#authentication.name=='admin'}">
+                    <a href="/giftCoupons" class="waves-effect waves-cyan">
+                        <i class="material-icons">local_florist</i>
+                        <span class="nav-text">礼品券管理</span>
+                    </a>
+                </li>
+
+                <li class="bold active-gift-coupon-logs" th:if="${#authentication.name=='admin'}">
+                    <a href="/giftCouponLogs" class="waves-effect waves-cyan">
+                        <i class="material-icons">child_care</i>
+                        <span class="nav-text">礼品记录</span>
+                    </a>
+                </li>
+
+                <li class="bold active-clerk" th:if="${#authentication.name=='admin'}">
+                    <a href="/vClerks" class="waves-effect waves-cyan">
+                        <i class="material-icons">folder_shared</i>
+                        <span class="nav-text">工作人员审核</span>
+                    </a>
+                </li>
+
+                <li class="bold active-rule-settings" th:if="${#authentication.name=='admin'}">
+                    <a href="/ruleSettings" class="waves-effect waves-cyan">
+                        <i class="material-icons">settings_applications</i>
+                        <span class="nav-text">运营设置</span>
+                    </a>
+                </li>
+
+                <li style="margin-top:10em;"></li>
+                <!--<li class="bold">-->
+                <!--<a href="css-color.html" class="waves-effect waves-cyan">-->
+                <!--<i class="material-icons">invert_colors</i>-->
+                <!--<span class="nav-text">Color</span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li class="bold">-->
+                <!--<a href="table-basic.html" class="waves-effect waves-cyan">-->
+                <!--<i class="material-icons">border_all</i>-->
+                <!--<span class="nav-text">Table</span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li class="bold">-->
+                <!--<a href="ui-icons.html" class="waves-effect waves-cyan">-->
+                <!--<i class="material-icons">lightbulb_outline</i>-->
+                <!--<span class="nav-text">Icons</span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a class="btn waves-effect waves-light gradient-45deg-red-pink" href="https://pixinvent.com/materialize-material-design-admin-template/landing/" target="_blank">-->
+                <!--<i class="material-icons white-text">file_upload</i>Upgrade to Pro!-->
+                <!--</a>-->
+                <!--</li>-->
+            </ul>
+        </li>
+    </ul>
+    <!--<a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only">-->
+    <!--<i class="material-icons">menu</i>-->
+    <!--</a>-->
+</div>

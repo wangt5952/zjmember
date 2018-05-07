@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="description"
+          content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
+    <meta name="keywords"
+          content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
+    <title>Materialize - Material Design Admin Template</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+</head>
+
+<body ng-app="materializeApp" class="active-raffle-logs">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">抽奖记录</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">抽奖记录</a>
+                                </li>
+                                <li class="active">抽奖记录 列表</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!--start container-->
+            <div class="container">
+                <!--<form method="POST" enctype="multipart/form-data" action="/shops" data-parsley-validate>-->
+                <!--<div class="section">-->
+                <!--<div class="row">-->
+                <!--<div class="input-field col s2">-->
+                <!--<select id="industry_id" name="industry_id">-->
+                <!--<option th:each="industry:${industries}" th:value="${industry?.industry_id}" th:text="${industry?.industry_name}"></option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col s1"></div>-->
+                <!--<div class="input-field col s2">-->
+                <!--<select id="map_id" name="map_id">-->
+                <!--<option th:each="map:${maps}" th:value="${map.map_id}" th:text="${map.map_name}"></option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col s2"></div>-->
+                <!--<div class="input-field col s3">-->
+                <!--<i class="material-icons prefix" style="margin-left: 1.5em">search</i>-->
+                <!--<input type="text" name="Search" style="padding-left:2.5em;" />-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <!--<div class="divider"></div>-->
+                <!--</div>-->
+                <!--<br>-->
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card-panel">
+                            <h4 class="header2">抽奖记录</h4>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row">
+                                        <table class="striped centered">
+                                            <thead>
+                                            <tr>
+                                                <th>会员姓名</th>
+                                                <th>会员手机号</th>
+                                                <th>抽奖活动</th>
+                                                <th>所需积分</th>
+                                                <th>是否中奖</th>
+                                                <th>奖品类型</th>
+                                                <th>奖品</th>
+                                                <th>抽奖时间</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="log:${logs}">
+                                                <td th:text="${log?.member_name}"></td>
+                                                <td th:text="${log?.member_mobile}"></td>
+                                                <td th:text="${log?.title}"></td>
+                                                <td th:text="${log?.required_points}"></td>
+                                                <td th:text="${log?.trr_id==0} ? '否' : '是'"></td>
+                                                <td th:text="${log?.trr_id==0} ? '-' : ${T(com.laf.manager.enums.RaffleRewardType).valueOf(log?.reward_type+1).theName()}"></td>
+                                                <td th:text="${log?.reward_name==null} ? '-' : ${log?.reward_name}"></td>
+                                                <td th:text="${log?.action_time!=null} ? ${#dates.format(log?.action_time, 'yyyy-MM-dd HH:mm')}"></td>
+                                            </tr>
+                                            </tbody>
+                                            <!--<thead><tr><td style="padding:0;height:16px"></td></tr></thead>-->
+                                            <!--<thead style="border-bottom: none">-->
+                                            <!--<tr th:if="${logs.size()!=0}">-->
+                                            <!--<th>总计</th>-->
+                                            <!--<th></th>-->
+                                            <!--<th></th>-->
+                                            <!--<th></th>-->
+                                            <!--<th></th>-->
+                                            <!--<th th:text="${costPriceSum!=null} ? ${#numbers.formatDecimal(costPriceSum,1,2)}"></th>-->
+                                            <!--<th></th>-->
+                                            <!--<th></th>-->
+                                            <!--<th></th>-->
+                                            <!--<th></th>-->
+                                            <!--<th th:text="${'共 '+pageMap['total']+' 条'}"></th>-->
+                                            <!--</tr>-->
+                                            <!--</thead>-->
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row" ng-controller="PaginationController" th:object="${pageMap}">
+                                        <pagination class="right" th:attr="page=''+ *{index}+'',total=''+*{total}+''"
+                                                    page-size="10" show-prev-next="true" dots="...."
+                                                    hide-if-empty="false" adjacent="2"
+                                                    scroll-top="false" pagination-action="changePage(page)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--</form>-->
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+        <!-- START RIGHT SIDEBAR NAV-->
+        <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+        </aside>
+        <!-- END RIGHT SIDEBAR NAV-->
+
+        <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+            <a class="btn-floating btn-large modal-trigger" href="#data-filter">
+                <i class="material-icons">local_bar</i>
+            </a>
+        </div>
+    </div>
+
+    <div id="data-filter" class="modal bottom-sheet">
+        <div class="modal-content">
+            <!--<h4>Modal Header</h4>-->
+            <span class="btn-floating btn modal-trigger" disabled style="margin-left:.8em">
+                <i class="material-icons">find_in_page</i>
+            </span>
+            <span id="filter-reset" class="btn-floating btn right modal-trigger" style="margin-left:.8em">
+                <i class="material-icons">find_replace</i>
+            </span>
+            <!--<form id="form-filter" action="/tickets/filter" method="post" data-parsley-validate>-->
+            <form id="form-filter" action="/raffleLogs/filter" method="post">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="username" name="username"
+                                       type="text" data-parsley-ui-enabled="false">
+                                <label for="username">会员姓名</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="mobile" name="mobile" class="validate" type="tel"
+                                       pattern="(^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$)"
+                                       data-parsley-pattern="(^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$)"
+                                       data-parsley-pattern-message="字段内容不是正确的手机号格式">
+                                <label for="mobile">会员手机号</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="title" name="title"
+                                       type="text" data-parsley-ui-enabled="false">
+                                <label for="title">活动标题</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <select id="isWin" name="isWin">
+                                    <option value="-1">不限</option>
+                                    <option value="0">未中奖</option>
+                                    <option value="1">中奖</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6" ng-controller="DateController">
+                                <input input-date type="text" ng-model="currentTime" container="body"
+                                       format="yyyy-mm-dd"
+                                       months-full="{{ month }}" months-short="{{ monthShort }}"
+                                       weekdays-full="{{ weekdaysFull }}" weekdays-short="{{ weekdaysShort }}"
+                                       weekdays-letter="{{ weekdaysLetter }}"
+                                       disable="disable" min="{{ minDate }}" max="{{ maxDate }}"
+                                       today="today" clear="clear" close="close" select-years="10"
+                                       data-parsley-ui-enabled="false"
+                                       id="action-date-start" name="action-date-start" class="do-points">
+                                <label for="action-date-start">活动时间(开始)</label>
+                            </div>
+                            <div class="input-field col s6" ng-controller="DateController">
+                                <input input-date type="text" ng-model="currentTime" container="body"
+                                       format="yyyy-mm-dd"
+                                       months-full="{{ month }}" months-short="{{ monthShort }}"
+                                       weekdays-full="{{ weekdaysFull }}" weekdays-short="{{ weekdaysShort }}"
+                                       weekdays-letter="{{ weekdaysLetter }}"
+                                       disable="disable" min="{{ minDate }}" max="{{ maxDate }}"
+                                       today="today" clear="clear" close="close" select-years="10"
+                                       data-parsley-ui-enabled="false"
+                                       id="action-date-end" name="action-date-end" class="do-points">
+                                <label for="action-date-end">活动时间(结束)</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <button type="button" id="filter-button" name="filter-button"
+                                        class="waves-effect waves-light btn right">
+                                    <i class="material-icons left">local_bar</i>筛&emsp;选
+                                </button>
+                            </div>
+                        </div>
+                        <input type="hidden" id="actionTimeStart" name="actionTimeStart" value="">
+                        <input type="hidden" id="actionTimeEnd" name="actionTimeEnd" value="">
+                        <input type="hidden" id="page" name="page" value="">
+                        <input type="hidden" id="size" name="size" value="">
+                        <input type="hidden" id="filterJson" name="filterJson" value="">
+                    </div>
+                </div>
+            </form>
+            <form action="/raffleLogs/reset" id="form-reset" method="post"></form>
+        </div>
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>
+<!--angularjs-->
+<script type="text/javascript" src="vendors/angular.min.js"></script>
+<script type="text/javascript" src="vendors/angular-materialize.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/angular-ui.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<script type="text/javascript" src="js/advanced-ui-modals.js"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+        var filterData = /*[[${session.rafflelog_filter}]]*/ undefined
+        if (filterData) {
+            log(filterData)
+            $('#filterJson').val(filterData)
+
+            JSON.parse(filterData, function (key, value) {
+                switch (key) {
+                    case 'username':
+                        $('#username').val(value)
+                        break
+                    case 'mobile':
+                        $('#mobile').val(value)
+                        break
+                    case 'title':
+                        $('#title').val(value)
+                        break
+                    case 'isWin':
+                        $('#isWin').val(value)
+                        $('#isWin').material_select()
+                        break
+                    case 'actionTimeStart':
+                        $('#action-date-start').val(dateString(new Date(value)))
+                        $('actionTimeStart').val(value)
+                        break
+                    case 'actionTimeEnd':
+                        $('#action-date-end').val(dateString(new Date(value)))
+                        $('actionTimeEnd').val(value)
+                        break
+                }
+            })
+        }
+
+        $('#filter-button').on('click', function (event) {
+            var obj = {}
+            if ($('#username').val()) obj.username = $('#username').val()
+            if ($('#mobile').val()) obj.mobile = $('#mobile').val()
+            if ($('#title').val()) obj.title = $('#title').val()
+            if ($('#isWin').val() > -1) obj.isWin = $('#isWin').val()
+
+            if ($('#action-date-start').val() && $('#action-date-end').val()) {
+                $('#actionTimeStart').val(Number(dateToMilliseconds($('#action-date-start').val())))
+                $('#actionTimeEnd').val(Number(dateToMilliseconds($('#action-date-end').val())))
+                obj.actionTimeStart= Number($('#actionTimeStart').val())
+                obj.actionTimeEnd = Number($('#actionTimeEnd').val())
+            }
+
+            $('#filterJson').val(JSON.stringify(obj))
+            $('#page').val(1)
+            $('#size').val(10)
+
+            $('#form-filter').submit()
+        })
+
+        $('#filter-reset').on('click', function () {
+            $('#form-reset').submit()
+        })
+    })
+
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+package com.laf.mall.api.controller;
+
+import com.laf.mall.api.utils.weixin.WeixinUtil;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@Slf4j
+@RequestMapping("/wx")
+public class WeiXinController {
+
+    @GetMapping
+    @ApiOperation(value = "获取access_token接口")
+    public void getAccessToken() {
+        WeixinUtil util = new WeixinUtil();
+        util.getAccessToken();
+    }
+}

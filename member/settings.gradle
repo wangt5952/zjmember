@@ -1,0 +1,3 @@
+rootProject.name = 'mall-manager'
+
+include 'manager-core', 'manager-app', 'mall-for-api', 'mall-api'

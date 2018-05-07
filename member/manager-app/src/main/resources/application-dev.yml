@@ -1,0 +1,86 @@
+server:
+  port: 9000
+  context-path: /
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost/member_test?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+#    url: jdbc:mysql://121.196.208.176:3306/member_test?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    username: dev
+#    password: dev123456
+  output:
+    ansi:
+      enabled: always
+  thymeleaf:
+    cache: false
+    content-type: text/html
+    enabled: true
+    prefix: classpath:/resources/
+    suffix: html
+    mode: LEGACYHTML5
+  http:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+  session:
+    store-type: none
+
+security:
+  basic:
+    enabled: true
+
+com:
+  laf:
+    manager: # 以后的项目改为 "security"
+      browser:
+        loginPage: /login.html
+        loginType: REDIRECT
+        rememberMeSeconds: 604800
+      code:
+        image:
+          length: 4
+          width: 100
+#          url: /user,/user/*
+        sms:
+          length: 6
+          expireIn: 1200
+#          url: /user
+    external:
+      parameter:
+        method: get # get post default get
+        pattern: webservices # webservices restful default webservices
+        contentType: normal # normal xml json default normal
+        params: name,xxx1,xxx2 # parameters set
+      response:
+        contentType: json # json xml normal default json
+        fields: name,xxx1,xxx2 # response fields set
+    upload:
+      file:
+        path: /Users/apple/bbb/member/manager-app/src/main/resources/resources/upload/img
+        base: /
+        domain: http://localhost:9000/upload/img
+    settings:
+      appid: dsafdas
+      excel: export.xls
+    ajax:
+      url:
+        api: http://localhost:9001/
+        manager: http://localhost:9000/
+    wechat:
+      domain: http://jiayuanmember.dorm9tech.com/
+      path: activity_sign_in
+
+logging:
+  level:
+    org.springframework.jdbc.core.StatementCreatorUtils: debug
+    org.springframework.jdbc.core: debug
+  pattern:
+    console: "%d - %msg%n"
+  path: /var/log/springboot/
+

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description"-->
+    <!--content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords"-->
+    <!--content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+
+    <link href="dropify/dist/css/dropify.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/parsley.css" type="text/css" rel="stylesheet" media="screen,projection">
+
+    <!--sweetalert-->
+    <link href="css/sweetalert.css" type="text/css" rel="stylesheet">
+
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            font-size: 13px;
+        }
+
+        #pickerBox {
+            position: absolute;
+            z-index: 9999;
+            top: 50px;
+            right: 30px;
+            width: 300px;
+        }
+
+        #pickerInput {
+            width: 200px;
+            padding: 5px 5px;
+        }
+
+        #poiInfo {
+            background: #fff;
+        }
+
+        .amap_lib_placeSearch .poibox.highlight {
+            background-color: #CAE1FF;
+        }
+
+        .amap_lib_placeSearch .poi-more {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body ng-app="materializeApp" class="active-manual-points">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed">
+        <nav class="navbar-color gradient-45deg-light-cyan-cyan">
+            <div class="nav-wrapper">
+                <ul class="left">
+                    <li>
+                        <h1 class="logo-wrapper">
+                            <a href="#" class="brand-logo darken-1">
+                                <img src="images/logo/materialize-logo.png" alt="materialize logo">
+                                <!--<span class="logo-text hide-on-med-and-down">Materialize</span>-->
+                                <span class="logo-text hide-on-med-and-down" style="font-size:0.65em;font-family:
+                                      Roboto Condensed">BAUHINIA SQUARE</span>
+                            </a>
+                        </h1>
+                    </li>
+                </ul>
+                <div class="header-search-wrapper hide-on-med-and-down">
+                    <i class="material-icons">search</i>
+                    <input type="text" id="Search" name="Search" class="header-search-input z-depth-2"
+                           placeholder="请输入  会员手机号" style="padding-top:0.7em"/>
+                </div>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light translation-button"
+                           data-activates="translation-dropdown">
+                            <!--<span class="flag-icon flag-icon-gb"></span>-->
+                            <span class="flag-icon flag-icon-cn"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen">
+                            <i class="material-icons">settings_overscan</i>
+                        </a>
+                    </li>
+                    <!--<li>-->
+                    <!--<a href="javascript:void(0);" class="waves-effect waves-block waves-light notification-button" data-activates="notifications-dropdown">-->
+                    <!--<i class="material-icons">notifications_none-->
+                    <!--&lt;!&ndash;<small class="notification-badge pink accent-2">5</small>&ndash;&gt;-->
+                    <!--</i>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <li>
+                        <a href="javascript:void(0);" class="waves-effect waves-block waves-light profile-button"
+                           data-activates="profile-dropdown">
+                                <span class="avatar-status avatar-online">
+                    <img src="images/avatar/avatar-7.png" alt="avatar">
+                    <i></i>
+                  </span>
+                        </a>
+                    </li>
+                    <li>
+                        <!--<a href="#" data-activates="chat-out" class="waves-effect waves-block waves-light chat-collapse">-->
+                        <a href="#" data-activates="chat-out" class="waves-effect waves-block waves-light">
+                            <i class="material-icons">format_indent_increase</i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- translation-button -->
+                <ul id="translation-dropdown" class="dropdown-content">
+                    <!--<li>-->
+                    <!--<a href="#!" class="grey-text text-darken-1">-->
+                    <!--<i class="flag-icon flag-icon-gb"></i> English</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#!" class="grey-text text-darken-1">-->
+                    <!--<i class="flag-icon flag-icon-fr"></i> French</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#!" class="grey-text text-darken-1">-->
+                    <!--<i class="flag-icon flag-icon-cn"></i> Chinese</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="#!" class="grey-text text-darken-1">-->
+                    <!--<i class="flag-icon flag-icon-de"></i> German</a>-->
+                    <!--</li>-->
+                </ul>
+                <!-- notifications-dropdown -->
+                <!--<ul id="notifications-dropdown" class="dropdown-content">-->
+                <!--<li>-->
+                <!--<h6>NOTIFICATIONS-->
+                <!--<span class="new badge">5</span>-->
+                <!--</h6>-->
+                <!--</li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li>-->
+                <!--<a href="#!" class="grey-text text-darken-2">-->
+                <!--<span class="material-icons icon-bg-circle cyan small">add_shopping_cart</span> A new order has been placed!</a>-->
+                <!--<time class="media-meta" datetime="2015-06-12T20:50:48+08:00">2 hours ago</time>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a href="#!" class="grey-text text-darken-2">-->
+                <!--<span class="material-icons icon-bg-circle red small">stars</span> Completed the task</a>-->
+                <!--<time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a href="#!" class="grey-text text-darken-2">-->
+                <!--<span class="material-icons icon-bg-circle teal small">settings</span> Settings updated</a>-->
+                <!--<time class="media-meta" datetime="2015-06-12T20:50:48+08:00">4 days ago</time>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a href="#!" class="grey-text text-darken-2">-->
+                <!--<span class="material-icons icon-bg-circle deep-orange small">today</span> Director meeting started</a>-->
+                <!--<time class="media-meta" datetime="2015-06-12T20:50:48+08:00">6 days ago</time>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a href="#!" class="grey-text text-darken-2">-->
+                <!--<span class="material-icons icon-bg-circle amber small">trending_up</span> Generate monthly report</a>-->
+                <!--<time class="media-meta" datetime="2015-06-12T20:50:48+08:00">1 week ago</time>-->
+                <!--</li>-->
+                <!--</ul>-->
+                <!-- profile-dropdown -->
+                <!--<ul id="profile-dropdown" class="dropdown-content">-->
+                <!--<li>-->
+                <!--<a href="#" class="grey-text text-darken-1">-->
+                <!--<i class="material-icons">face</i> Profile</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a href="#" class="grey-text text-darken-1">-->
+                <!--<i class="material-icons">settings</i> Settings</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a href="#" class="grey-text text-darken-1">-->
+                <!--<i class="material-icons">live_help</i> Help</a>-->
+                <!--</li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li>-->
+                <!--<a href="#" class="grey-text text-darken-1">-->
+                <!--<i class="material-icons">lock_outline</i> Lock</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--<a href="#" class="grey-text text-darken-1">-->
+                <!--<i class="material-icons">keyboard_tab</i> Logout</a>-->
+                <!--</li>-->
+                <!--</ul>-->
+            </div>
+        </nav>
+    </div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">会员积分调整</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="#">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">会员</a>
+                                </li>
+                                <li class="active">会员积分 调整</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<header id="header" class="page-topbar" style="margin-top:1.2em">-->
+            <!--<nav class="">-->
+            <!--<div class="nav-wrapper">-->
+            <!--<div class="header-search-wrapper">-->
+            <!--<i class="material-icons">search</i>-->
+            <!--<input type="tel" id="Search" name="Search" class="header-search-input z-depth-2"-->
+            <!--placeholder="输入会员手机号"/>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</nav>-->
+            <!--</header>-->
+            <!--breadcrumbs end-->
+            <!--start container-->
+            <div class="container">
+
+                <div class="section">
+                    <!--<p class="caption">在下列表单中填写商场基本信息 上传商场轮播图片</p>-->
+                    <!--<div class="divider"></div>-->
+                </div>
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="card-panel">
+                            <h4 class="header2">会员信息</h4>
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="tel" id="mobile1" name="mobile1" placeholder="手机号" disabled>
+                                            <label for="mobile1">手机号</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="memberName1" name="memberName1" placeholder="姓名"
+                                                   disabled>
+                                            <label for="memberName1">姓名</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="sex" name="sex" placeholder="性别" disabled>
+                                            <label for="sex">性别</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="occupation" name="occupation" placeholder="职业"
+                                                   disabled>
+                                            <label for="occupation">职业</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="address" name="address" placeholder="地址" disabled>
+                                            <label for="address">地址</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="usablePoints1" placeholder="当前可用积分"
+                                                   name="usablePoints1" disabled>
+                                            <label for="usablePoints1">当前可用积分</label>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <i class="material-icons prefix">card_travel</i>
+                                            <input type="text" id="cumulatePoints1" placeholder="累计积分"
+                                                   name="cumulatePoints1" disabled>
+                                            <label for="cumulatePoints1">累计积分</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ////////////////////////////////////// form start ////////////////////////////////////// -->
+                        <form id="form-manual" method="POST" enctype="multipart/form-data" action="/saveManualPoints"
+                              data-parsley-validate
+                              data-parsley-excluded="input[type=text]">
+                            <input type="hidden" id="memberId" name="memberId">
+                            <input type="hidden" id="memberName" name="memberName">
+                            <input type="hidden" id="memberMobile" name="memberMobile">
+                            <!--<input type="hidden" id="handleDate" name="handleDate">-->
+
+                            <div class="card-panel">
+                                <h4 class="header2">积分调整</h4>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">card_travel</i>
+                                        <input type="number" id="points" name="points" step="1" placeholder="0"
+                                               class="validate"
+                                               equired data-parsley-required
+                                               data-parsley-required-message="不能为空" data-parsley-type="integer"
+                                               data-parsley-type-message="必须是整数"
+                                               data-parsley-max="99999999" data-parsley-max-message="数值超出最大范围">
+                                        <label for="points">获得积分</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">card_travel</i>
+                                        <textarea id="desc" name="desc" class="materialize-textarea"
+                                                  equired data-parsley-required
+                                                  data-parsley-required-message="不能为空"
+                                                  placeholder="描述"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <!-- <a class="waves-effect waves-light btn right"><i class="material-icons right">send</i>保存</a> -->
+                                        <button id="submit-btn" type="button" class="waves-effect waves-light btn"><i
+                                                class="material-icons right">done</i>确定
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- ////////////////////////////////////// form end ////////////////////////////////////// -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!--end container-->
+    <!-- END CONTENT -->
+    <!-- START RIGHT SIDEBAR NAV-->
+    <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+    </aside>
+    <!-- END RIGHT SIDEBAR NAV-->
+</div>
+<!-- END WRAPPER -->
+</div>
+<div class="section"></div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<!--<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/parsley.js/2.8.0/parsley.min.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<script src="dropify/dist/js/dropify.min.js"></script>
+<script src="ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="vendors/angular.min.js"></script>
+<script type="text/javascript" src="vendors/angular-materialize.js"></script>
+<script type="text/javascript" src="js/angular-ui.js"></script>
+
+<!--extra-components-sweetalert-->
+<script type="text/javascript" src="js/sweetalert.min.js"></script>
+
+<th:block th:include="baseScript :: base-script"></th:block>
+
+<script th:inline="javascript">
+
+    $(document).ready(function () {
+
+//        $('#handleDate1').val(dateString(new Date()))
+
+        var flag = false
+
+        $('#Search').keypress(function (event) {
+            var mobile = event.target.value
+
+            if (!mobile) return
+
+            if (event.keyCode == '13') {
+                log('key enter')
+
+                var url = base_api + 'member/baseInfo?mobile=' + event.target.value
+                log(url)
+
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    dataType: 'json',
+                    success: function (response) {
+                        log(response)
+                        setMemberInfo(response)
+                        flag = true
+                    },
+                    error: function (xhr, ajasOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+
+                        swal({
+                                title: "请确认",
+                                text: "输入手机号无法对应会员",
+                                type: "warning",
+                                showCancelButton: true,
+                                cancelButtonText: '确定',
+                                confirmButtonColor: '#DD6B55',
+                                //                                confirmButtonText: "确定",
+                                showConfirmButton: false,
+                                closeOnConfirm: false
+                            },
+                            function () {
+                                // swal("通过审核!", "您已成功通过该工作人员的审核!", "success")
+                            });
+                    }
+                }) // end ajax
+            }
+        })
+
+        function setMemberInfo(member) {
+            $('#mobile1').val(member.mobile)
+            $('#memberMobile').val(member.mobile)
+            $('#memberName1').val(member.name)
+            $('#memberName').val(member.name)
+            $('#sex').val(member.sex == 1 ? '女' : '男')
+            $('#occupation').val(getOccupationStr(member.occuption) || '无')
+            $('#address').val(member.address)
+            $('#usablePoints').val(member.usable_points)
+            $('#usablePoints1').val(member.usable_points)
+            $('#cumulatePoints').val(member.cumulate_points)
+            $('#cumulatePoints1').val(member.cumulate_points)
+            $('#levelId').val(member.level_id)
+            $('#memberId').val(member.member_id)
+            $('#birthday').val(member.birthday)
+            $('#cumulateAmount').val(member.cumulate_amount)
+        }
+
+        function getOccupationStr(occuption) {
+            var result = undefined
+
+            switch (occuption) {
+                case 0:
+                    result = "教师";
+                    break;
+                case 1:
+                    result = "会计";
+                    break;
+                case 2:
+                    result = "IT";
+                    break;
+                case 3:
+                    result = "金融";
+                    break;
+                case 4:
+                    result = "销售";
+                    break;
+                case 5:
+                    result = "营业员";
+                    break;
+                case 6:
+                    result = "公务员";
+                    break;
+                case 7:
+                    result = "自由职业";
+                    break;
+            }
+
+            return result
+        }
+
+        $('#submit-btn').on('click', function (event) {
+            if (flag) {
+                $('#form-manual').submit()
+            } else {
+                swal({
+                        title: "请确认",
+                        text: "请先确认会员信息",
+                        type: "warning",
+                        showCancelButton: true,
+                        cancelButtonText: '确定',
+                        confirmButtonColor: '#DD6B55',
+                        //                                confirmButtonText: "确定",
+                        showConfirmButton: false,
+                        closeOnConfirm: false
+                    },
+                    function () {
+                        // swal("通过审核!", "您已成功通过该工作人员的审核!", "success")
+                    });
+            }
+        })
+    })
+
+//    function thisSet() {
+//        $('#handleDate').val(dateToMilliseconds($('#handleDate1').val()))
+//    }
+
+</script>
+</body>
+
+</html>

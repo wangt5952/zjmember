@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description"-->
+    <!--content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords"-->
+    <!--content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+
+    <link href="dropify/dist/css/dropify.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/parsley.css" type="text/css" rel="stylesheet" media="screen,projection">
+
+    <style>
+        html,
+        body,
+        #container {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            font-size: 13px;
+        }
+
+        #pickerBox {
+            position: absolute;
+            z-index: 9999;
+            top: 50px;
+            right: 30px;
+            width: 300px;
+        }
+
+        #pickerInput {
+            width: 200px;
+            padding: 5px 5px;
+        }
+
+        #poiInfo {
+            background: #fff;
+        }
+
+        .amap_lib_placeSearch .poibox.highlight {
+            background-color: #CAE1FF;
+        }
+
+        .amap_lib_placeSearch .poi-more {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body class="active-coupon">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <div id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">优惠券基本信息</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">优惠券</a>
+                                </li>
+                                <li class="active">(推送型) 基本信息 录入</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!--start container-->
+            <div class="container">
+                <div class="section">
+                    <!--<p class="caption">在下列表单中填写商场基本信息 上传商场轮播图片</p>-->
+                    <!--<div class="divider"></div>-->
+                </div>
+
+                <!-- ////////////////////////////////////// form start ////////////////////////////////////// -->
+                <form method="POST" enctype="multipart/form-data" action="/saveCoupon" data-parsley-validate>
+                    <div class="row">
+                        <div class="col s0 m0 l2"></div>
+                        <div class="col s12 m12 l8">
+                            <div class="card-panel" style="margin-top:1.2em;">
+                                <h4 class="header2">优惠券基础信息</h4>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">card_membership</i>
+                                                <input type="text" id="couponName" name="couponName" class="validate"
+                                                       th:value="${coupon?.coupon_name}" equired data-parsley-required
+                                                       data-parsley-required-message="不能为空">
+                                                <label for="couponName">券名称</label>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-bottom:1.2em;">
+                                            <div class="input-field col s12">
+                                                <input type="file" id="input-file-now1" name="file"
+                                                       data-show-remove="false"
+                                                       class="dropify dropify-event"
+                                                       data-default-file=""
+                                                       data-allowed-file-extensions="png jpg jpeg"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">pie_chart_outlined</i>
+                                                <select id="verificationType" name="verificationType">
+                                                    <option th:each="type:${verificationTypes}"
+                                                            th:value="${type?.$1}"
+                                                            th:text="${type?.$2}"
+                                                            th:selected="(${type?.$1 == coupon?.verification_type})"></option>
+                                                    <!--<option value="0">商户</option>-->
+                                                    <!--<option value="1">工作人员</option>-->
+                                                    <!--<option value="2">停车场</option>-->
+                                                </select>
+                                                <label for="verificationType">核销范围</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">shop</i>
+                                                <select multiple id="shops1" name="shops1"
+                                                        class="rule-content">
+                                                    <!--th:onchange="'javascript:handleShops(event);'">-->
+                                                    <option value="" disabled>请选择商户</option>
+                                                    <!--<optgroup th:each="industry:${industries}"-->
+                                                    <!--th:label="${industry?.industry_name}">-->
+                                                    <option th:each="shop:${shops}"
+                                                            th:value="${shop?.shop_id}"
+                                                            th:text="${shop?.shop_name}"></option>
+                                                    <!--</optgroup>-->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s5">
+                                                <i class="material-icons prefix">view_day</i>
+                                                <input type="text" class="validate"
+                                                       id="expiryDateStart1" name="expiryDateStart1"
+                                                       placeholder="1980-01-01"
+                                                       equired data-parsley-required
+                                                       data-parsley-required-message="不能为空"
+                                                       pattern="(([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])))"
+                                                       data-parsley-pattern="(([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])))"
+                                                       data-parsley-pattern-message="字段内容不是正确的日期格式">
+                                                <label for="expiryDateStart1">券有效期</label>
+                                            </div>
+                                            <div class="input-field col s1">
+                                                <span style="margin-top:1.2em;width:100%;text-align:center;display:inline-block;">至</span>
+                                            </div>
+                                            <div class="input-field col s5">
+                                                <input type="text" class="validate"
+                                                       id="expiryDateEnd1" name="expiryDateEnd1"
+                                                       placeholder="1980-12-01"
+                                                       equired data-parsley-required
+                                                       data-parsley-required-message="不能为空"
+                                                       pattern="(([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])))"
+                                                       data-parsley-pattern="(([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])))"
+                                                       data-parsley-pattern-message="字段内容不是正确的日期格式">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">monetization_on</i>
+                                                <input type="number" id="price" name="price" class="validate"
+                                                       min="0" step="0.01"
+                                                       th:value="${coupon?.price}" equired data-parsley-required
+                                                       data-parsley-required-message="不能为空"
+                                                       data-parsley-max="99999999.99"
+                                                       data-parsley-max-message="金额超出最大范围">
+                                                <label for="price">市场价</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">monetization_on</i>
+                                                <input type="number" id="costPrice" name="costPrice" class="validate"
+                                                       min="0" step="0.01"
+                                                       th:value="${coupon?.cost_price}" equired data-parsley-required
+                                                       data-parsley-required-message="不能为空"
+                                                       data-parsley-max="99999999.99"
+                                                       data-parsley-max-message="金额超出最大范围">
+
+                                                <label for="costPrice">成本价</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <i class="material-icons prefix">gradient</i>
+                                                <input type="text" id="qrCodeParam" name="qrCodeParam" th:value="${coupon?.qrcode_param}">
+                                                <label for="qrCodeParam">二维码参数</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea name="intro" id="intro"
+                                                      th:text="${coupon?.intro}"
+                                                      class="materialize-textarea">
+                                                    <p style="font-size:8pt">优惠券简介</p>
+                                                </textarea>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <button type="submit" style="margin-right:.7em"
+                                                        class="waves-effect waves-light btn right"><i
+                                                        class="material-icons right">send</i>保&emsp;存
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s0 m0 l2"></div>
+
+                    <input type="hidden" id="couponId" name="couponId" th:value="${coupon?.coupon_id}">
+                    <input type="hidden" id="introId" name="introId" th:value="${coupon?.intro_id}">
+                    <input type="hidden" id="expiryDateStart" name="expiryDateStart" th:value="${coupon?.expiry_date_start}">
+                    <input type="hidden" id="expiryDateEnd" name="expiryDateEnd" th:value="${coupon?.expiry_date_end}">
+                    <input type="hidden" id="shops" name="shops" th:value="${coupon?.shops}">
+                    <input type="hidden" id="couponType" name="couponType" th:value="${T(com.laf.manager.enums.CouponType).PUSH.value()}">
+                </form>
+                <!-- ////////////////////////////////////// form end ////////////////////////////////////// -->
+            </div>
+        </div>
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+    </div>
+    <!--end container-->
+    </section>
+    <!-- END CONTENT -->
+    <!-- START RIGHT SIDEBAR NAV-->
+    <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+    </aside>
+    <!-- END RIGHT SIDEBAR NAV-->
+</div>
+<!-- END WRAPPER -->
+</div>
+<div class="section"></div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<!--<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/parsley.js/2.8.0/parsley.min.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<script src="dropify/dist/js/dropify.min.js"></script>
+<script src="ckeditor/ckeditor.js"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+        var picture = /*[[${coupon?.picture}]]*/ undefined
+        log(picture)
+        if (picture) {
+            $("#input-file-now1").attr("data-default-file", picture)
+        }
+
+        /******************* test value ****************************/
+//        $('#couponName').val('test1')
+//        $('#shops1').val([1, 2])
+//        $('#issueStart1').val('2000-01-31')
+//        console.log($('#issueStart1').val())
+//        console.log(dateToMilliseconds($('#issueStart1').val()))
+//        $('#issueStart').val(dateToMilliseconds($('#issueStart1').val()))
+//        console.log($('#issueStart').val())
+//        $('#issueEnd1').val('2000-01-31')
+//        $('#issueEnd').val(dateToMilliseconds($('#issueEnd1').val()))
+//        $('#expiryDateStart1').val('2000-01-31')
+//        $('#expiryDateStart').val(dateToMilliseconds($('#expiryDateStart1').val()))
+//        $('#expiryDateEnd1').val('2000-01-31')
+//        $('#expiryDateEnd').val(dateToMilliseconds($('#expiryDateEnd1').val()))
+//        $('#circulation').val(9999)
+//        $('#dailyCirculation').val(99)
+//        $('#limited').val(20)
+//        $('#dailyLimited').val(100)
+//        $('#verificationOf').val(9999)
+//        $('#keepVerificationOf').val(3)
+//        $('#price').val(10)
+//        $('#costPrice').val(9)
+//        $('#discountedPrice').val(6)
+//        $('#requiredPoints').val(100)
+//        $('#regTimeStart1').val('2000-01-31')
+//        $('#regTimeStart').val(dateToMilliseconds($('#regTimeStart1').val()))
+//        $('#regTimeEnd1').val('2000-01-31')
+//        $('#regTimeEnd').val(dateToMilliseconds($('#regTimeEnd1').val()))
+//        $('#sortId').val(99)
+//        $('#shops').val(JSON.stringify([1,2]))
+
+        var expiry_date_start = /*[[${coupon?.expiry_date_start}]]*/ undefined
+        if (expiry_date_start) $('#expiryDateStart1').val(dateString(new Date(expiry_date_start)))
+        var expiry_date_end = /*[[${coupon?.expiry_date_end}]]*/ undefined
+        if (expiry_date_end) $('#expiryDateEnd1').val(dateString(new Date(expiry_date_end)))
+
+        var shops = /*[[${coupon?.shops}]]*/ undefined
+        if (shops) $('#shops1').val(JSON.parse(shops))
+
+        $('#expiryDateStart1').on('change', function (event) {
+            $('#expiryDateStart').val(dateToMilliseconds(event.target.value))
+        })
+
+        $('#expiryDateEnd1').on('change', function (event) {
+            $('#expiryDateEnd').val(dateToMilliseconds(event.target.value))
+        })
+
+        $('#shops1').on('change', function (event) {
+            var shopArr = []
+            $(event.currentTarget).find("option:selected").each(function (i, selected) {
+                shopArr.push(parseInt($(selected).val()))
+            })
+//            log(JSON.stringify(shopArr))
+
+            var shopsJson = JSON.stringify(shopArr)
+            log(shopsJson)
+            $('#shops').val(shopsJson)
+
+        })
+
+        /*=============================== dropify start ====================================================================*/
+
+        // Basic
+        $('.dropify').dropify({
+            messages: {
+                'default': '点击或拖拽到这里',
+                'replace': '点击或拖拽进行替换',
+                'remove': '删除',
+                'error': '文件格式错误'
+            },
+            error: {
+                'fileSize': 'The file size is too big ({{ value }} max).',
+                'fileExtension': '只能上传 ({{ value }}) 格式的文件.',
+                'minWidth': 'The image width is too small ({{ value }}}px min).',
+                'maxWidth': 'The image width is too big ({{ value }}}px max).',
+                'minHeight': 'The image height is too small ({{ value }}}px min).',
+                'maxHeight': 'The image height is too big ({{ value }}px max).',
+                'imageFormat': '只能上传 ({{ value }}) 格式的文件.'
+            },
+            tpl: {
+                wrap: '<div class="dropify-wrapper"></div>',
+                loader: '<div class="dropify-loader"></div>',
+                message: '<div class="dropify-message"><span class="file-icon" /> <p style="text-align:center">{{ default }}</p></div>',
+                preview: '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
+                filename: '<p class="dropify-filename"><span class="dropify-filename-inner"></span></p>',
+                clearButton: '<button type="button" class="dropify-clear">{{ remove }}</button>',
+                errorLine: '<p class="dropify-error">{{ error }}</p>',
+                errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>'
+            }
+        })
+
+        $('select').material_select()
+
+    });
+
+    CKEDITOR.replace('intro', {
+        height: '20em'
+    })
+</script>
+</body>
+
+</html>

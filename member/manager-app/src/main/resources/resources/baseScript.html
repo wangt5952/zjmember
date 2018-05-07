@@ -1,0 +1,6 @@
+<div th:fragment="base-script">
+    <script th:inline="javascript">
+        var base = /*[[${@environment.getProperty('com.laf.ajax.url.manager')}]]*/ undefined
+        var base_api = /*[[${@environment.getProperty('com.laf.ajax.url.api')}]]*/ undefined
+    </script>
+</div>

@@ -1,0 +1,62 @@
+server:
+  port: 9002
+  context-path: /
+  session:
+    timeout: 28800
+
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://rm-m5e3yx9fb3g133p6weo.mysql.rds.aliyuncs.com:3306/member?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: member
+    password: Member123465
+  output:
+    ansi:
+    enabled: always
+  thymeleaf:
+    cache: true
+    content-type: text/html
+    enabled: true
+    prefix: classpath:/resources/
+    suffix: html
+    mode: LEGACYHTML5
+  http:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+  session:
+    store-type: none
+
+security:
+  basic:
+    enabled: true
+
+com:
+  laf:
+    manager:
+      browser:
+        loginPage: /login.html
+        loginType: REDIRECT
+    upload:
+      file:
+        path: /var/lib/tomcat8/webapps/upload/images
+        base: /upload/images/
+        domain: http://121.196.208.176:9354
+    settings:
+      appid: wxc798a317f1c859c2
+      excel: export.xls
+    ajax:
+      url:
+        api: http://121.196.208.176:9003/
+        manager: http://121.196.208.176:9002/
+    wechat:
+      domain: http://bsm.dorm9tech.com/
+      path: activity_sign_in
+
+logging:
+  level:
+    org.springframework.jdbc.core.StatementCreatorUtils: debug
+    org.springframework.jdbc.core: debug
+  pattern:
+    console: "%d - %msg%n"
+  path: /var/log/springboot/

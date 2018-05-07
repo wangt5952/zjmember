@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+
+    <style>
+        span.color-flag {
+            border-radius:50%;
+            height:1em;
+            width:1em;
+            display:inline-block;
+            top:.2em;
+            position:relative
+        }
+        span.text-flag {
+            display:inline-block;
+            font-size:.8em;
+            margin-left:.5em;
+            margin-right:1em;
+        }
+    </style>
+</head>
+
+<body ng-app="materializeApp" class="active-member-count">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">会员列表</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">统计</a>
+                                </li>
+                                <li class="active">会员信息统计</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!--start container-->
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div id="chart-js-1" class="section">
+                        <h4 class="header2">会员访问量统计</h4>
+                        <div class="row">
+                            <div class="col s12">
+                                <p>
+                                    <span class="color-flag" style="background-color:rgba(0, 191, 165,1)"></span>
+                                    <span class="text-flag">访问次数</span>
+                                    <span class="color-flag" style="background-color:rgba(255, 110, 64,1)"></span>
+                                    <span class="text-flag">访问人数</span>
+                                    <span class="color-flag" style="background-color:rgba(22, 110, 222,1)"></span>
+                                    <span class="text-flag">活跃人数</span>
+                                </p>
+                            </div>
+                            <div class="col s12">
+                                <div class="sample-chart-wrapper">
+                                    <canvas id="line-chart-sample" height="120"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="chart-js-2" class="section">
+                        <h4 class="header2">会员信息比例</h4>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="sample-chart-wrapper">
+                                    <canvas id="sex-pie-chart"></canvas>
+                                </div>
+                                <p class="header center">男女比例</p>
+                            </div>
+                            <!--<div class="col s6">-->
+                                <!--<div class="sample-chart-wrapper">-->
+                                    <!--<canvas id="age-pie-chart"></canvas>-->
+                                <!--</div>-->
+                                <!--<p class="header center">龄结构比例</p>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+
+                    <div id="chart-js-3" class="section">
+                        <h4 class="header2">会员增长统计</h4>
+                        <div class="row">
+                            <div class="col s12">
+                                <p>
+                                </p>
+                            </div>
+                            <div class="col s12">
+                                <div class="sample-chart-wrapper">
+                                    <canvas id="register-chart-sample" height="120"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="chart-js-4" class="section">
+                        <h4 class="header2">会员生日统计</h4>
+                        <div class="row">
+                            <div class="col s12">
+                                <p>
+                                </p>
+                            </div>
+                            <div class="col s12">
+                                <div class="sample-chart-wrapper">
+                                    <canvas id="birthday-chart-sample" height="120"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+        <!-- START RIGHT SIDEBAR NAV-->
+        <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+        </aside>
+        <!-- END RIGHT SIDEBAR NAV-->
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>
+<!--angularjs-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<!-- chartjs -->
+<script type="text/javascript" src="vendors/chart.min.js"></script>
+
+
+<script th:inline="javascript">
+    var timesData = /*[[${timesData}]]*/ undefined
+    if (timesData) timesData = timesData.split(',')
+
+    var countData = /*[[${countData}]]*/ undefined
+    if (countData) countData = countData.split(',')
+
+    var activeData = /*[[${activeData}]]*/ undefined
+    if (activeData) activeData = activeData.split(',')
+
+    var birthdayData = /*[[${birthdayData}]]*/ undefined
+    if (birthdayData) birthdayData = birthdayData.split(',')
+
+    var registerData = /*[[${registerData}]]*/ undefined
+//    log(registerData)
+    if (registerData) registerData = registerData.split(',')
+
+    var sexData = /*[[${sexData}]]*/ undefined
+    if (sexData) sexData = sexData.split(',')
+
+    var ageData = /*[[${activeData}]]*/ undefined
+    if (ageData) ageData = ageData.split(',')
+
+
+    var LineChartSampleData = {
+        labels: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+        datasets: [{
+            label: "member times dataset",
+            fillColor: "rgba(0, 191, 165,0.2)",
+            strokeColor: "rgba(0, 191, 165,1)",
+            pointColor: "rgba(0, 191, 165,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(0, 191, 165,1)",
+            data: timesData
+        }, {
+            label: "member count dataset",
+            fillColor: "rgba(255, 110, 64,0.2)",
+            strokeColor: "rgba(255, 110, 64,1)",
+            pointColor: "rgba(255, 110, 64,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(255, 110, 64,1)",
+            data: countData
+        }, {
+            label: "active count dataset",
+            fillColor: "rgba(255, 110, 64,0.2)",
+            strokeColor: "rgba(22, 110, 222,1)",
+            pointColor: "rgba(22, 110, 222,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(22, 110, 222,1))",
+            data: activeData
+        }]
+    };
+
+    var sexPieChartSampleData = [
+        {
+            value: sexData[0],
+            color:"#FF5252",
+            highlight: "#E53935",
+            label: "女"
+        },
+        {
+            value: sexData[1],
+            color: "#00BFA5",
+            highlight: "#00897b",
+            label: "男"
+        }
+//        {
+//            value: 100,
+//            color: "#FF6E40",
+//            highlight: "#F4511E",
+//            label: "Orange"
+//        }
+    ]
+
+    var agePieChartSampleData = [
+        {
+            value: ageData[0],
+            color:"#FF5252",
+            highlight: "#E53935",
+            label: "20岁"
+        },
+        {
+            value: ageData[1],
+            color: "#00BFA5",
+            highlight: "#00897b",
+            label: "30岁"
+        },
+        {
+            value: ageData[2],
+            color: "#FF6E40",
+            highlight: "#F4511E",
+            label: "40岁"
+        },
+        {
+            value: ageData[3],
+            color: "#FCE4EC",
+            highlight: "#F8BBD0",
+            label: "50岁"
+        },
+        {
+            value: ageData[4],
+            color: "#BBDEFB",
+            highlight: "#90CAF9",
+            label: "60岁以上"
+        }
+    ]
+
+    var registerChartSampleData = {
+        labels: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+        datasets: [{
+            label: "member register dataset",
+            fillColor: "rgba(0, 191, 165,0.2)",
+            strokeColor: "rgba(0, 191, 165,1)",
+            pointColor: "rgba(0, 191, 165,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(0, 191, 165,1)",
+            data: registerData
+        }]
+    }
+
+    var birthdayChartSampleData = {
+        labels: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+        datasets: [{
+            label: "member register dataset",
+            fillColor: "rgba(0, 191, 165,0.2)",
+            strokeColor: "rgba(0, 191, 165,1)",
+            pointColor: "rgba(0, 191, 165,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(0, 191, 165,1)",
+            data: birthdayData
+        }]
+    }
+
+    $(document).ready(function () {
+        if (timesData && countData && activeData) {
+            window.LineChartSample = new Chart(document.getElementById("line-chart-sample").getContext("2d")).Line(LineChartSampleData, {
+                responsive: true
+            })
+        }
+
+        if (sexData && ageData) {
+            window.SexPieChartSample = new Chart(document.getElementById("sex-pie-chart").getContext("2d")).Pie(sexPieChartSampleData,{
+                responsive:true
+            });
+//            window.AgePieChartSample = new Chart(document.getElementById("age-pie-chart").getContext("2d")).Pie(agePieChartSampleData,{
+//                responsive:true
+//            });
+        }
+
+        if (registerData) {
+            window.RigisterChartSample = new Chart(document.getElementById("register-chart-sample").getContext("2d")).Line(registerChartSampleData, {
+                responsive: true
+            })
+        }
+
+        if (birthdayData) {
+            window.BirthdayChartSample = new Chart(document.getElementById("birthday-chart-sample").getContext("2d")).Line(birthdayChartSampleData, {
+                responsive: true
+            })
+        }
+    })
+
+</script>
+
+</body>
+
+</html>
