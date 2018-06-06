@@ -103,6 +103,7 @@ export  default {
       try{
         this.list = (await this.$http.post(`/api/giftCoupon/info/list`, {
           mallId, page:1, receiveMethod, size:200, keywords
+          // , memberId: parseInt(this.member_id)
         })).data
       }catch(e){
         this.list = [];

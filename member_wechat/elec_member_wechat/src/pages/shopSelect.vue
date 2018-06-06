@@ -2,7 +2,7 @@
   <div>
     <search :auto-fixed="false" v-model="search.keywords"></search>
     <scroller lock-x>
-      <div>
+      <div style="padding-bottom:44px;">
         <div @click="choose(o)" style="display:flex;background-color:#fff;margin-top:1px;" v-for="o in list">
           <div style="width:70px;height:70px;display:flex;align-items:center;justify-content:center;">
             <img :src="o.logo || '/static/img/default-icon.jpg'" style="width:64px;height:64px;">

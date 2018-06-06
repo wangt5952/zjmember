@@ -224,7 +224,6 @@ const file2base64 = file => new Promise((resolve, reject) => {
           let promotion = (await this.$http.get(`/api/points/promotion?levelId=${member.level_id}&shopId=${this.form.shopId}&today=${moment().unix()*1000}&birthday=${member.birthday}`)).data;
           points = points / promotion;
         }catch(e) {
-
           try{
             let simple = (await this.$http.get(`/api/points/simple?levelId=${member.level_id}&shopId=${this.form.shopId}`)).data;
             points = points / simple;
@@ -239,6 +238,7 @@ const file2base64 = file => new Promise((resolve, reject) => {
         $loading.show({
           text: '开始上传小票'
         })
+        debugger
         await this.$http.post(`/api/member/uploadTicket/${this.member_id}`,this.form.formData,config);
         this.$refs.uploadFile.value = '';
         this.form = {

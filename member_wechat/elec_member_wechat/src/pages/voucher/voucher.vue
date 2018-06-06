@@ -110,7 +110,7 @@ export  default {
       const keywords = this.keywords
       try{
         this.list = (await this.$http.post(`/api/coupon/list`, {
-          mallId, page:1, receiveMethod, size:200, keywords
+          mallId, page:1, receiveMethod, size:200, keywords, memberId: parseInt(this.member_id)
         })).data
       }catch(e){
         this.list = [];

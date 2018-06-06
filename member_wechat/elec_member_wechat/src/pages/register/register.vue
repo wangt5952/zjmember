@@ -105,31 +105,32 @@ export default {
     },
   },
   async mounted(){
+    // localStorage.setItem('member_id', '14811');
     document.title = '会员注册'
     let ua = new UAParser().getResult()
-    let { wx_openid } = this.$route.query
+    let { wx_openid , code} = this.$route.query
 
     if (ua.browser.name === 'WeChat') {
 
       let wx_app_id
       try{
-        wx_app_id = (await this.$http.get('/wx/appid')).data.wx_app_id
+        wx_app_id = (await this.$http.get('/wx/appid')).data.wx_app_id//在线获取
       }catch(e){
 
       }
-
-
-
 
       if(!wx_openid){
         const { redirect } = this.$route.query
         if(redirect){
           localStorage.setItem('redirect', redirect)
         }
-        const redirectUri = `http://${location.hostname}/wx/code2openid`
-        location.href = `http://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+        const redirectUri = encodeURI(`http://${location.hostname}/wx/code2openid`)
+        debugger
+        location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+
         return;
       }else{
+        localStorage.setItem('wxcode', code)
         try{
           let { member_id } = (await this.$http.get(`/api/member?appId=${wx_app_id}&openId=${wx_openid}`)).data
           this.$store.commit('login', {member_id})

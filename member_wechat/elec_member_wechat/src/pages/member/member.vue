@@ -66,7 +66,7 @@
           </div>
         </router-link>
 
-        <router-link v-if="false" to="/car" style="display:flex;">
+        <router-link  to="/car" style="display:flex;">
           <div style="display:flex;align-items:center;">
             <img src="static/img/stopcar.png" style="width:0.7rem;height:0.7rem;margin:0 0.5rem;">
           </div>
