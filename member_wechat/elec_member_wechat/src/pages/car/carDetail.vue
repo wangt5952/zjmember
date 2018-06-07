@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 <div>
   <div style="background-color:white;padding:0.5rem;padding-left:0.2rem;display;flex">
     <div style="font-size:0.5rem;">
@@ -133,4 +133,4 @@ export default {
   padding: 8px 0;
   color: #888;
 }
-</style>
+</style> -->

@@ -130,7 +130,6 @@ export default {
 
         return;
       }else{
-        localStorage.setItem('wxcode', code)
         try{
           let { member_id } = (await this.$http.get(`/api/member?appId=${wx_app_id}&openId=${wx_openid}`)).data
           this.$store.commit('login', {member_id})

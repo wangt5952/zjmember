@@ -1,0 +1,8 @@
+
+> wx@1.0.0 build F:\node\zjmembers\member_wechat\wx
+> babel src -d build
+
+src\config\index.js -> build\config\index.js
+src\index.js -> build\index.js
+src\router\webhook.js -> build\router\webhook.js
+src\router\wx.js -> build\router\wx.js

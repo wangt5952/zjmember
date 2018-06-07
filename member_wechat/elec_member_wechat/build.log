@@ -1,0 +1,265 @@
+
+> elec_member_wechat@1.0.0 build F:\node\zjmembers\member_wechat\elec_member_wechat
+> node build/build.js
+
+
+Starting to optimize CSS...
+Processing static/css/app.7e018e4ec0dac0e978561701e90d3e7f.css...
+Processed static/css/app.7e018e4ec0dac0e978561701e90d3e7f.css, before: 127142, after: 116258, ratio: 91.44%
+Hash: [1m95de9130174a0aecaf84[39m[22m
+Version: webpack [1m2.7.0[39m[22m
+Time: [1m106159[39m[22mms
+                                                  [1mAsset[39m[22m       [1mSize[39m[22m  [1mChunks[39m[22m  [1m[39m[22m           [1m[39m[22m       [1mChunk Names[39m[22m
+                                    [1m[32mstatic/img/date.png[39m[22m    3.45 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                    [1m[33mstatic/js/0.34ad633522fd2e80131c.js[39m[22m     [1m[33m475 kB[39m[22m       [1m0[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  sell
+                    [1m[33mstatic/js/2.2d706ab0faf95c87d0ac.js[39m[22m     [1m[33m298 kB[39m[22m       [1m2[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  registerInfo
+                    [1m[33mstatic/js/3.f14828b0246b2a1f5a54.js[39m[22m     [1m[33m382 kB[39m[22m       [1m3[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  changePhone
+                    [1m[33mstatic/js/4.6659de0d1f227c809624.js[39m[22m     [1m[33m376 kB[39m[22m       [1m4[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  
+                    [1m[33mstatic/js/5.98c618d4e8e0b384e6cd.js[39m[22m     [1m[33m377 kB[39m[22m       [1m5[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  memVoucher
+                    [1m[33mstatic/js/6.487042735531138b8d5b.js[39m[22m     [1m[33m377 kB[39m[22m       [1m6[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  
+                    [1m[33mstatic/js/7.3ec7f19f5474b83a0bc6.js[39m[22m     [1m[33m304 kB[39m[22m       [1m7[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  
+                    [1m[33mstatic/js/8.eb7dac7524f64bdecf55.js[39m[22m     [1m[33m305 kB[39m[22m       [1m8[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  activities
+                    [1m[33mstatic/js/9.e9dced2a4aab39ed3c0f.js[39m[22m     [1m[33m306 kB[39m[22m       [1m9[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  activeDetail
+                   [1m[33mstatic/js/10.1b4ff2ac85318c4f19ae.js[39m[22m     [1m[33m306 kB[39m[22m      [1m10[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  
+                   [1m[32mstatic/js/11.a7f4b80ff0906e16abed.js[39m[22m     230 kB      [1m11[39m[22m  [1m[32m[emitted][39m[22m         voucherDetail
+                   [1m[32mstatic/js/12.7b814aba501b0c39450d.js[39m[22m     230 kB      [1m12[39m[22m  [1m[32m[emitted][39m[22m         memberLevel
+                   [1m[32mstatic/js/13.4cca59b03f36f68e9041.js[39m[22m     228 kB      [1m13[39m[22m  [1m[32m[emitted][39m[22m         memVouDetail
+                   [1m[32mstatic/js/14.020a562fceca7e806309.js[39m[22m     230 kB      [1m14[39m[22m  [1m[32m[emitted][39m[22m         memActivities
+                   [1m[32mstatic/js/15.3861450a6f712ac72bb5.js[39m[22m     230 kB      [1m15[39m[22m  [1m[32m[emitted][39m[22m         
+                   [1m[32mstatic/js/16.17614fe3cef8a8caa9a6.js[39m[22m     228 kB      [1m16[39m[22m  [1m[32m[emitted][39m[22m         
+                   [1m[33mstatic/js/17.f67d97c11611574d4825.js[39m[22m     [1m[33m268 kB[39m[22m      [1m17[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  sellers
+                   [1m[32mstatic/js/18.1bd41dd6ce249d3a11db.js[39m[22m     238 kB      [1m18[39m[22m  [1m[32m[emitted][39m[22m         
+                   [1m[32mstatic/js/19.21ed64648dd1077829a6.js[39m[22m     213 kB      [1m19[39m[22m  [1m[32m[emitted][39m[22m         staffRegister
+                   [1m[32mstatic/js/20.2969b62a0aa50e083693.js[39m[22m     189 kB      [1m20[39m[22m  [1m[32m[emitted][39m[22m         car
+                   [1m[32mstatic/js/21.8dcc285b84f3e9a388b0.js[39m[22m     208 kB      [1m21[39m[22m  [1m[32m[emitted][39m[22m         
+                   [1m[32mstatic/js/22.8b877f1229096f238e6e.js[39m[22m    84.1 kB      [1m22[39m[22m  [1m[32m[emitted][39m[22m         carDetail
+                   [1m[32mstatic/js/23.7063a51a3f4c3171e255.js[39m[22m     167 kB      [1m23[39m[22m  [1m[32m[emitted][39m[22m         voucher
+                   [1m[32mstatic/js/24.1289712697a0bd170d52.js[39m[22m     166 kB      [1m24[39m[22m  [1m[32m[emitted][39m[22m         
+                   [1m[32mstatic/js/25.7a9fe6bf10f5b1e6b818.js[39m[22m     187 kB      [1m25[39m[22m  [1m[32m[emitted][39m[22m         
+                   [1m[32mstatic/js/26.3a2b873df01284624c7d.js[39m[22m     187 kB      [1m26[39m[22m  [1m[32m[emitted][39m[22m         
+                   [1m[32mstatic/js/27.7edd75432389fc62789c.js[39m[22m    78.4 kB      [1m27[39m[22m  [1m[32m[emitted][39m[22m         squareInfo
+                   [1m[32mstatic/js/28.c8ea9a21af21c4580827.js[39m[22m    6.58 kB      [1m28[39m[22m  [1m[32m[emitted][39m[22m         register
+                   [1m[32mstatic/js/29.e0dcb9114819867cf2f1.js[39m[22m    3.02 kB      [1m29[39m[22m  [1m[32m[emitted][39m[22m         changeSuccess
+                   [1m[32mstatic/js/30.6e3d2993f37ef53020e5.js[39m[22m    3.08 kB      [1m30[39m[22m  [1m[32m[emitted][39m[22m         staRegSuccess
+                   [1m[32mstatic/js/31.8cb81fc6930afd270abc.js[39m[22m     2.8 kB      [1m31[39m[22m  [1m[32m[emitted][39m[22m         registerSucc
+                   [1m[32mstatic/js/32.8e58bc75a4074a0f90b3.js[39m[22m      73 kB      [1m32[39m[22m  [1m[32m[emitted][39m[22m         
+                   [1m[32mstatic/js/33.1c5426495eb6a1356d2e.js[39m[22m     4.9 kB      [1m33[39m[22m  [1m[32m[emitted][39m[22m         /login
+                   [1m[32mstatic/js/34.7eba34ca532766927ea9.js[39m[22m    1.74 kB      [1m34[39m[22m  [1m[32m[emitted][39m[22m         test
+                   [1m[32mstatic/js/35.d497ae5cf15603419d78.js[39m[22m  811 bytes      [1m35[39m[22m  [1m[32m[emitted][39m[22m         staffRegister1
+                   [1m[32mstatic/js/36.038df98a930ba58fd279.js[39m[22m  810 bytes      [1m36[39m[22m  [1m[32m[emitted][39m[22m         staffRegister0
+                   [1m[32mstatic/js/37.07ca3c73ea124603b319.js[39m[22m     2.5 kB      [1m37[39m[22m  [1m[32m[emitted][39m[22m         getPosition
+                   [1m[32mstatic/js/38.440aa946a0b7f88e88b1.js[39m[22m    8.48 kB      [1m38[39m[22m  [1m[32m[emitted][39m[22m         member
+               [1m[33mstatic/js/vendor.eec2647ecb37ca511f7a.js[39m[22m     [1m[33m363 kB[39m[22m      [1m39[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  vendor
+                  [1m[32mstatic/js/app.8e2b914bd7e42e60af91.js[39m[22m    15.7 kB      [1m40[39m[22m  [1m[32m[emitted][39m[22m         app
+             [1m[32mstatic/js/manifest.06272e85a40ea3a33b9a.js[39m[22m    2.52 kB      [1m41[39m[22m  [1m[32m[emitted][39m[22m         manifest
+    [1m[32mstatic/css/app.7e018e4ec0dac0e978561701e90d3e7f.css[39m[22m     116 kB      [1m40[39m[22m  [1m[32m[emitted][39m[22m         app
+                [1m[32mstatic/js/0.34ad633522fd2e80131c.js.map[39m[22m    3.39 MB       [1m0[39m[22m  [1m[32m[emitted][39m[22m         sell
+                [1m[32mstatic/js/1.0e6b9b73ade00df44988.js.map[39m[22m    3.25 MB       [1m1[39m[22m  [1m[32m[emitted][39m[22m         userInfo
+                [1m[32mstatic/js/2.2d706ab0faf95c87d0ac.js.map[39m[22m     1.5 MB       [1m2[39m[22m  [1m[32m[emitted][39m[22m         registerInfo
+                [1m[32mstatic/js/3.f14828b0246b2a1f5a54.js.map[39m[22m    3.04 MB       [1m3[39m[22m  [1m[32m[emitted][39m[22m         changePhone
+                [1m[32mstatic/js/4.6659de0d1f227c809624.js.map[39m[22m       3 MB       [1m4[39m[22m  [1m[32m[emitted][39m[22m         
+                [1m[32mstatic/js/5.98c618d4e8e0b384e6cd.js.map[39m[22m       3 MB       [1m5[39m[22m  [1m[32m[emitted][39m[22m         memVoucher
+                [1m[32mstatic/js/6.487042735531138b8d5b.js.map[39m[22m       3 MB       [1m6[39m[22m  [1m[32m[emitted][39m[22m         
+                [1m[32mstatic/js/7.3ec7f19f5474b83a0bc6.js.map[39m[22m    1.75 MB       [1m7[39m[22m  [1m[32m[emitted][39m[22m         
+                [1m[32mstatic/js/8.eb7dac7524f64bdecf55.js.map[39m[22m    1.75 MB       [1m8[39m[22m  [1m[32m[emitted][39m[22m         activities
+                [1m[32mstatic/js/9.e9dced2a4aab39ed3c0f.js.map[39m[22m    1.76 MB       [1m9[39m[22m  [1m[32m[emitted][39m[22m         activeDetail
+               [1m[32mstatic/js/10.1b4ff2ac85318c4f19ae.js.map[39m[22m    1.76 MB      [1m10[39m[22m  [1m[32m[emitted][39m[22m         
+               [1m[32mstatic/js/11.a7f4b80ff0906e16abed.js.map[39m[22m    1.25 MB      [1m11[39m[22m  [1m[32m[emitted][39m[22m         voucherDetail
+               [1m[32mstatic/js/12.7b814aba501b0c39450d.js.map[39m[22m    1.25 MB      [1m12[39m[22m  [1m[32m[emitted][39m[22m         memberLevel
+               [1m[32mstatic/js/13.4cca59b03f36f68e9041.js.map[39m[22m    1.24 MB      [1m13[39m[22m  [1m[32m[emitted][39m[22m         memVouDetail
+               [1m[32mstatic/js/14.020a562fceca7e806309.js.map[39m[22m    1.24 MB      [1m14[39m[22m  [1m[32m[emitted][39m[22m         memActivities
+               [1m[32mstatic/js/15.3861450a6f712ac72bb5.js.map[39m[22m    1.25 MB      [1m15[39m[22m  [1m[32m[emitted][39m[22m         
+               [1m[32mstatic/js/16.17614fe3cef8a8caa9a6.js.map[39m[22m    1.24 MB      [1m16[39m[22m  [1m[32m[emitted][39m[22m         
+               [1m[32mstatic/js/17.f67d97c11611574d4825.js.map[39m[22m    2.14 MB      [1m17[39m[22m  [1m[32m[emitted][39m[22m         sellers
+               [1m[32mstatic/js/18.1bd41dd6ce249d3a11db.js.map[39m[22m    2.09 MB      [1m18[39m[22m  [1m[32m[emitted][39m[22m         
+               [1m[32mstatic/js/19.21ed64648dd1077829a6.js.map[39m[22m       2 MB      [1m19[39m[22m  [1m[32m[emitted][39m[22m         staffRegister
+               [1m[32mstatic/js/20.2969b62a0aa50e083693.js.map[39m[22m    1.93 MB      [1m20[39m[22m  [1m[32m[emitted][39m[22m         car
+               [1m[32mstatic/js/21.8dcc285b84f3e9a388b0.js.map[39m[22m    1.97 MB      [1m21[39m[22m  [1m[32m[emitted][39m[22m         
+               [1m[32mstatic/js/22.8b877f1229096f238e6e.js.map[39m[22m     293 kB      [1m22[39m[22m  [1m[32m[emitted][39m[22m         carDetail
+               [1m[32mstatic/js/23.7063a51a3f4c3171e255.js.map[39m[22m    1.85 MB      [1m23[39m[22m  [1m[32m[emitted][39m[22m         voucher
+               [1m[32mstatic/js/24.1289712697a0bd170d52.js.map[39m[22m    1.85 MB      [1m24[39m[22m  [1m[32m[emitted][39m[22m         
+               [1m[32mstatic/js/25.7a9fe6bf10f5b1e6b818.js.map[39m[22m    1.87 MB      [1m25[39m[22m  [1m[32m[emitted][39m[22m         
+               [1m[32mstatic/js/26.3a2b873df01284624c7d.js.map[39m[22m    1.87 MB      [1m26[39m[22m  [1m[32m[emitted][39m[22m         
+               [1m[32mstatic/js/27.7edd75432389fc62789c.js.map[39m[22m     533 kB      [1m27[39m[22m  [1m[32m[emitted][39m[22m         squareInfo
+               [1m[32mstatic/js/28.c8ea9a21af21c4580827.js.map[39m[22m    48.5 kB      [1m28[39m[22m  [1m[32m[emitted][39m[22m         register
+               [1m[32mstatic/js/29.e0dcb9114819867cf2f1.js.map[39m[22m    25.7 kB      [1m29[39m[22m  [1m[32m[emitted][39m[22m         changeSuccess
+               [1m[32mstatic/js/30.6e3d2993f37ef53020e5.js.map[39m[22m      26 kB      [1m30[39m[22m  [1m[32m[emitted][39m[22m         staRegSuccess
+               [1m[32mstatic/js/31.8cb81fc6930afd270abc.js.map[39m[22m    25.1 kB      [1m31[39m[22m  [1m[32m[emitted][39m[22m         registerSucc
+               [1m[32mstatic/js/32.8e58bc75a4074a0f90b3.js.map[39m[22m    1.26 MB      [1m32[39m[22m  [1m[32m[emitted][39m[22m         
+               [1m[32mstatic/js/33.1c5426495eb6a1356d2e.js.map[39m[22m    28.3 kB      [1m33[39m[22m  [1m[32m[emitted][39m[22m         /login
+               [1m[32mstatic/js/34.7eba34ca532766927ea9.js.map[39m[22m    15.3 kB      [1m34[39m[22m  [1m[32m[emitted][39m[22m         test
+               [1m[32mstatic/js/35.d497ae5cf15603419d78.js.map[39m[22m    11.2 kB      [1m35[39m[22m  [1m[32m[emitted][39m[22m         staffRegister1
+               [1m[32mstatic/js/36.038df98a930ba58fd279.js.map[39m[22m    11.3 kB      [1m36[39m[22m  [1m[32m[emitted][39m[22m         staffRegister0
+               [1m[32mstatic/js/37.07ca3c73ea124603b319.js.map[39m[22m    17.7 kB      [1m37[39m[22m  [1m[32m[emitted][39m[22m         getPosition
+               [1m[32mstatic/js/38.440aa946a0b7f88e88b1.js.map[39m[22m    39.2 kB      [1m38[39m[22m  [1m[32m[emitted][39m[22m         member
+           [1m[32mstatic/js/vendor.eec2647ecb37ca511f7a.js.map[39m[22m    2.55 MB      [1m39[39m[22m  [1m[32m[emitted][39m[22m         vendor
+              [1m[32mstatic/js/app.8e2b914bd7e42e60af91.js.map[39m[22m     109 kB      [1m40[39m[22m  [1m[32m[emitted][39m[22m         app
+[1m[32mstatic/css/app.7e018e4ec0dac0e978561701e90d3e7f.css.map[39m[22m     215 kB      [1m40[39m[22m  [1m[32m[emitted][39m[22m         app
+         [1m[32mstatic/js/manifest.06272e85a40ea3a33b9a.js.map[39m[22m    17.7 kB      [1m41[39m[22m  [1m[32m[emitted][39m[22m         manifest
+                                             [1m[32mindex.html[39m[22m  681 bytes        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                   [1m[32mstatic/css/reset.css[39m[22m  653 bytes        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                              [1m[32mstatic/img/1510724764.png[39m[22m    1.51 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                       [1m[32mstatic/img/2.jpg[39m[22m    24.8 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                       [1m[32mstatic/game.html[39m[22m    54.5 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                [1m[32mstatic/img/activity.png[39m[22m    3.17 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                              [1m[32mstatic/img/activeTest.jpg[39m[22m    16.1 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                       [1m[32mstatic/img/3.jpg[39m[22m    38.9 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                       [1m[32mstatic/img/1.jpg[39m[22m    26.8 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                  [1m[32mstatic/img/border.png[39m[22m  931 bytes        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                 [1m[32mstatic/img/address.png[39m[22m    1.62 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                  [1m[32mstatic/img/camera.png[39m[22m    3.29 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                 [1m[32mstatic/img/carstop.png[39m[22m    1.56 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                    [1m[32mstatic/img/date.jpg[39m[22m    9.38 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                    [1m[32mstatic/img/cash.png[39m[22m    4.24 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                     [1m[32mstatic/img/car.png[39m[22m    1.56 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                             [1m[32mstatic/img/certificate.png[39m[22m    1.82 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                    [1m[33mstatic/js/1.0e6b9b73ade00df44988.js[39m[22m     [1m[33m447 kB[39m[22m       [1m1[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  userInfo
+                            [1m[32mstatic/img/default-icon.jpg[39m[22m    4.45 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                     [1m[32mstatic/img/cat.jpg[39m[22m     3.4 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                   [1m[32mstatic/img/gdmap.png[39m[22m    6.56 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                    [1m[32mstatic/img/fpyz.jpg[39m[22m    27.6 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                      [1m[32mstatic/img/jb.png[39m[22m     3.2 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                      [1m[32mstatic/img/jf.png[39m[22m    1.38 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                    [1m[32mstatic/img/jfrd.png[39m[22m  488 bytes        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                    [1m[32mstatic/img/hgds.jpg[39m[22m    9.31 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                      [1m[32mstatic/img/jr.png[39m[22m    1.17 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                      [1m[32mstatic/img/lc.png[39m[22m    1.27 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                    [1m[32mstatic/img/hgds.png[39m[22m    52.3 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                            [1m[32mstatic/img/latestactive.png[39m[22m    4.65 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                 [1m[32mstatic/img/logo001.png[39m[22m  209 bytes        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                       [1m[32mstatic/img/member_card_right.png[39m[22m    21.3 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                   [1m[32mstatic/img/level.png[39m[22m    2.44 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                 [1m[32mstatic/img/logo002.png[39m[22m  327 bytes        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                      [1m[32mstatic/img/nr.png[39m[22m  374 bytes        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                        [1m[32mstatic/img/member_card_left.png[39m[22m    33.3 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                   [1m[32mstatic/img/jifen.jpg[39m[22m      57 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                  [1m[32mstatic/img/optime.png[39m[22m    1.61 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                   [1m[32mstatic/img/phone.png[39m[22m    1.83 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                  [1m[32mstatic/img/member.png[39m[22m    3.41 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                   [1m[32mstatic/img/point.png[39m[22m    1.01 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                [1m[32mstatic/img/register.png[39m[22m    5.42 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                  [1m[32mstatic/img/record.png[39m[22m    3.46 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                               [1m[32mstatic/img/rightLogo.png[39m[22m  317 bytes        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                 [1m[32mstatic/img/stopcar.png[39m[22m    3.91 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                   [1m[32mstatic/img/smile.png[39m[22m    10.8 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                  [1m[32mstatic/img/search.png[39m[22m    1.88 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                  [1m[32mstatic/img/upload.png[39m[22m    3.59 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                    [1m[32mstatic/img/quan.jpg[39m[22m    70.6 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                [1m[32mstatic/img/userinfo.png[39m[22m    2.16 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                             [1m[32mstatic/img/updatephone.png[39m[22m  492 bytes        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                 [1m[32mstatic/img/voucher.png[39m[22m    3.61 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                      [1m[32mstatic/img/xx.png[39m[22m    1.07 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                             [1m[32mstatic/img/voucherLogo.jpg[39m[22m      16 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                        [1m[32mstatic/zhuanpan/pan-bg-blue.png[39m[22m    16.1 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                         [1m[32mstatic/zhuanpan/pan-bg-red.png[39m[22m    15.4 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAg0Iu8zwUo9MzdpwYwlgQ4lgQ.png[39m[22m    4.14 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                      [1m[32mstatic/zhuanpan/pan-bg-yellow.png[39m[22m    17.2 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAg_Yu8zwUog--NtgMwhgE4hgE.png[39m[22m    3.42 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAg-Iu8zwUo1bLkggcwhgE4hgE.png[39m[22m    4.85 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+         [1m[32mstatic/zp/ACgIABAEGAAg4ou8zwUo2Kyn6AEwHDgc.png[39m[22m  522 bytes        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABACGAAguZ28zwUoiM-W2AUwgAU4wAw.jpg[39m[22m    51.7 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+         [1m[32mstatic/zp/ACgIABAEGAAg34u8zwUotNbH_QcwHDgc.png[39m[22m  565 bytes        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAg6Iu8zwUo8_fMgAcwhgE4hgE.png[39m[22m  900 bytes        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAg7ou8zwUokLyJxgcwhgE4hgE.png[39m[22m    3.59 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAg8ou8zwUojPDHgQcwhgE4hgE.png[39m[22m    4.15 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAg9Yu8zwUovPSpjQcwhgE4hgE.png[39m[22m    3.38 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAgh4y8zwUoxP3Y6AQwhgE4hgE.png[39m[22m    2.98 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAg85vO0QUo8vfcigUw9gQ46AI.png[39m[22m    25.4 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+         [1m[32mstatic/zp/ACgIABAEGAAgj4u8zwUowIeFkQIwbThi.png[39m[22m    5.97 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAggYy8zwUo8MvS9QIwhgE4hgE.png[39m[22m    3.88 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAgkIy8zwUo0L-VuQcwhgE4hgE.png[39m[22m    3.85 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAgmYy8zwUo0uyq-QYwhgE4hgE.png[39m[22m    3.85 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAgy4u8zwUogKSG9AEwhgE4hgE.png[39m[22m    7.91 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAgnoy8zwUo1JrA4wIwhgE4hgE.png[39m[22m    3.66 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                     [1m[32mstatic/zp/auBg.jpg[39m[22m    13.3 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+      [1m[32mstatic/zp/ACgIABAEGAAgyIu8zwUo3JPwigMwhgE4hgE.png[39m[22m    7.95 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                     [1m[32mstatic/zp/bird.png[39m[22m    2.01 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                 [1m[32mstatic/zp/bg_award.png[39m[22m    2.86 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                   [1m[32mstatic/zp/button.mp3[39m[22m    10.4 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                 [1m[32mstatic/zp/base.min.css[39m[22m    70.5 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                 [1m[32mstatic/zp/caewmB_1.png[39m[22m    24.6 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                [1m[32mstatic/zp/clickView.png[39m[22m    13.1 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                    [1m[32mstatic/zp/close.png[39m[22m    1.34 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                      [1m[32mstatic/zp/djq.png[39m[22m    4.08 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                    [1m[32mstatic/zp/caewm.jpg[39m[22m    41.2 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                  [1m[32mstatic/zp/faiImg2.png[39m[22m    23.9 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                   [1m[32mstatic/zp/faiImg.png[39m[22m      25 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                  [1m[32mstatic/zp/faiImg3.png[39m[22m    82.9 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                     [1m[32mstatic/zp/gift.png[39m[22m    24.7 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                     [1m[32mstatic/zp/fxzy.png[39m[22m    7.33 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                       [1m[32mstatic/zp/gg.jpg[39m[22m     149 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                               [1m[32mstatic/zp/hawkEye.min.js[39m[22m    26.3 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                  [1m[32mstatic/MP_verify_XDTQAzjO5CwqUMIE.txt[39m[22m   16 bytes        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                [1m[32mstatic/zp/hdUtil.min.js[39m[22m    35.5 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                               [1m[33mstatic/zp/bgmusic29H.mp3[39m[22m     [1m[33m444 kB[39m[22m        [1m[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  
+                                [1m[32mstatic/zp/hdgame.min.js[39m[22m     138 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                 [1m[32mstatic/zp/weui.min.css[39m[22m      52 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                    [1m[32mstatic/zp/unpub.png[39m[22m     1.6 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                  [1m[32mstatic/zp/success.png[39m[22m    4.55 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                    [1m[32mstatic/zp/title.png[39m[22m     134 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                  [1m[32mstatic/zp/ruleImg.png[39m[22m    4.68 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                [1m[32mstatic/zp/startDraw.mp3[39m[22m    3.58 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                          [1m[32mstatic/zp/ruleImg_special.png[39m[22m    7.01 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                 [1m[32mstatic/zp/startBtn.png[39m[22m    4.88 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                   [1m[32mstatic/zp/sc2018.jpg[39m[22m    43.2 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                [1m[32mstatic/zp/qrcodeImg.jpg[39m[22m    1.84 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                     [1m[32mstatic/zp/sjxz.png[39m[22m    6.63 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                 [1m[32mstatic/zp/musicOff.png[39m[22m    5.25 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                  [1m[32mstatic/zp/musicOn.png[39m[22m    4.03 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                   [1m[32mstatic/zp/manImg.jpg[39m[22m    5.85 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                     [1m[32mstatic/zp/logo.jpg[39m[22m    1.85 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                    [1m[32mstatic/zp/lots1.png[39m[22m    24.2 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                     [1m[32mstatic/zp/kqjt.png[39m[22m    1.42 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                    [1m[32mstatic/zp/light.png[39m[22m     105 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                     [1m[32mstatic/zp/kqbd.png[39m[22m    1.13 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                   [1m[32mstatic/zp/homeBg.jpg[39m[22m    18.6 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                       [1m[32mstatic/zp/jt.png[39m[22m  988 bytes        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                                [1m[32mstatic/zp/hlcbt.min.css[39m[22m    1.85 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                               [1m[32mstatic/zp/kc2018over.jpg[39m[22m     169 kB        [1m[39m[22m  [1m[32m[emitted][39m[22m         
+                            [1m[33mstatic/zp/lufylegend.min.js[39m[22m     [1m[33m281 kB[39m[22m        [1m[39m[22m  [1m[32m[emitted][39m[22m  [1m[33m[big][39m[22m  
+
+[1m[31mERROR in ./src/main.js
+Module not found: Error: Can't resolve 'ua-parser-js' in 'F:\node\zjmembers\member_wechat\elec_member_wechat\src'
+ @ ./src/main.js 14:0-36[39m[22m
+
+[1m[31mERROR in ./src/main.js
+Module not found: Error: Can't resolve 'lib-flexible/flexible' in 'F:\node\zjmembers\member_wechat\elec_member_wechat\src'
+ @ ./src/main.js 17:0-31[39m[22m
+
+[1m[31mERROR in ./~/babel-loader/lib!./~/vux-loader/src/script-loader.js!./~/vue-loader/lib/selector.js?type=script&index=0!./src/pages/register/register.vue
+Module not found: Error: Can't resolve 'ua-parser-js' in 'F:\node\zjmembers\member_wechat\elec_member_wechat\src\pages\register'
+ @ ./~/babel-loader/lib!./~/vux-loader/src/script-loader.js!./~/vue-loader/lib/selector.js?type=script&index=0!./src/pages/register/register.vue 10:0-36
+ @ ./src/pages/register/register.vue
+ @ ./src/router/router.js
+ @ ./src/main.js[39m[22m
+
+[1m[31mERROR in ./~/babel-loader/lib!./~/vux-loader/src/script-loader.js!./~/vue-loader/lib/selector.js?type=script&index=0!./src/pages/ticketsUpload/ticketsUpload.vue
+Module not found: Error: Can't resolve 'lrz' in 'F:\node\zjmembers\member_wechat\elec_member_wechat\src\pages\ticketsUpload'
+ @ ./~/babel-loader/lib!./~/vux-loader/src/script-loader.js!./~/vue-loader/lib/selector.js?type=script&index=0!./src/pages/ticketsUpload/ticketsUpload.vue 14:0-22
+ @ ./src/pages/ticketsUpload/ticketsUpload.vue
+ @ ./src/router/router.js
+ @ ./src/main.js[39m[22m
+
+[1m[31mERROR in ./~/babel-loader/lib!./~/vux-loader/src/script-loader.js!./~/vue-loader/lib/selector.js?type=script&index=0!./src/pages/memVouDetail/memVouDetail.vue
+Module not found: Error: Can't resolve 'vue-qr' in 'F:\node\zjmembers\member_wechat\elec_member_wechat\src\pages\memVouDetail'
+ @ ./~/babel-loader/lib!./~/vux-loader/src/script-loader.js!./~/vue-loader/lib/selector.js?type=script&index=0!./src/pages/memVouDetail/memVouDetail.vue 39:0-27
+ @ ./src/pages/memVouDetail/memVouDetail.vue
+ @ ./src/router/router.js
+ @ ./src/main.js[39m[22m
+
+[1m[31mERROR in ./~/babel-loader/lib!./~/vux-loader/src/script-loader.js!./~/vue-loader/lib/selector.js?type=script&index=0!./src/pages/gift_memVouDetail/memVouDetail.vue
+Module not found: Error: Can't resolve 'vue-qr' in 'F:\node\zjmembers\member_wechat\elec_member_wechat\src\pages\gift_memVouDetail'
+ @ ./~/babel-loader/lib!./~/vux-loader/src/script-loader.js!./~/vue-loader/lib/selector.js?type=script&index=0!./src/pages/gift_memVouDetail/memVouDetail.vue 39:0-27
+ @ ./src/pages/gift_memVouDetail/memVouDetail.vue
+ @ ./src/router/router.js
+ @ ./src/main.js[39m[22m
+
+[1m[31mERROR in ./~/babel-loader/lib!./~/vux-loader/src/script-loader.js!./~/vue-loader/lib/selector.js?type=script&index=0!./src/pages/car/carDetail.vue
+Module not found: Error: Can't resolve '@/components/common/wxpay.vue' in 'F:\node\zjmembers\member_wechat\elec_member_wechat\src\pages\car'
+ @ ./~/babel-loader/lib!./~/vux-loader/src/script-loader.js!./~/vue-loader/lib/selector.js?type=script&index=0!./src/pages/car/carDetail.vue 8:0-48
+ @ ./src/pages/car/carDetail.vue
+ @ ./src/router/router.js
+ @ ./src/main.js[39m[22m
+
+  Build failed with errors.
+
