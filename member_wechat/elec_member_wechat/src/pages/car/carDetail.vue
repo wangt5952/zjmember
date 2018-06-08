@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
 <div>
   <div style="background-color:white;padding:0.5rem;padding-left:0.2rem;display;flex">
     <div style="font-size:0.5rem;">
@@ -62,11 +62,6 @@ import {
 } from 'vux'
 
 
-
-import pay from '@/components/common/wxpay.vue'
-const {
-  WxPay
-} = pay
 export default {
   components: {
     Group,
@@ -75,52 +70,194 @@ export default {
   data() {
     return {
       options1: ['A', 'B', 'C'],
-      licenceNum: []
+      licenceNum: [],
+      wx_openid: '',
+      access_token: '',
+      config: {
+        wxappid: 'wx3041b222eaad5c8a',
+        wxappsecret: 'fda2fbf4fdec7a43b178f12d4bf36414',
+        wxpaykey: 'x0jhJ4r5NMAKei7ktvysNhYxjFsV63uR',
+        mch_id: '1505462971'
+      }
     }
   },
   mounted() {
     let arr = this.$route.query.car_number
     this.licenceNum = arr
-    let bbb = WxPay
+
+    let {
+      wx_openid,
+      access_token
+    } = this.$route.query
+
+    if (wx_openid) {
+      this.wx_openid = wx_openid
+      this.access_token = access_token
+      let obj = {
+        notify_url: 'http://demo.com/', //微信支付完成后的回调
+        out_trade_no: new Date().getTime(), //订单号
+        attach: '名称',
+        body: '购买信息',
+        total_fee: '1', // 此处的额度为分
+        spbill_create_ip: '121.196.208.176'
+      }
+      this.loadgetBrandWCPayParams(obj, function(error, responseData) {
+        res.render('payment', {
+          title: '微信支付',
+          wxPayParams: JSON.stringify(responseData),
+          //userInfo : userInfo
+        });
+      })
+
+    }
   },
 
   methods: {
-     async wxpayClik() {
-
-      let { wx_openid } = this.$route.query
-  debugger
-      let wx_app_id
-      try{
-        wx_app_id = 'wx3041b222eaad5c8a'
-        // wx_app_id = (await this.$http.get('http://jiayuanmember.dorm9tech.com/wx/appid')).data.wx_app_id
-      }catch(e){
-      }
-
-      if(!wx_openid){
-        const { redirect } = this.$route.query
-        if(redirect){
-          localStorage.setItem('redirect', redirect)
+    loadgetBrandWCPayParams(obj, cb) {
+      this.getBrandWCPayParams(obj, function(error, responseData) {
+        if (error) {
+          cb(error);
+        } else {
+          cb(null, responseData);
         }
-        const redirectUri = `http://${location.hostname}/wx/code2openid`
-        location.href = `http://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
-        return;
-      }else{
-        WxPay.getAccessToken({
-          notify_url: 'http://demo.com/', //微信支付完成后的回调
-          out_trade_no: new Date().getTime(), //订单号
-          attach: '名称',
-          body: '购买信息',
-          total_fee: '1', // 此处的额度为分
-          spbill_create_ip: '192',
-          wx_code: wx_openid,
-        }, function(error, responseData) {
-          res.render('payment', {
-            title: '微信支付',
-            wxPayParams: JSON.stringify('123'),
-            //userInfo : userInfo
-          });
-        })
+      });
+    },
+    /**
+     * 获取微信统一下单参数
+     */
+    getUnifiedorderXmlParams(obj) {
+      var body = '<xml> ' +
+        '<appid>' + config.wxappid + '</appid> ' +
+        '<attach>' + obj.attach + '</attach> ' +
+        '<body>' + obj.body + '</body> ' +
+        '<mch_id>' + config.mch_id + '</mch_id> ' +
+        '<nonce_str>' + obj.nonce_str + '</nonce_str> ' +
+        '<notify_url>' + obj.notify_url + '</notify_url>' +
+        '<openid>' + obj.openid + '</openid> ' +
+        '<out_trade_no>' + obj.out_trade_no + '</out_trade_no>' +
+        '<spbill_create_ip>' + obj.spbill_create_ip + '</spbill_create_ip> ' +
+        '<total_fee>' + obj.total_fee + '</total_fee> ' +
+        '<trade_type>' + obj.trade_type + '</trade_type> ' +
+        '<sign>' + obj.sign + '</sign> ' +
+        '</xml>';
+      return body;
+    },
+    getPrepayId(obj) {
+      var that = this;
+      // 生成统一下单接口参数
+      var UnifiedorderParams = {
+        appid: config.wxappid,
+        attach: obj.attach,
+        body: obj.body,
+        mch_id: config.mch_id,
+        nonce_str: this.createNonceStr(),
+        notify_url: obj.notify_url, // 微信付款后的回调地址
+        openid: this.userInfo.openid,
+        out_trade_no: obj.out_trade_no, //new Date().getTime(), //订单号
+        spbill_create_ip: obj.spbill_create_ip,
+        total_fee: obj.total_fee,
+        trade_type: 'JSAPI',
+        // sign : getSign(),
+      };
+      // 返回 promise 对象
+      return new Promise(function(resolve, reject) {
+        // 获取 sign 参数
+        UnifiedorderParams.sign = that.getSign(UnifiedorderParams);
+        var url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
+        request.post({
+          url: url,
+          body: JSON.stringify(that.getUnifiedorderXmlParams(UnifiedorderParams))
+        }, function(error, response, body) {
+          var prepay_id = '';
+          if (!error && response.statusCode == 200) {
+            // 微信返回的数据为 xml 格式， 需要装换为 json 数据， 便于使用
+            xml2jsparseString(body, {
+              async: true
+            }, function(error, result) {
+              prepay_id = result.xml.prepay_id[0];
+              // 放回数组的第一个元素
+              resolve(prepay_id);
+            });
+          } else {
+            reject(body);
+          }
+        });
+      })
+    },
+    getSign(signParams) {
+      // 按 key 值的ascll 排序
+      var keys = Object.keys(signParams);
+      keys = keys.sort();
+      var newArgs = {};
+      keys.forEach(function(val, key) {
+        if (signParams[val]) {
+          newArgs[val] = signParams[val];
+        }
+      })
+      var string = queryString.stringify(newArgs) + '&key=' + config.wxpaykey;
+      // 生成签名
+      return crypto.createHash('md5').update(queryString.unescape(string), 'utf8').digest("hex").toUpperCase();
+    },
+    getBrandWCPayParams(obj, callback) {
+      var that = this;
+      var prepay_id_promise = that.getPrepayId(obj);
+      prepay_id_promise.then(function(prepay_id) {
+        var prepay_id = prepay_id;
+        var wcPayParams = {
+          "appId": config.wxappid, //公众号名称，由商户传入
+          "timeStamp": parseInt(new Date().getTime() / 1000).toString(), //时间戳，自1970年以来的秒数
+          "nonceStr": that.createNonceStr(), //随机串
+          // 通过统一下单接口获取
+          "package": "prepay_id=" + prepay_id,
+          "signType": "MD5", //微信签名方式：
+        };
+        wcPayParams.paySign = that.getSign(wcPayParams); //微信支付签名
+        callback(null, wcPayParams);
+      }, function(error) {
+        callback(error);
+      });
+    },
+    /**
+     * 获取随机的NonceStr
+     */
+    createNonceStr() {
+      return Math.random().toString(36).substr(2, 15);
+    },
+    async wxpayClik() {
+      let wx_app_id
+      try {
+        wx_app_id = (await this.$http.get('/wx/appid')).data.wx_app_id //在线获取
+      } catch (e) {
+
       }
+      const redirectUri = `http://${location.hostname}/wx/wxpay`
+      location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+
+      // if(!wx_openid){
+      //   const { redirect } = this.$route.query
+      //   if(redirect){
+      //     localStorage.setItem('redirect', redirect)
+      //   }
+      //   const redirectUri = `http://${location.hostname}/wx/code2openid`
+      //   location.href = `http://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+      //   return;
+      // }else{
+      //   WxPay.getAccessToken({
+      //     notify_url: 'http://demo.com/', //微信支付完成后的回调
+      //     out_trade_no: new Date().getTime(), //订单号
+      //     attach: '名称',
+      //     body: '购买信息',
+      //     total_fee: '1', // 此处的额度为分
+      //     spbill_create_ip: '192',
+      //     wx_code: wx_openid,
+      //   }, function(error, responseData) {
+      //     res.render('payment', {
+      //       title: '微信支付',
+      //       wxPayParams: JSON.stringify('123'),
+      //       //userInfo : userInfo
+      //     });
+      //   })
+      // }
 
     }
   }
@@ -133,4 +270,4 @@ export default {
   padding: 8px 0;
   color: #888;
 }
-</style> -->
+</style>

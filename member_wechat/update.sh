@@ -1,4 +1,5 @@
-cd /f/node/zjmembers/member_wechat
+cd G:/github/zjmembers/member_wechat
+# cd /f/node/zjmembers/member_wechat
 
 date > git.log
 git pull >> git.log

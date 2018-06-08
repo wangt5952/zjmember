@@ -105,7 +105,7 @@ export default {
     },
   },
   async mounted(){
-    // localStorage.setItem('member_id', '14811');
+    localStorage.setItem('member_id', '14811');
     document.title = '会员注册'
     let ua = new UAParser().getResult()
     let { wx_openid , code} = this.$route.query
@@ -124,8 +124,7 @@ export default {
         if(redirect){
           localStorage.setItem('redirect', redirect)
         }
-        const redirectUri = encodeURI(`http://${location.hostname}/wx/code2openid`)
-        debugger
+        const redirectUri =`http://${location.hostname}/wx/code2openid`
         location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
 
         return;

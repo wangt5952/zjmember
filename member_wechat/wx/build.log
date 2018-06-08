@@ -1,5 +1,5 @@
 
-> wx@1.0.0 build F:\node\zjmembers\member_wechat\wx
+> wx@1.0.0 build G:\github\zjmembers\member_wechat\wx
 > babel src -d build
 
 src\config\index.js -> build\config\index.js

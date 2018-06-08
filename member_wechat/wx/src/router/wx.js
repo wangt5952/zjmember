@@ -42,6 +42,20 @@ const map = {
     }
     return res.redirect(`/register?wx_openid=${wx_openid}`)
   },
+    'wxpay.get': async(req, res, next) => {
+      let { code } = req.query;
+
+      const { wx_app_id, wx_app_secret } = req.headers
+      if(!code){
+        return res.sendStatus(404);
+      }
+
+      let { body } = await httpGet(`https://api.weixin.qq.com/sns/oauth2/access_token?appid=${wx_app_id}&secret=${wx_app_secret}&code=${code}&grant_type=authorization_code`)
+
+      let { errcode: wx_errno, openid: wx_openid, access_token } = JSON.parse(body);
+
+      return res.redirect(`/carDetail?wx_openid=${wx_openid}&access_token=${access_token}`)
+    },
 }
 
 _.forEach(map, (o, k)=>{

@@ -24,6 +24,10 @@ export default {
 
   WX: {
     AppID: 'wx3041b222eaad5c8a',
-    AppSecret: 'fda2fbf4fdec7a43b178f12d4bf36414'
+    AppSecret: 'fda2fbf4fdec7a43b178f12d4bf36414' ,
+    wxappid: 'wx3041b222eaad5c8a',
+    wxappsecret: 'fda2fbf4fdec7a43b178f12d4bf36414',
+    wxpaykey: 'x0jhJ4r5NMAKei7ktvysNhYxjFsV63uR',
+    mch_id: '1505462971'
   }
 }

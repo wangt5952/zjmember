@@ -2,7 +2,7 @@
   "apps": [{
     "name": "wx",
     "script": "build",
-    "cwd": "/f/node/zjmembers/member_wechat/wx",
+    "cwd": "/G:/github/zjmembers/member_wechat/wx",
     "exec_mode": "cluster",
     "instances": 1,
     "max_memory_restart": "1G",
