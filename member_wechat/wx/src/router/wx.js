@@ -6,13 +6,16 @@ moment.locale('zh-cn');
 import request from 'request';
 
 // 新增
+// var ejs = require('ejs');
+// var fs = require('fs');
 var url = require('url');
 var queryString = require('querystring');
 var crypto = require('crypto');
 var xml2jsparseString = require('xml2js').parseString;
 // 引入项目的配置信息
 var config = require('../config/index.js');
-// var logger = require('../log').logger;
+config = config.default
+// var messageTpl = fs.readFileSync(__dirname +'/message.ejs', 'utf-8');
 
 const router = express.Router()
 
@@ -92,6 +95,7 @@ class WechatPay {
         var prepay_id = '';
         if (!error && response.statusCode == 200) {
           // 微信返回的数据为 xml 格式， 需要装换为 json 数据， 便于使用
+
           xml2jsparseString(body, {
             async: true
           }, function(error, result) {
@@ -104,6 +108,7 @@ class WechatPay {
         }
       });
     })
+    .catch(error => console.log('caught', error))
   }
 
   /**
@@ -144,11 +149,14 @@ class WechatPay {
         "signType": "MD5", //微信签名方式：
       };
       wcPayParams.paySign = that.getSign(wcPayParams); //微信支付签名
+      this.userInfo.paySign  = wcPayParams.paySign
       callback(null, wcPayParams);
     }, function(error) {
       callback(error);
     });
   }
+
+
 
   /**
    * 获取随机的NonceStr
@@ -163,8 +171,8 @@ class WechatPay {
 
   getAccessToken(obj, cb) {
     var that = this;
-    that.userInfo.code = obj.code;
-    var getAccessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + config.WX.wxappid + "&secret=" + config.WX.wxappsecret + "&code=" + that.userInfo.code + "&grant_type=authorization_code";
+
+    var getAccessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + config.WX.wxappid + "&secret=" + config.WX.wxappsecret + "&code=" +obj.code + "&grant_type=authorization_code";
     request.post({
       url: getAccessTokenUrl
     }, function(error, response, body) {
@@ -173,12 +181,15 @@ class WechatPay {
           cb(error, body);
         } else {
           body = JSON.parse(body);
-          that.userInfo.access_token = body.access_token;
-          that.userInfo.expires_in = body.expires_in;
-          that.userInfo.refresh_token = body.refresh_token;
-          that.userInfo.openid = body.openid;
-          that.userInfo.scope = body.scope;
-          // console.log(that.userInfo);
+          let info ={}
+          info.access_token = body.access_token;
+          info.expires_in = body.expires_in;
+          info.refresh_token = body.refresh_token;
+          info.openid = body.openid;
+          info.scope = body.scope;
+          that.userInfo = info
+            console.log(that)
+              console.log(cb)
           // 拼接微信的支付的参数
           that.getBrandWCPayParams(obj, function(error, responseData) {
             if (error) {
@@ -217,7 +228,6 @@ const map = {
 
     let wx_nickname;
     let { errcode: wx_errno, openid: wx_openid, access_token } = JSON.parse(body);
-    console.log(wx_openid)
     if(wx_errno){
       return res.sendStatus(404);
     }
@@ -225,31 +235,38 @@ const map = {
   },
     'wxpay.get': async(req, res, next) => {
       let { code } = req.query;
-
       const { wx_app_id, wx_app_secret } = req.headers
       if(!code){
         return res.sendStatus(404);
       }else{
-          // logger.info(WechatPays);
+        WechatPays.getAccessToken({
+            notify_url : 'http://121.196.208.176/carDetail/notify', //微信支付完成后的回调
+            out_trade_no : new Date().getTime(), //订单号
+            attach : '名称',
+            body : '购买信息',
+            total_fee : '1', // 此处的额度为分
+            spbill_create_ip : '121.196.208.176',
+            code : code
+        }, function (error, responseData) {
+            // return res.redirect(`/notify`)
+            res.render('carDetail', {
+                title : '微信支付',
+                wxPayParams : JSON.stringify(responseData),
+                //userInfo : userInfo
+            });
+      //       var reply = {
+      //   return_code: "SUCCESS",
+      //   return_msg: "OK"
+      // };
+      //       ejs.render(messageTpl, reply);
+        })
       }
 
-    // WechatPays.getAccessToken({
-    //     notify_url : 'http://'+req.connection.remoteAddress+'/carDetail', //微信支付完成后的回调
-    //     out_trade_no : new Date().getTime(), //订单号
-    //     attach : '名称',
-    //     body : '购买信息',
-    //     total_fee : '1', // 此处的额度为分
-    //     spbill_create_ip : req.connection.remoteAddress,
-    //     code : code
-    // }, function (error, responseData) {
-    //     res.render('carDetail', {
-    //         title : '微信支付',
-    //         wxPayParams : JSON.stringify(responseData),
-    //         //userInfo : userInfo
-    //     });
-    // })
 
     },
+      'notify.get': async(req, res, next) => {
+         console.log('99'+req.query)
+      },
 }
 
 

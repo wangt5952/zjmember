@@ -49,7 +49,7 @@
         </div>
       </div>
       <div style="color:white;font-size:0.5rem;background-color:#46D0C3;width:30%;height:100%;">
-        <div style="padding:0.3rem;" @click="wxpayClik">立即支付</div>
+        <div style="padding:0.3rem;" @click="wxpayClik('<%= appId %>','<%= timeStamp %>', '<%= nonceStr %>', '<%= package %>', '<%= signType %>', '<%= paySign %>)">立即支付</div>
       </div>
     </div>
   </router-link>
@@ -80,7 +80,7 @@ export default {
   },
 
   methods: {
-    async wxpayClik() {
+    async wxpayClik(appId, timeStamp, nonceStr, packages, signType, paySign) {
       let wx_app_id
       try {
         wx_app_id = (await this.$http.get('/wx/appid')).data.wx_app_id //在线获取
@@ -88,8 +88,24 @@ export default {
 
       }
       const redirectUri = `http://${location.hostname}/wx/wxpay`
-      location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
-
+      location.href = `http://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+     this.goPay(appId, timeStamp, nonceStr, packages, signType, paySign)
+    },
+    goPay(appId, timeStamp, nonceStr, packages, signType, paySign) {
+        WeixinJSBridge.invoke('getBrandWCPayRequest', {
+            "appId" : appId,
+            "timeStamp":timeStamp,
+            "nonceStr" : nonceStr,
+            "package" : packages,
+            "signType" : signType,
+            "paySign" : paySign
+        }, function(res){
+            if(res.err_msg == "get_brand_wcpay_request:ok"){
+                alert("支付成功");
+            }else{
+                alert("支付失败，请重试");
+            }
+        });
     }
   }
 }
