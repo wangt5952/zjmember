@@ -23,7 +23,7 @@
   <div style="background-color:white;height:0.5rem;margin-top:0.3rem;font-size:0.2rem">
     <div style="padding-left:0.04rem;padding-right:0.1rem">
       <group>
-        <popup-radio title="优惠券" :options="options1" v-model="option1" placeholder="请选择优惠券"></popup-radio>
+        <popup-radio title="优惠券" :options="options1"  placeholder="请选择优惠券"></popup-radio>
       </group>
     </div>
   </div>
@@ -49,7 +49,7 @@
         </div>
       </div>
       <div style="color:white;font-size:0.5rem;background-color:#46D0C3;width:30%;height:100%;">
-        <div style="padding:0.3rem;" @click="wxpayClik('<%= appId %>','<%= timeStamp %>', '<%= nonceStr %>', '<%= package %>', '<%= signType %>', '<%= paySign %>)">立即支付</div>
+        <div style="padding:0.3rem;" @click="wxpayClik">立即支付1{{wxPayParams}}</div>
       </div>
     </div>
   </router-link>
@@ -72,6 +72,7 @@ export default {
       options1: ['A', 'B', 'C'],
       licenceNum: [],
       title:'',
+      wxPayParams :''
     }
   },
   mounted() {
@@ -80,33 +81,16 @@ export default {
   },
 
   methods: {
-    async wxpayClik(appId, timeStamp, nonceStr, packages, signType, paySign) {
-      let wx_app_id
-      try {
-        wx_app_id = (await this.$http.get('/wx/appid')).data.wx_app_id //在线获取
-      } catch (e) {
-
-      }
-      const redirectUri = `http://${location.hostname}/wx/wxpay`
-      location.href = `http://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
-     this.goPay(appId, timeStamp, nonceStr, packages, signType, paySign)
+    async wxpayClik2(){
+    notify = (await this.$http.get('/wx/notify'))
+  debugger
     },
-    goPay(appId, timeStamp, nonceStr, packages, signType, paySign) {
-        WeixinJSBridge.invoke('getBrandWCPayRequest', {
-            "appId" : appId,
-            "timeStamp":timeStamp,
-            "nonceStr" : nonceStr,
-            "package" : packages,
-            "signType" : signType,
-            "paySign" : paySign
-        }, function(res){
-            if(res.err_msg == "get_brand_wcpay_request:ok"){
-                alert("支付成功");
-            }else{
-                alert("支付失败，请重试");
-            }
-        });
-    }
+    async wxpayClik() {
+
+      const redirectUri = `http://${location.hostname}/wx/wx_login`
+
+      let aa  = await this.$http.get(redirectUri)
+    },
   }
 }
 </script>

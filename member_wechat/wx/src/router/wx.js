@@ -95,7 +95,6 @@ class WechatPay {
         var prepay_id = '';
         if (!error && response.statusCode == 200) {
           // 微信返回的数据为 xml 格式， 需要装换为 json 数据， 便于使用
-
           xml2jsparseString(body, {
             async: true
           }, function(error, result) {
@@ -149,7 +148,6 @@ class WechatPay {
         "signType": "MD5", //微信签名方式：
       };
       wcPayParams.paySign = that.getSign(wcPayParams); //微信支付签名
-      this.userInfo.paySign  = wcPayParams.paySign
       callback(null, wcPayParams);
     }, function(error) {
       callback(error);
@@ -188,8 +186,6 @@ class WechatPay {
           info.openid = body.openid;
           info.scope = body.scope;
           that.userInfo = info
-            console.log(that)
-              console.log(cb)
           // 拼接微信的支付的参数
           that.getBrandWCPayParams(obj, function(error, responseData) {
             if (error) {
@@ -215,6 +211,7 @@ const map = {
     return res.json({
       wx_app_id
     })
+
   },
   'code2openid.get': async (req, res, next) => {
     let { code } = req.query;
@@ -227,6 +224,7 @@ const map = {
     let { body } = await httpGet(`https://api.weixin.qq.com/sns/oauth2/access_token?appid=${wx_app_id}&secret=${wx_app_secret}&code=${code}&grant_type=authorization_code`)
 
     let wx_nickname;
+    console.log(body)
     let { errcode: wx_errno, openid: wx_openid, access_token } = JSON.parse(body);
     if(wx_errno){
       return res.sendStatus(404);
@@ -234,8 +232,7 @@ const map = {
     return res.redirect(`/register?wx_openid=${wx_openid}`)
   },
     'wxpay.get': async(req, res, next) => {
-      let { code } = req.query;
-      const { wx_app_id, wx_app_secret } = req.headers
+       let { code } = req.query;
       if(!code){
         return res.sendStatus(404);
       }else{
@@ -248,24 +245,18 @@ const map = {
             spbill_create_ip : '121.196.208.176',
             code : code
         }, function (error, responseData) {
-            // return res.redirect(`/notify`)
-            res.render('carDetail', {
+            res.render('pay', {
                 title : '微信支付',
                 wxPayParams : JSON.stringify(responseData),
                 //userInfo : userInfo
             });
-      //       var reply = {
-      //   return_code: "SUCCESS",
-      //   return_msg: "OK"
-      // };
-      //       ejs.render(messageTpl, reply);
         })
       }
-
-
     },
-      'notify.get': async(req, res, next) => {
-         console.log('99'+req.query)
+      'wx_login.get': async(req, res, next) => {
+            const { wx_app_id, wx_app_secret } = req.headers//对于支付来说已经多余，登录已经获取
+            const redirectUri = `http://121.196.208.176/wx/wxpay`
+            res.redirect(`http://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
       },
 }
 

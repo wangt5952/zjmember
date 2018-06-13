@@ -26,20 +26,20 @@
         <tbody>
           <template v-for="o in list">
             <tr @click="detailId=((detailId==o.mplog_id) ? null : o.mplog_id)" :class="{active:detailId==o.mplog_id}" style="height:1rem;" >
-              <td style="padding-left:0.25rem;">{{o.shopping_date | unix('YYYY-MM-DD', 'ms')}}</td>
+              <td style="padding-left:0.25rem;">{{o.handle_date | unix('YYYY-MM-DD', 'ms')}}</td>
               <td style="color:#00c9b2;">{{o.points}}</td>
               <td style="white-space:nowrap;overflow:hidden;word-break:keep-all;text-overflow:ellipsis;">{{o.shop_name}}</td>
             </tr>
             <tr v-if="detailId==o.mplog_id" :class="{active:detailId==o.mplog_id}" >
               <td colspan="3" style="padding-left:0.25rem;color:#7f8081;font-size:0.4rem;">
                 <template v-if="o.points>0">
-                  <p>消费时间: {{o.shopping_date | unix('YYYY-MM-DD', 'ms')}}</p>
+                  <p>消费时间: {{o.handle_date | unix('YYYY-MM-DD', 'ms')}}</p>
                   <p>消费商户: {{o.shop_name}}</p>
                   <p>消费金额: {{o.amount}}</p>
                   <p>获得积分: {{o.points}}</p>
                 </template>
                 <template v-else>
-                  <p>抵扣时间: {{o.shopping_date | unix('YYYY-MM-DD', 'ms')}}</p>
+                  <p>抵扣时间: {{o.handle_date | unix('YYYY-MM-DD', 'ms')}}</p>
                   <p>抵扣商户: {{o.shop_name}}</p>
                   <p>抵扣金额: {{o.amount}}</p>
                   <p>扣减积分: {{o.points}}</p>

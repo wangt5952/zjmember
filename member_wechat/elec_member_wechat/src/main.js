@@ -11,14 +11,12 @@ import UAParser from 'ua-parser-js'
 import 'mint-ui/lib/style.css'
 
 import 'lib-flexible/flexible';
-
 import { ConfirmPlugin, DatetimePlugin, ToastPlugin, LoadingPlugin, AlertPlugin } from 'vux'
 Vue.use(ConfirmPlugin)
 Vue.use(DatetimePlugin)
 Vue.use(ToastPlugin)
 Vue.use(LoadingPlugin)
 Vue.use(AlertPlugin)
-
 Vue.prototype.$http = axios
 Vue.use(Mint);
 //高德地图
@@ -27,8 +25,6 @@ AMap.initAMapApiLoader({
    /*key: '639296d0ac073b20f28b281f1110fa8c',*/
    key:'b348b6304b328c5961c8d6bd8b95cb5c',
    plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor','MarkerClusterer']
-
-
 })
 Vue.use(Vuex)
 Vue.config.productionTip = false
@@ -82,7 +78,7 @@ router.beforeEach(async (to, from, next) => {
 
   console.log(store.state.member_id)
   console.log(to)
-  if (store.state.member_id || ~['/getPosition','/registerInfo','/register','/squareInfo', '/sellers','/voucher','/sell','/getPosition','/car','/carDetail','/activities'].indexOf(to.path)) {
+  if (store.state.member_id || ~['/getPosition','/registerInfo','/register','/squareInfo', '/sellers','/voucher','/sell','/getPosition','/car','/carDetail','/activities','/scan'].indexOf(to.path)) {
     next()
   } else {
     goLogin()
