@@ -26,6 +26,10 @@ const login = r => require.ensure([], () => r(require('../pages/login/login')), 
 const test = r => require.ensure([], () => r(require('../pages/test/test')), 'test')
 const car = r => require.ensure([], () => r(require('../pages/car/car')), 'car')
 const carDetail = r => require.ensure([], () => r(require('../pages/car/carDetail')), 'carDetail')
+const carVoucher = r => require.ensure([], () => r(require('../pages/carVoucher/index')), 'carVoucher')
+const carVoucherDetail = r => require.ensure([], () => r(require('../pages/carVoucherDetail/index')), 'carVoucherDetail')
+const memCarVoucher = r => require.ensure([], () => r(require('../pages/memCarVoucher/index')), 'memCarVoucher')
+const memCarVoucherDetail = r => require.ensure([], () => r(require('../pages/memCarVoucherDetail/index')), 'memCarVoucherDetail')
 
 const staffRegister0 = r => require.ensure([], () => r(require('../pages/staffRegister/staffRegister0')), 'staffRegister0')
 const staffRegister1 = r => require.ensure([], () => r(require('../pages/staffRegister/staffRegister1')), 'staffRegister1')
@@ -64,6 +68,10 @@ export default new Router({
     { path:'/test', component:test, }, //测试
     { path:'/car', component:car }, //停车缴费
     { path:'/carDetail', component:carDetail }, //停车缴费
+    { path:'/carVoucher', component:carVoucher }, //停车缴费
+    { path:'/carVoucherDetail', component:carVoucherDetail }, //停车缴费
+    { path:'/memCarVoucher', component:memCarVoucher }, //我的停车券
+    { path:'/memCarVoucherDetail', component:memCarVoucherDetail }, //我的停车券
 
     { path: '/shopSelect', component: ()=>import('@/pages/shopSelect')},
     { path: '/verify', component: ()=>import('@/pages/verify')},

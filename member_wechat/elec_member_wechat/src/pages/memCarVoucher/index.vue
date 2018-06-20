@@ -10,7 +10,7 @@
       <mt-tab-container-item id="1">
         <scroller lock-x>
           <div>
-            <router-link :class="{gray:o.past}" :to="{path:'/memVouDetail', query:{id:o.crl_id}}" style="display:flex;background-color:#fff;margin-top:1px;" key="crl_id" v-for="o in list">
+            <router-link :class="{gray:o.past}" :to="{path:'/memCarVoucherDetail', query:{id:o.crl_id}}" style="display:flex;background-color:#fff;margin-top:1px;" key="crl_id" v-for="o in list">
               <div style="width:2.5rem;height:2.5rem;display:flex;align-items:center;justify-content:center;">
                 <img :src="o.picture  || '/static/img/default-icon.jpg'" style="max-width:2rem;max-height:2rem;">
               </div>
@@ -87,7 +87,7 @@ export default {
     document.title = '我的优惠券'
 
     try{
-      let list = (await this.$http.post(`/api/member/${this.member_id}/couponList`, {
+      let list = (await this.$http.post(`/api/parkingCoupon/member/${this.member_id}/couponList`, {
         couponStatus: 1, mallId, page:1, size:200
       })).data
 
