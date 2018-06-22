@@ -81,6 +81,7 @@ export default new Router({
     { path: '/suggest_list', component: () => import('@/pages/suggestList')},
     { path: '/myreward', component: () => import('@/pages/memVoucher/myReward')},
 
+    { path: '/notify', component: () => import('@/pages/notify/index')},
     { path: '/scan', component: () => import('@/pages/scan/index')},
     { path:'/gift_voucher', component: () =>import('@/pages/gift_voucher/voucher') }, //优惠券
     { path:'/gift_memVoucher', component: () =>import('@/pages/gift_memVoucher/memVoucher') }, //优惠券(会员)

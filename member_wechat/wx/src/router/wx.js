@@ -148,6 +148,7 @@ class WechatPay {
         "signType": "MD5", //微信签名方式：
       };
       wcPayParams.paySign = that.getSign(wcPayParams); //微信支付签名
+      console.log(wcPayParams)
       callback(null, wcPayParams);
     }, function(error) {
       callback(error);
@@ -168,8 +169,8 @@ class WechatPay {
    */
 
   getAccessToken(obj, cb) {
+    console.log(obj)
     var that = this;
-
     var getAccessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + config.WX.wxappid + "&secret=" + config.WX.wxappsecret + "&code=" +obj.code + "&grant_type=authorization_code";
     request.post({
       url: getAccessTokenUrl
@@ -224,7 +225,6 @@ const map = {
     let { body } = await httpGet(`https://api.weixin.qq.com/sns/oauth2/access_token?appid=${wx_app_id}&secret=${wx_app_secret}&code=${code}&grant_type=authorization_code`)
 
     let wx_nickname;
-    console.log(body)
     let { errcode: wx_errno, openid: wx_openid, access_token } = JSON.parse(body);
     if(wx_errno){
       return res.sendStatus(404);
@@ -232,16 +232,17 @@ const map = {
     return res.redirect(`/register?wx_openid=${wx_openid}`)
   },
     'wxpay.get': async(req, res, next) => {
-       let { code } = req.query;
+
+      let { code,fee } = req.query;
       if(!code){
         return res.sendStatus(404);
       }else{
         WechatPays.getAccessToken({
-            notify_url : 'http://121.196.208.176/carDetail/notify', //微信支付完成后的回调
+            notify_url : 'http://121.196.208.176/wx/notify', //微信支付完成后的回调
             out_trade_no : new Date().getTime(), //订单号
             attach : '名称',
-            body : '购买信息',
-            total_fee : '1', // 此处的额度为分
+            body : '购买信息2',
+            total_fee : fee, // 此处的额度为分
             spbill_create_ip : '121.196.208.176',
             code : code
         }, function (error, responseData) {
@@ -252,7 +253,18 @@ const map = {
             });
         })
       }
+        // return res.json({
+        //   'mes': req.query.id
+        // })
     },
+      'notify.post': async(req, res, next) => {
+
+        console.log(req.body);
+        return res.json({
+          '1':req.body
+        })
+
+      },
       'wx_login.get': async(req, res, next) => {
             const { wx_app_id, wx_app_secret } = req.headers//对于支付来说已经多余，登录已经获取
             const redirectUri = `http://121.196.208.176/wx/wxpay`
@@ -264,6 +276,7 @@ const map = {
 
 _.forEach(map, (o, k)=>{
   const [ path, method = 'use' ] = k.split('.')
+    console.log(`/${path}`)
   router[method](`/${path}`, async (req, res, next) => {
     try{
       await o(req, res, next)

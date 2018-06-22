@@ -109,7 +109,6 @@ export default {
     document.title = '会员注册'
     let ua = new UAParser().getResult()
     let { wx_openid , code} = this.$route.query
-
     if (ua.browser.name === 'WeChat') {
 
       let wx_app_id
@@ -129,6 +128,8 @@ export default {
 
         return;
       }else{
+
+    
         try{
           let { member_id } = (await this.$http.get(`/api/member?appId=${wx_app_id}&openId=${wx_openid}`)).data
           this.$store.commit('login', {member_id})

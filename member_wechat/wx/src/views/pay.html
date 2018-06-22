@@ -1,25 +1,99 @@
-<div>
-  微信支付</div>
+<style type="text/css">
+  .loader {
+    margin: 0 0 2em;
+    height: 150px;
+    width: 100%;
+    text-align: center;
+    padding: 1em;
+    margin: 0 auto 1em;
+    display: inline-block;
+    vertical-align: top;
+    position: absolute;
+    top: 40%;
+  }
+
+  svg path,
+  svg rect {
+    fill: #FF6700;
+  }
+  body {
+    padding: 1em;
+    background: #2B3134;
+    margin: 0;
+  }
+</style>
+<div style="background: #2B3134;">
+  <div class="loader loader--style6" title="5">
+    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="150px" height="160px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+      <rect x="0" y="13" width="4" height="5" fill="#333">
+        <animate attributeName="height" attributeType="XML"
+          values="5;21;5"
+          begin="0s" dur="0.6s" repeatCount="indefinite" />
+        <animate attributeName="y" attributeType="XML"
+          values="13; 5; 13"
+          begin="0s" dur="0.6s" repeatCount="indefinite" />
+      </rect>
+      <rect x="10" y="13" width="4" height="5" fill="#333">
+        <animate attributeName="height" attributeType="XML"
+          values="5;21;5"
+          begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+        <animate attributeName="y" attributeType="XML"
+          values="13; 5; 13"
+          begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+      </rect>
+      <rect x="20" y="13" width="4" height="5" fill="#333">
+        <animate attributeName="height" attributeType="XML"
+          values="5;21;5"
+          begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+        <animate attributeName="y" attributeType="XML"
+          values="13; 5; 13"
+          begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+      </rect>
+    </svg>
+  </div>
+</div>
+<button style="display: none;" type="button" id="btn" class="btn" onclick="onBridgeReady('<%= wxPayParams %>');">微信支付</button>
+<!---->
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/javascript">
-  function goPay(wxPayParams) {
-    WeixinJSBridge.invoke('getBrandWCPayRequest', wxPayParams, function(res) {
-      if (res.err_msg == "get_brand_wcpay_request:ok") {
-        alert("支付成功");
-
-      } else {
-        alert("支付失败，请重试");
-      }
-    });
+  function onBridgeReady(wxPayParams) {
+    wxPayParams = JSON.parse(wxPayParams)
+    debugger
+    WeixinJSBridge.invoke('getBrandWCPayRequest', {
+        "appId": wxPayParams.appId,
+        "timeStamp": wxPayParams.timeStamp,
+        "nonceStr": wxPayParams.nonceStr,
+        "package": wxPayParams.package,
+        "signType": wxPayParams.signType,
+        "paySign": wxPayParams.paySign
+      },
+      function(res) {
+        if (res.err_msg == "get_brand_wcpay_request:ok") {
+          alert("支付成功");
+          window.location.href='http://jiayuanmember.dorm9tech.com/notify';
+        } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
+          alert("支付取消");
+          window.history.go(-2);
+        }else {
+          alert("支付失败");
+          window.history.go(-2);
+        }
+      });
   }
-  if (typeof WeixinJSBridge == "undefined") {
-    if (document.addEventListener) {
-      document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-    } else if (document.attachEvent) {
-      document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-      document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-    }
+
+  if (typeof window.WeixinJSBridge  == "undefined") {
+    debugger
+  document.addEventListener('WeixinJSBridgeReady',function(){
+   document.getElementById("btn").click()
+ })
+    // if (document.addEventListener) {
+    //   document.addEventListener('WeixinJSBridgeReady',   document.getElementById("btn").click(), false);
+    // } else if (document.attachEvent) {
+    //   document.attachEvent('WeixinJSBridgeReady',   document.getElementById("btn").click());
+    //   document.attachEvent('onWeixinJSBridgeReady',   document.getElementById("btn").click());
+    // }
   } else {
-    onBridgeReady();
+    debugger
+    document.getElementById("btn").click();
   }
 </script>

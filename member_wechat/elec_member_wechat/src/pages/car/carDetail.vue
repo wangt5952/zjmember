@@ -12,10 +12,10 @@
           ¥20.00
         </td>
         <td style="color:#B7B7B7">
-          入场时间:09月09日 12:30<br/>
-          <br /> 已停时长：2小时
+          入场时间:{{in_date}}<br/>
+          <br /> 已停时长：{{stay_time}}
           <br />
-          <br /> 停车位置：B区108
+          <br /> 停车位置：{{parking_position}}
         </td>
       </tr>
     </table>
@@ -23,7 +23,7 @@
   <div style="background-color:white;height:0.5rem;margin-top:0.3rem;font-size:0.2rem">
     <div style="padding-left:0.04rem;padding-right:0.1rem">
       <group>
-        <popup-radio title="优惠券" :options="options1"  placeholder="请选择优惠券"></popup-radio>
+        <popup-radio title="" :options="options1" v-model="option1" :placeholder="valueVoucher"></popup-radio>
       </group>
     </div>
   </div>
@@ -49,7 +49,7 @@
         </div>
       </div>
       <div style="color:white;font-size:0.5rem;background-color:#46D0C3;width:30%;height:100%;">
-        <div style="padding:0.3rem;" @click="wxpayClik">立即支付1{{wxPayParams}}</div>
+        <div style="padding:0.3rem;" @click="wxpayClik">立即支付{{wxPayParams}}</div>
       </div>
     </div>
   </router-link>
@@ -61,7 +61,15 @@ import {
   PopupRadio
 } from 'vux'
 
+import global from '../../../src/components/common/Global.vue'
+const {
+  mallId
+} = global;
+import {
+  mapState,
+} from 'vuex';
 
+import _ from 'lodash'
 export default {
   components: {
     Group,
@@ -69,28 +77,108 @@ export default {
   },
   data() {
     return {
-      options1: ['A', 'B', 'C'],
+      options1: [{
+        key: 'A',
+        value: 'label A'
+      }, {
+        key: 'B',
+        value: 'label B'
+      }],
       licenceNum: [],
-      title:'',
-      wxPayParams :''
+      title: '',
+      wxPayParams: '',
+      parking_position: '',
+      in_date: '',
+      stay_time: '',
+      valueVoucher: '请选择优惠券',
+      mes :''
     }
   },
-  mounted() {
+  async mounted() {
     let arr = this.$route.query.car_number
-    this.licenceNum = arr
-  },
+    let carNumber = arr.join('');
+    let notify = (await this.$http.get('/api/parkingCoupon/getCarPayInfo?memberId=' + this.member_id + '&carNumber=' + carNumber))
+    if (notify.data) {
+      this.parking_position = notify.data.parking_position
+      let in_time = this.timestampToTime(notify.data.in_date);
+      this.in_date = in_time
 
+      let out_time = new Date()
+      out_time = out_time.getTime();
+      var nTime = out_time - notify.data.in_date
+
+      //计算出相差天数
+      var days = Math.floor(nTime / (24 * 3600 * 1000))
+
+      //计算出小时数
+
+      var leave1 = nTime % (24 * 3600 * 1000) //计算天数后剩余的毫秒数
+      var hours = Math.floor(leave1 / (3600 * 1000))
+      //计算相差分钟数
+      var leave2 = leave1 % (3600 * 1000) //计算小时数后剩余的毫秒数
+      var minutes = Math.floor(leave2 / (60 * 1000))
+      //计算相差秒数
+      var leave3 = leave2 % (60 * 1000) //计算分钟数后剩余的毫秒数
+      var seconds = Math.round(leave3 / 1000)
+      days > 0 ? days = days + '天' : days = ''
+      hours > 0 ? hours = hours + '小时' : hours = ''
+      minutes > 0 ? minutes = minutes + '分钟' : minutes = ''
+      seconds > 0 ? seconds = seconds + '秒' : seconds = ''
+      this.stay_time = days + hours + minutes + seconds
+
+    }
+
+    this.licenceNum = arr
+
+
+    let list = (await this.$http.post(`/api/parkingCoupon/member/${this.member_id}/couponList`, {
+      couponStatus: 1,
+      mallId,
+      page: 1,
+      size: 200
+    })).data
+    let aaa = new Date(new Date().setHours(0, 0, 0, 0)) / 1000;
+    // list = _.filter(list, o => o.expiry_date_end >= moment().format('YYYY-MM-DD').unix() * 1000);
+    list = _.filter(list, o => o.expiry_date_end >= aaa * 1000);
+
+    list = _.sortBy(list, 'past')
+
+    let arrLsit = []
+    for (var x in list) {
+      let coupon_name = list[x].coupon_name
+      arrLsit.push(coupon_name)
+    }
+    // this.options1 = arrLsit;
+    debugger
+    arrLsit.length > 0 ? this.valueVoucher = arrLsit[0] : this.valueVoucher = '暂无优惠券'
+
+  },
+  computed: {
+    ...mapState({
+      member_id: state => state.member_id,
+    }),
+  },
   methods: {
-    async wxpayClik2(){
-    notify = (await this.$http.get('/wx/notify'))
-  debugger
+    timestampToTime(timestamp) {
+      let date = new Date(timestamp); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      let Y = date.getFullYear() + '-';
+      let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+      let D = date.getDate() + ' ';
+      let h = date.getHours() + ':';
+      let m = date.getMinutes() + ':';
+      let s = date.getSeconds();
+      return Y + M + D + h + m + s;
     },
     async wxpayClik() {
+      let wx_app_id
+      try {
+        wx_app_id = (await this.$http.get('/wx/appid')).data.wx_app_id //在线获取
+      } catch (e) {}
+      const redirectUri = `http://${location.hostname}/wx/wxpay?fee=2`
+      location.href = `http://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
 
-      const redirectUri = `http://${location.hostname}/wx/wx_login`
-
-      let aa  = await this.$http.get(redirectUri)
-    },
+      // this.mes = (await this.$http.get(`/wx/wxpay?id=`+1)).data
+    }
   }
 }
 </script>

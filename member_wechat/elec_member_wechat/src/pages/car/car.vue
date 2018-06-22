@@ -28,9 +28,6 @@
       <div @click="showKeyboard(6)" :style="{borderColor:inputIndex==6 && popupKeyboard ? 'red':'#E2E2E2'}" style="border:1px solid #E2E2E2;width:1rem;height:1rem;font-size:0.4rem;display:flex;align-items:center;justify-content:center;margin-right:.1em;background:#f1eded">
         {{car_number[6]}}
       </div>
-      <div @click="showKeyboard(7)" :style="{borderColor:inputIndex==7 && popupKeyboard ? 'red':'#E2E2E2'}" style="border:1px solid #E2E2E2;width:1rem;height:1rem;font-size:0.4rem;display:flex;align-items:center;justify-content:center;margin-right:.1em;background:#f1eded">
-        {{car_number[7]}}
-      </div>
     </div>
     <div v-if='newlicence' style="display:flex;padding:0.2rem;margin:0.2rem;">
       <div @click="showKeyboard(0)" :style="{borderColor:inputIndex==0 && popupKeyboard ? 'red':'#E2E2E2'}" style="border:1px solid #E2E2E2;width:1rem;height:1rem;font-size:0.4rem;display:flex;align-items:center;justify-content:center;margin-right:.1em;background:#f1eded">
@@ -53,9 +50,6 @@
       </div>
       <div @click="showKeyboard(6)" :style="{borderColor:inputIndex==6 && popupKeyboard ? 'red':'#E2E2E2'}" style="border:1px solid #E2E2E2;width:1rem;height:1rem;font-size:0.4rem;display:flex;align-items:center;justify-content:center;margin-right:.1em;background:#f1eded">
         {{car_number[6]}}
-      </div>
-      <div @click="showKeyboard(7)" :style="{borderColor:inputIndex==7 && popupKeyboard ? 'red':'#E2E2E2'}" style="border:1px solid #E2E2E2;width:1rem;height:1rem;font-size:0.4rem;display:flex;align-items:center;justify-content:center;margin-right:.1em;background:#f1eded">
-        {{car_number[7]}}
       </div>
       <div @click="showKeyboard(7)" :style="{borderColor:inputIndex==7 && popupKeyboard ? 'red':'#E2E2E2'}" style="border:1px solid #E2E2E2;width:1rem;height:1rem;font-size:0.4rem;display:flex;align-items:center;justify-content:center;margin-right:.1em;background:#f1eded">
         {{car_number[7]}}
@@ -140,6 +134,9 @@ import {
   XSwitch
 } from 'vux';
 
+import {
+  mapState,
+} from 'vuex';
 export default {
   directives: {
     TransferDom
@@ -200,6 +197,18 @@ export default {
       inputIndex: 0,
     }
   },
+  async mounted() {
+    let getCarList = (await this.$http.get('/api/parkingCoupon/getCarList?memberId='+this.member_id))
+    let car_number = getCarList.data[0].car_number
+    car_number = car_number.split('')
+    this.car_number = car_number
+    debugger
+  },
+  computed: {
+    ...mapState({
+      member_id: state => state.member_id,
+    }),
+  },
   methods: {
     neworold(value) {
       if (value) {
@@ -232,8 +241,15 @@ export default {
       } else {
         car_number[this.inputIndex] = value;
         this.inputIndex++;
-        if (this.inputIndex > 7) {
-          this.popupKeyboard = false;
+        if(this.newlicence){
+          if (this.inputIndex > 7) {
+            this.popupKeyboard = false;
+          }
+        }
+        if(this.oldlicence){
+          if (this.inputIndex > 6) {
+            this.popupKeyboard = false;
+          }
         }
       }
       this.car_number = car_number;
