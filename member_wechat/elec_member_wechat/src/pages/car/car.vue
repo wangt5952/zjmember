@@ -67,6 +67,7 @@
     </div>
 
     <div style="color:#767676;width:9rem;margin:0 auto;font-size:0.4rem">
+      <!-- {{intro}} -->
       <label>1.缴费成功后，请于30分钟内离场，超时需补交停车费<br /></label>
       <div style="padding-top:0.1rem;padding-bottom:0.1rem;">
         <label>2.若车牌识别有误，请到中央收费处缴纳</label>
@@ -110,7 +111,7 @@
     </div>
   </div>
   <!-- <router-link :to="/carDetail/'+id"> -->
-    <router-link :to="{path:'/carDetail',query: {car_number:car_number}}">
+  <router-link :to="{path:'/carDetail',query: {car_number:car_number}}">
     <div style="background-color:#46D0C3;text-align:center;position:fixed;right:0;left:0;bottom:0;">
       <div style="color:#fff;padding:0.3rem;font-size:0.5rem">缴 费</div>
     </div>
@@ -152,6 +153,7 @@ export default {
       newlicence: false,
       switchvalue: '',
       car_number: [],
+      intro: '',
       car_number_type: ['1', '2', '3', '3', '3', '3', '3', '4'],
       keyboard: {
         '1': [
@@ -198,11 +200,13 @@ export default {
     }
   },
   async mounted() {
-    let getCarList = (await this.$http.get('/api/parkingCoupon/getCarList?memberId='+this.member_id))
-    let car_number = getCarList.data[0].car_number
-    car_number = car_number.split('')
-    this.car_number = car_number
-    debugger
+    let getCarList = (await this.$http.get('/api/parkingCoupon/getCarList?memberId=' + this.member_id))
+    if(getCarList.data.carInfo.length >0){
+      let car_number = getCarList.data.carInfo[0].car_number
+      this.car_number = car_number.split('')
+    }
+    this.intro = getCarList.data.intro
+
   },
   computed: {
     ...mapState({
@@ -210,6 +214,16 @@ export default {
     }),
   },
   methods: {
+     encodeHtml(str) {
+      var encodedStr = "";
+      if (str == "") return encodedStr;
+      else {
+        for (var i = 0; i < str.length; i++) {
+          encodedStr += "&#" + str.substring(i, i + 1).charCodeAt().toString(10) + ";";
+        }
+      }
+      return encodedStr;
+    },
     neworold(value) {
       if (value) {
         this.oldlicence = false
@@ -241,12 +255,12 @@ export default {
       } else {
         car_number[this.inputIndex] = value;
         this.inputIndex++;
-        if(this.newlicence){
+        if (this.newlicence) {
           if (this.inputIndex > 7) {
             this.popupKeyboard = false;
           }
         }
-        if(this.oldlicence){
+        if (this.oldlicence) {
           if (this.inputIndex > 6) {
             this.popupKeyboard = false;
           }

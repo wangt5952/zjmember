@@ -34,11 +34,11 @@
 
 
   </div>
-  <div style="margin-bottom:0.8rem;padding-right:10%">
+  <!-- <div style="margin-bottom:0.8rem;padding-right:10%">
     <div style="color:#F79E07;padding-top:0.3rem;padding-left:0.2rem;">温馨提醒{{title}}</div>
     <div style="color:#979797;padding-top:0.3rem;padding-left:0.2rem;">1 积分抵现金比例： 100积分=1元人民币；</div>
     <div style="color:#979797;padding-top:0.3rem;padding-left:0.2rem;">2 积分抵现条件： 100积分起抵，100积分一档。即：只能100，200,300...依此类推</div>
-  </div>
+  </div> -->
   <router-link to="/carDetail">
     <div style="position:absolute;right:0;left:0;bottom:0;padding-top:0.2rem;display:flex;position:fixed;right:0;left:0;bottom:0;">
 
@@ -144,14 +144,16 @@ export default {
     list = _.sortBy(list, 'past')
 
     let arrLsit = []
+    debugger
     for (var x in list) {
-      let coupon_name = list[x].coupon_name
-      arrLsit.push(coupon_name)
+    let obj ={}
+      obj.key = list[x].crl_id
+      obj.value =  list[x].coupon_name
+      arrLsit.push(obj)
     }
     // this.options1 = arrLsit;
-    debugger
-    arrLsit.length > 0 ? this.valueVoucher = arrLsit[0] : this.valueVoucher = '暂无优惠券'
-
+    arrLsit.length > 0 ? this.valueVoucher = arrLsit[0].value : this.valueVoucher = '暂无优惠券'
+    arrLsit.length > 0 ? this.options1 = arrLsit : this.options1 =  []
   },
   computed: {
     ...mapState({

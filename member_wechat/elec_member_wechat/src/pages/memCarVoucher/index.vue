@@ -111,7 +111,7 @@ export default {
     }
 
     try{
-      this.list2 = (await this.$http.post(`/api/member/${this.member_id}/couponList`, {
+      this.list2 = (await this.$http.post(`/api/parkingCoupon/member/${this.member_id}/couponList`, {
         couponStatus: 2, mallId, page:1, size:200
       })).data
 
