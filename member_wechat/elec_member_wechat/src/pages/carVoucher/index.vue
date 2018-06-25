@@ -2,7 +2,7 @@
   <div>
     <scroller lock-x @on-scroll="handleScroll">
       <div>
-        <div style="height:5rem;background-image:url(static/img/quan.jpg);background-repeat:no-repeat;background-size: auto 100%;background-position:center;background-color:#64d9a6;position:relative;font-size:0.4rem;">
+        <div style="height:5rem;background-image:url(static/img/parking.JPG);background-repeat:no-repeat;background-size: auto 100%;background-position:center;position:relative;font-size:0.4rem;">
           <router-link :to="{ path: member_id ? '/memCarVoucher':'/register' }" style="position:absolute;bottom:0;right:0;padding:0.25rem;color:#ffed00;">
             {{member_id?'我的停车券':'立即注册 》'}}
           </router-link>

@@ -233,7 +233,7 @@ const map = {
   },
     'wxpay.get': async(req, res, next) => {
 
-      let { code,fee } = req.query;
+      let { code,fee} = req.query;
       if(!code){
         return res.sendStatus(404);
       }else{

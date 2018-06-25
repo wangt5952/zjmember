@@ -2,14 +2,14 @@
 <div>
   <div style="background-color:white;padding:0.5rem;padding-left:0.2rem;display;flex">
     <div style="font-size:0.5rem;">
-      你的车牌<label style="color:#A8A8A8;padding-left:0.2rem"><span v-for='item of licenceNum'>{{item}}</span></label>
+      你的车牌<label style="color:#A8A8A8;padding-left:0.2rem"><span>{{licenceNum}}</span></label>
     </div>
   </div>
   <div style="width:100%">
     <table style="margin-top:0.5rem;margin-left:0.2rem;width:90%">
       <tr>
         <td style="align:center;font-size:0.8rem;color:#00C4AB;padding-right:0.1rem">
-          ¥20.00
+          ¥{{fee}}.00
         </td>
         <td style="color:#B7B7B7">
           入场时间:{{in_date}}<br/>
@@ -23,7 +23,7 @@
   <div style="background-color:white;height:0.5rem;margin-top:0.3rem;font-size:0.2rem">
     <div style="padding-left:0.04rem;padding-right:0.1rem">
       <group>
-        <popup-radio title="" :options="options1" v-model="option1" :placeholder="valueVoucher"></popup-radio>
+        <popup-radio title=""  :options="options1" v-model="voucherPrice" :placeholder="valueVoucher"></popup-radio>
       </group>
     </div>
   </div>
@@ -45,7 +45,7 @@
       <div style="width:70%;height:100%;font-size:0.5rem;text-align:center;background-color:#E6E6E6">
         <div style="padding:0.3rem;">
           还需支付
-          <label style="color:#00C4AB;">¥20.00</label>
+          <label style="color:#00C4AB;">¥{{feeTotal}}.00</label>
         </div>
       </div>
       <div style="color:white;font-size:0.5rem;background-color:#46D0C3;width:30%;height:100%;">
@@ -89,9 +89,13 @@ export default {
       wxPayParams: '',
       parking_position: '',
       in_date: '',
+      in_datey: '',
       stay_time: '',
+      voucherPrice: '',
       valueVoucher: '请选择优惠券',
-      mes :''
+      mes: '',
+      fee: '20',
+      feeTotal :'20'
     }
   },
   async mounted() {
@@ -102,6 +106,7 @@ export default {
       this.parking_position = notify.data.parking_position
       let in_time = this.timestampToTime(notify.data.in_date);
       this.in_date = in_time
+      this.in_datey = notify.data.in_date
 
       let out_time = new Date()
       out_time = out_time.getTime();
@@ -128,7 +133,7 @@ export default {
 
     }
 
-    this.licenceNum = arr
+    this.licenceNum = carNumber
 
 
     let list = (await this.$http.post(`/api/parkingCoupon/member/${this.member_id}/couponList`, {
@@ -146,20 +151,36 @@ export default {
     let arrLsit = []
     debugger
     for (var x in list) {
-    let obj ={}
-      obj.key = list[x].crl_id
-      obj.value =  list[x].coupon_name
+      let obj = {}
+      obj.key = list[x]
+      obj.value = list[x].coupon_name
       arrLsit.push(obj)
     }
     // this.options1 = arrLsit;
-    arrLsit.length > 0 ? this.valueVoucher = arrLsit[0].value : this.valueVoucher = '暂无优惠券'
-    arrLsit.length > 0 ? this.options1 = arrLsit : this.options1 =  []
+    // arrLsit.length > 0 ? this.voucherPrice = arrLsit[0].key.price : this.voucherPrice =  0
+    // arrLsit.length > 0 ? this.valueVoucher = arrLsit[0].value : this.valueVoucher = '暂无优惠券'
+    arrLsit.length > 0 ? this.options1 = arrLsit : this.options1 = []
+
   },
   computed: {
     ...mapState({
       member_id: state => state.member_id,
     }),
   },
+  watch:{
+        voucherPrice(val, oldVal){
+           this.feeTotal = '20'
+          let voucherPrice
+          if (this.voucherPrice.price) {
+            voucherPrice = this.voucherPrice.price
+          } else {
+            voucherPrice = 0
+          }
+          let feeTotal = parseInt(this.fee - voucherPrice)
+          debugger
+          feeTotal > 0 ? this.feeTotal = feeTotal : this.feeTotal = 0
+        },
+    },
   methods: {
     timestampToTime(timestamp) {
       let date = new Date(timestamp); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
@@ -173,13 +194,25 @@ export default {
     },
     async wxpayClik() {
       let wx_app_id
+
       try {
         wx_app_id = (await this.$http.get('/wx/appid')).data.wx_app_id //在线获取
       } catch (e) {}
-      const redirectUri = `http://${location.hostname}/wx/wxpay?fee=2`
+      this.wxpayTOjava()
+      const redirectUri = `http://${location.hostname}/wx/wxpay?fee=` + this.feeTotal * 100
       location.href = `http://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
 
-      // this.mes = (await this.$http.get(`/wx/wxpay?id=`+1)).data
+      this.mes = (await this.$http.get(`/wx/wxpay?id=` + 1)).data
+    },
+    async wxpayTOjava() {
+      let list = (await this.$http.post(`/api/parkingCoupon/pay/`, {
+        'member_id': this.member_id,
+        'car_number': this.licenceNum,
+        'in_date': this.in_datey,
+        'price': this.feeTotal,
+        'ticket_no': 123
+      })).data
+
     }
   }
 }
