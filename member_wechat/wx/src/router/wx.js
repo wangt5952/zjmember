@@ -94,6 +94,7 @@ class WechatPay {
       }, function(error, response, body) {
         var prepay_id = '';
         if (!error && response.statusCode == 200) {
+          console.log(body)
           // 微信返回的数据为 xml 格式， 需要装换为 json 数据， 便于使用
           xml2jsparseString(body, {
             async: true
@@ -232,17 +233,18 @@ const map = {
     return res.redirect(`/register?wx_openid=${wx_openid}`)
   },
     'wxpay.get': async(req, res, next) => {
-
-      let { code,fee} = req.query;
+      let { code,feeT} = req.query;
+           console.log(decodeURI(feeT))
+        // feeT =  JSON.parse(decodeURI(feeT))
       if(!code){
         return res.sendStatus(404);
       }else{
         WechatPays.getAccessToken({
-            notify_url : 'http://121.196.208.176/wx/notify', //微信支付完成后的回调
+            notify_url : 'http://jiayuanmember.dorm9tech.com/wx/notify', //微信支付完成后的回调
             out_trade_no : new Date().getTime(), //订单号
-            attach : '名称',
-            body : '购买信息2',
-            total_fee : fee, // 此处的额度为分
+            attach : '上海紫金广场停车系统',
+            body : feeT,
+            total_fee : feeT.price, // 此处的额度为分
             spbill_create_ip : '121.196.208.176',
             code : code
         }, function (error, responseData) {
@@ -259,10 +261,19 @@ const map = {
     },
       'notify.post': async(req, res, next) => {
 
-        console.log(req.body);
-        return res.json({
-          '1':req.body
-        })
+         // let feeT =JSON.parse(feeT)
+            console.log(req.body)
+        xml2jsparseString(req.body, {
+          async: true
+        }, function(error, result) {
+          if(result.xml){
+            let transaction_id = result.xml.transaction_id
+                console.log(transaction_id)
+                res.writeHead(200, {'Content-Type': 'application/xml'});
+                res.end('<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>');
+          }
+          // 放回数组的第一个元素
+        });
 
       },
       'wx_login.get': async(req, res, next) => {
@@ -276,7 +287,7 @@ const map = {
 
 _.forEach(map, (o, k)=>{
   const [ path, method = 'use' ] = k.split('.')
-    console.log(`/${path}`)
+    console.log(`/${path}/${method} `)
   router[method](`/${path}`, async (req, res, next) => {
     try{
       await o(req, res, next)

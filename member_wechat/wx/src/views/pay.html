@@ -70,7 +70,7 @@
       function(res) {
         if (res.err_msg == "get_brand_wcpay_request:ok") {
           alert("支付成功");
-          window.location.href='http://jiayuanmember.dorm9tech.com/notify';
+          location.href='http://jiayuanmember.dorm9tech.com/notify';
         } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
           alert("支付取消");
           window.history.go(-2);

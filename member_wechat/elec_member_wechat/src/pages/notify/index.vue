@@ -1,19 +1,26 @@
 <template>
 <div>
-支付订单
+  <div style="background-color:#fff;padding-bottom:15px;">
+    <msg :title="statusName" :icon="statusIcon"></msg>
+  </div>
 </div>
 </template>
 <script>
-
+import { TransferDom, Scroller, Msg } from 'vux'
 export default {
 
   data() {
     return {
-
+        statusName: '支付成功',
+        statusIcon: 'success',
     }
   },
+  components: {
+    Scroller, Msg
+  },
    mounted() {
-    let aaa = this.$route.query
+    const { transaction_id } = this.$route.query
+    this.statusName = transaction_id
     debugger
   },
   computed: {
@@ -26,9 +33,4 @@ export default {
 </script>
 
 <style scoped>
-.demo3-slot {
-  text-align: center;
-  padding: 8px 0;
-  color: #888;
-}
 </style>

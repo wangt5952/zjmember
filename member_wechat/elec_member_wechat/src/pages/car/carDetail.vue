@@ -149,7 +149,7 @@ export default {
     list = _.sortBy(list, 'past')
 
     let arrLsit = []
-    debugger
+
     for (var x in list) {
       let obj = {}
       obj.key = list[x]
@@ -177,7 +177,7 @@ export default {
             voucherPrice = 0
           }
           let feeTotal = parseInt(this.fee - voucherPrice)
-          debugger
+
           feeTotal > 0 ? this.feeTotal = feeTotal : this.feeTotal = 0
         },
     },
@@ -198,10 +198,17 @@ export default {
       try {
         wx_app_id = (await this.$http.get('/wx/appid')).data.wx_app_id //在线获取
       } catch (e) {}
-      this.wxpayTOjava()
-      const redirectUri = `http://${location.hostname}/wx/wxpay?fee=` + this.feeTotal * 100
+      // this.wxpayTOjava()
+      // const redirectUri = `http://${location.hostname}/wx/wxpay?fee=` + this.feeTotal * 100
+      let feeT={}
+      feeT = {
+        'member_id': this.member_id,
+        'car_number': this.licenceNum,
+        'in_date': this.in_datey,
+        'price': this.feeTotal,
+      }
+       const redirectUri = urlEncode(`http://${location.hostname}/wx/wxpay?feeT=`+ feeTecode)
       location.href = `http://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
-
       this.mes = (await this.$http.get(`/wx/wxpay?id=` + 1)).data
     },
     async wxpayTOjava() {
