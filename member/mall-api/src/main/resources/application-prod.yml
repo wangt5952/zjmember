@@ -62,3 +62,9 @@ logging:
     org.springframework.jdbc.core.StatementCreatorUtils: debug
     org.springframework.jdbc.core: debug
 
+myYml:
+  gouagou:
+    appkey: 8446393248215661
+    appSecret: 1CFF826T0T08A3002OV0G34JJ3C3KOU2
+    url: http://api.gooagoo.com/oapi/rest
+    qrurl: http://f.gooagoo.com/001/

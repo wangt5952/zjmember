@@ -61,3 +61,10 @@ logging:
     org.springframework.jdbc.core.StatementCreatorUtils: debug
     org.springframework.jdbc.core: debug
 
+#自定义的属性和值
+myYml:
+  gouagou:
+    appkey: 8688458140778369
+    appSecret: 1CFMETED5V4LVG001GKP81LV7P164MCA
+    url: http://api.test.goago.cn/oapi/rest
+    qrurl: http://f.test.goago.cn/001/
