@@ -253,20 +253,21 @@ export default {
         try {
           wx_app_id = (await this.$http.get('/wx/appid')).data.wx_app_id //在线获取
         } catch (e) {}
-        // this.wxpayTOjava()
+       this.wxpayTOjava()
 
         // let feeT = this.member_id +","+this.licenceNum+","+this.in_datey+","+this.feeTotal* 100
-        let feeT = this.member_id +","+this.licenceNum+","+this.in_datey+",1"
-        feeT = JSON.stringify(feeT)
-        const redirectUri =`http://${location.hostname}/wx/wxpay?feeT=`+ this.urlEncode(feeT)
-        debugger
-        // const redirectUri = `http://${location.hostname}/wx/wxpay?feeT=1`
-        location.href = `http://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
-        this.mes = (await this.$http.get(`/wx/wxpay?id=` + 1)).data
+        // let feeT = this.member_id +","+this.licenceNum+","+this.in_datey+",1"
+        // feeT = JSON.stringify(feeT)
+        // const redirectUri =`http://${location.hostname}/wx/wxpay?feeT=`+ this.urlEncode(feeT)
+        // debugger
+        // // const redirectUri = `http://${location.hostname}/wx/wxpay?feeT=1`
+        // location.href = `http://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+        // this.mes = (await this.$http.get(`/wx/wxpay?id=` + 1)).data
       }
 
     },
     async wxpayTOjava() {
+      debugger
       let list = (await this.$http.post(`/api/parkingCoupon/pay/`, {
         'member_id': this.member_id,
         'car_number': this.licenceNum,

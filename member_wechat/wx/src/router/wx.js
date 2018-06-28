@@ -21,10 +21,14 @@ const router = express.Router()
 
 const httpGet = (...args) => new Promise((resolve, reject) => {
   request.get(...args, (err, response, body) => {
-    if(err){
+    if (err) {
       reject(err)
     } else {
-      resolve({err,response, body})
+      resolve({
+        err,
+        response,
+        body
+      })
     };
   })
 })
@@ -85,30 +89,30 @@ class WechatPay {
     };
     // 返回 promise 对象
     return new Promise(function(resolve, reject) {
-      // 获取 sign 参数
-      UnifiedorderParams.sign = that.getSign(UnifiedorderParams);
-      var url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
-      request.post({
-        url: url,
-        body: JSON.stringify(that.getUnifiedorderXmlParams(UnifiedorderParams))
-      }, function(error, response, body) {
-        var prepay_id = '';
-        if (!error && response.statusCode == 200) {
-          console.log(body)
-          // 微信返回的数据为 xml 格式， 需要装换为 json 数据， 便于使用
-          xml2jsparseString(body, {
-            async: true
-          }, function(error, result) {
-            prepay_id = result.xml.prepay_id[0];
-            // 放回数组的第一个元素
-            resolve(prepay_id);
-          });
-        } else {
-          reject(body);
-        }
-      });
-    })
-    .catch(error => console.log('caught', error))
+        // 获取 sign 参数
+        UnifiedorderParams.sign = that.getSign(UnifiedorderParams);
+        var url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
+        request.post({
+          url: url,
+          body: JSON.stringify(that.getUnifiedorderXmlParams(UnifiedorderParams))
+        }, function(error, response, body) {
+          var prepay_id = '';
+          if (!error && response.statusCode == 200) {
+            console.log(body)
+            // 微信返回的数据为 xml 格式， 需要装换为 json 数据， 便于使用
+            xml2jsparseString(body, {
+              async: true
+            }, function(error, result) {
+              prepay_id = result.xml.prepay_id[0];
+              // 放回数组的第一个元素
+              resolve(prepay_id);
+            });
+          } else {
+            reject(body);
+          }
+        });
+      })
+      .catch(error => console.log('caught', error))
   }
 
   /**
@@ -172,7 +176,7 @@ class WechatPay {
   getAccessToken(obj, cb) {
     console.log(obj)
     var that = this;
-    var getAccessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + config.WX.wxappid + "&secret=" + config.WX.wxappsecret + "&code=" +obj.code + "&grant_type=authorization_code";
+    var getAccessTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + config.WX.wxappid + "&secret=" + config.WX.wxappsecret + "&code=" + obj.code + "&grant_type=authorization_code";
     request.post({
       url: getAccessTokenUrl
     }, function(error, response, body) {
@@ -181,7 +185,7 @@ class WechatPay {
           cb(error, body);
         } else {
           body = JSON.parse(body);
-          let info ={}
+          let info = {}
           info.access_token = body.access_token;
           info.expires_in = body.expires_in;
           info.refresh_token = body.refresh_token;
@@ -208,109 +212,152 @@ class WechatPay {
 var WechatPays = new WechatPay();
 
 const map = {
-  'appid.get': async(req, res, next) => {
-    const { wx_app_id, wx_app_secret } = req.headers
-    return res.json({
-      wx_app_id
-    })
+    'appid.get': async (req, res, next) => {
+      const {
+        wx_app_id,
+        wx_app_secret
+      } = req.headers
+      return res.json({
+        wx_app_id
+      })
 
-  },
-  'code2openid.get': async (req, res, next) => {
-    let { code } = req.query;
+    },
+    'code2openid.get': async (req, res, next) => {
+      let {
+        code
+      } = req.query;
 
-    const { wx_app_id, wx_app_secret } = req.headers
-    if(!code){
-      return res.sendStatus(404);
-    }
-
-    let { body } = await httpGet(`https://api.weixin.qq.com/sns/oauth2/access_token?appid=${wx_app_id}&secret=${wx_app_secret}&code=${code}&grant_type=authorization_code`)
-
-    let wx_nickname;
-    let { errcode: wx_errno, openid: wx_openid, access_token } = JSON.parse(body);
-    if(wx_errno){
-      return res.sendStatus(404);
-    }
-    return res.redirect(`/register?wx_openid=${wx_openid}`)
-  },
-    'wxpay.get': async(req, res, next) => {
-      let { code,feeT} = req.query;
-      if(!code){
+      const {
+        wx_app_id,
+        wx_app_secret
+      } = req.headers
+      if (!code) {
         return res.sendStatus(404);
-      }else{
-        if(feeT){
+      }
+
+      let {
+        body
+      } = await httpGet(`https://api.weixin.qq.com/sns/oauth2/access_token?appid=${wx_app_id}&secret=${wx_app_secret}&code=${code}&grant_type=authorization_code`)
+
+      let wx_nickname;
+      let {
+        errcode: wx_errno,
+        openid: wx_openid,
+        access_token
+      } = JSON.parse(body);
+      if (wx_errno) {
+        return res.sendStatus(404);
+      }
+      return res.redirect(`/register?wx_openid=${wx_openid}`)
+    },
+    'wxpay.get': async (req, res, next) => {
+      let {
+        code,
+        feeT
+      } = req.query;
+      if (!code) {
+        return res.sendStatus(404);
+      } else {
+        if (feeT) {
           feeT = feeT.replace(/[\-\_\!\|\~\(\)\#\$\%\^\&\*\{\}\:\;\"\L\<\>\?]/g, '');
           var arr = feeT.split(',');
         }
         WechatPays.getAccessToken({
-            notify_url : 'http://jiayuanmember.dorm9tech.com/wx/notify', //微信支付完成后的回调
-            out_trade_no : new Date().getTime(), //订单号
-            attach : feeT,
-            body : '上海紫金广场停车系统',
-            total_fee : arr[3],
-            spbill_create_ip : '121.196.208.176',
-            code : code
-        }, function (error, responseData) {
-            res.render('pay', {
-                title : '微信支付',
-                wxPayParams : JSON.stringify(responseData),
-                //userInfo : userInfo
-            });
+          notify_url: 'http://jiayuanmember.dorm9tech.com/wx/notify', //微信支付完成后的回调
+          out_trade_no: new Date().getTime(), //订单号
+          attach: feeT,
+          body: '上海紫金广场停车系统',
+          total_fee: arr[3],
+          spbill_create_ip: '121.196.208.176',
+          code: code
+        }, function(error, responseData) {
+          res.render('pay', {
+            title: '微信支付',
+            wxPayParams: JSON.stringify(responseData),
+            //userInfo : userInfo
+          });
         })
       }
-        // return res.json({
-        //   'mes': req.query.id
-        // })
+      // return res.json({
+      //   'mes': req.query.id
+      // })
     },
-      'notify.post': async(req, res, next) => {
-            console.log(req.body)
+    'notify.post': async (req, res, next) => {
+        console.log(req.body)
         xml2jsparseString(req.body, {
-          async: true
-        }, function(error, result) {
-          if(result.xml){
-            let transaction_id = result.xml.transaction_id.[0]
-                        let attach = result.xml.attach[0]
-                        var arr = attach.split(',');
-                        request.post({
-                          url: 'http://jiayuanmember.dorm9tech.com/api/parkingCoupon/pay/',
-                          body: {
-                            'member_id': arr[0],
-                            'car_number': arr[1],
-                            'in_date':arr[2],
-                            'price': arr[3],
-                            'ticket_no': transaction_id
-                          }
-                        }, function(error, response, body) {
-                                console.log(body)
-                        });
+            async: true
+          }, function(error, result) {
+            if (result.xml) {
+              let transaction_id = result.xml.transaction_id[0]
+              let attach = result.xml.attach[0]
+              var arr = attach.split(',');
+              request({
+                  url: 'http://121.196.208.176:9001/api/parkingCoupon/pay/',
+                  method: "POST",
+                  json: true,
+                  headers: {
+                    "content-type": "application/json",
+                  },
+                  body: {
+                    'member_id': arr[0],
+                    'car_number': arr[1],
+                    'in_date': arr[2],
+                    'price': arr[3],
+                    'ticket_no': transaction_id
+                  }
+                }, function(error, response, body) {
+                  console.log(body) // 请求成功的处理逻辑
+                  if (!error && response.statusCode == 200) {
+                    console.log(body) // 请求成功的处理逻辑
+                  }
+                })
+
+                // request.post({
+                //   url: 'http://121.196.208.176:9001/api/parkingCoupon/pay/',
+                //   body: JSON.stringify({
+                //     'member_id': arr[0],
+                //     'car_number': arr[1],
+                //     'in_date':arr[2],
+                //     'price': arr[3],
+                //     'ticket_no': transaction_id
+                //   })
+                // }, function(error, response, body) {
+                //         console.log(body)
+                // });
 
 
 
-                res.writeHead(200, {'Content-Type': 'application/xml'});
-                res.end('<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>');
-          }
-          // 放回数组的第一个元素
-        });
+                  res.writeHead(200, {
+                    'Content-Type': 'application/xml'
+                  });
+                  res.end('<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>');
+                }
+                // 放回数组的第一个元素
+              });
 
-      },
-      'wx_login.get': async(req, res, next) => {
-            const { wx_app_id, wx_app_secret } = req.headers//对于支付来说已经多余，登录已经获取
+          },
+          'wx_login.get': async (req, res, next) => {
+            const {
+              wx_app_id,
+              wx_app_secret
+            } = req.headers //对于支付来说已经多余，登录已经获取
             const redirectUri = `http://121.196.208.176/wx/wxpay`
             res.redirect(`http://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`)
-      },
-}
+          },
+        }
 
 
 
-_.forEach(map, (o, k)=>{
-  const [ path, method = 'use' ] = k.split('.')
-    console.log(`/${path}/${method} `)
-  router[method](`/${path}`, async (req, res, next) => {
-    try{
-      await o(req, res, next)
-    }catch(e){
-      next(e)
-    }
-  })
-})
+        _.forEach(map, (o, k) => {
+          const [path, method = 'use'] = k.split('.')
+          console.log(`/${path}/${method} `)
+          router[method](`/${path}`, async (req, res, next) => {
+            try {
+              await o(req, res, next)
+            } catch (e) {
+              next(e)
+            }
+          })
+        })
 
-module.exports = router
+        module.exports = router
