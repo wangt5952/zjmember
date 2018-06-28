@@ -69,7 +69,6 @@
       },
       function(res) {
         if (res.err_msg == "get_brand_wcpay_request:ok") {
-          alert("支付成功");
           location.href='http://jiayuanmember.dorm9tech.com/notify';
         } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
           alert("支付取消");

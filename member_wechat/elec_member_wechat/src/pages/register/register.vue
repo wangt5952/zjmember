@@ -105,7 +105,7 @@ export default {
     },
   },
   async mounted(){
-    localStorage.setItem('member_id', '14811');
+    // localStorage.setItem('member_id', '14811');
     document.title = '会员注册'
     let ua = new UAParser().getResult()
     let { wx_openid , code} = this.$route.query

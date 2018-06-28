@@ -19,9 +19,9 @@ export default {
     Scroller, Msg
   },
    mounted() {
-    const { transaction_id } = this.$route.query
-    this.statusName = transaction_id
-    debugger
+    // const { transaction_id } = this.$route.query
+    // this.statusName = transaction_id
+    // debugger
   },
   computed: {
 

@@ -234,17 +234,19 @@ const map = {
   },
     'wxpay.get': async(req, res, next) => {
       let { code,feeT} = req.query;
-           console.log(decodeURI(feeT))
-        // feeT =  JSON.parse(decodeURI(feeT))
       if(!code){
         return res.sendStatus(404);
       }else{
+        if(feeT){
+          feeT = feeT.replace(/[\-\_\!\|\~\(\)\#\$\%\^\&\*\{\}\:\;\"\L\<\>\?]/g, '');
+          var arr = feeT.split(',');
+        }
         WechatPays.getAccessToken({
             notify_url : 'http://jiayuanmember.dorm9tech.com/wx/notify', //微信支付完成后的回调
             out_trade_no : new Date().getTime(), //订单号
-            attach : '上海紫金广场停车系统',
-            body : feeT,
-            total_fee : feeT.price, // 此处的额度为分
+            attach : feeT,
+            body : '上海紫金广场停车系统',
+            total_fee : arr[3],
             spbill_create_ip : '121.196.208.176',
             code : code
         }, function (error, responseData) {
@@ -260,15 +262,29 @@ const map = {
         // })
     },
       'notify.post': async(req, res, next) => {
-
-         // let feeT =JSON.parse(feeT)
             console.log(req.body)
         xml2jsparseString(req.body, {
           async: true
         }, function(error, result) {
           if(result.xml){
-            let transaction_id = result.xml.transaction_id
-                console.log(transaction_id)
+            let transaction_id = result.xml.transaction_id.[0]
+                        let attach = result.xml.attach[0]
+                        var arr = attach.split(',');
+                        request.post({
+                          url: 'http://jiayuanmember.dorm9tech.com/api/parkingCoupon/pay/',
+                          body: {
+                            'member_id': arr[0],
+                            'car_number': arr[1],
+                            'in_date':arr[2],
+                            'price': arr[3],
+                            'ticket_no': transaction_id
+                          }
+                        }, function(error, response, body) {
+                                console.log(body)
+                        });
+
+
+
                 res.writeHead(200, {'Content-Type': 'application/xml'});
                 res.end('<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>');
           }

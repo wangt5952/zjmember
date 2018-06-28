@@ -23,7 +23,7 @@
   <div style="background-color:white;height:0.5rem;margin-top:0.3rem;font-size:0.2rem">
     <div style="padding-left:0.04rem;padding-right:0.1rem">
       <group>
-        <popup-radio title=""  :options="options1" v-model="voucherPrice" :placeholder="valueVoucher"></popup-radio>
+        <popup-radio title="" :options="options1" v-model="voucherPrice" :placeholder="valueVoucher"></popup-radio>
       </group>
     </div>
   </div>
@@ -95,7 +95,7 @@ export default {
       valueVoucher: '请选择优惠券',
       mes: '',
       fee: '20',
-      feeTotal :'20'
+      feeTotal: '20'
     }
   },
   async mounted() {
@@ -167,21 +167,73 @@ export default {
       member_id: state => state.member_id,
     }),
   },
-  watch:{
-        voucherPrice(val, oldVal){
-           this.feeTotal = '20'
-          let voucherPrice
-          if (this.voucherPrice.price) {
-            voucherPrice = this.voucherPrice.price
-          } else {
-            voucherPrice = 0
-          }
-          let feeTotal = parseInt(this.fee - voucherPrice)
+  watch: {
+    voucherPrice(val, oldVal) {
+      this.feeTotal = '20'
+      let voucherPrice
+      if (this.voucherPrice.price) {
+        voucherPrice = this.voucherPrice.price
+      } else {
+        voucherPrice = 0
+      }
+      let feeTotal = parseInt(this.fee - voucherPrice)
 
-          feeTotal > 0 ? this.feeTotal = feeTotal : this.feeTotal = 0
-        },
+      feeTotal > 0 ? this.feeTotal = feeTotal : this.feeTotal = 0
     },
+  },
   methods: {
+     urlEncode(str) {
+      return this.transform(str);
+    },
+     transform(s) {
+      var hex = ''
+      var i, j, t
+      j = 0
+      for (i = 0; i < s.length; i++) {
+        t = this.hexfromdec(s.charCodeAt(i));
+        if (t == '25') {
+          t = '';
+        }
+        hex += '%' + t;
+      }
+      return hex;
+    },
+    hexfromdec(num) {
+      if (num > 65535) {
+        return ("err!")
+      }
+      let first = Math.round(num / 4096 - .5);
+      let temp1 = num - first * 4096;
+      let second = Math.round(temp1 / 256 - .5);
+      let temp2 = temp1 - second * 256;
+      let third = Math.round(temp2 / 16 - .5);
+      let fourth = temp2 - third * 16;
+      return ("" + this.getletter(third) + this.getletter(fourth));
+    },
+    getletter(num) {
+      if (num < 10) {
+        return num;
+      } else {
+        if (num == 10) {
+          return "A"
+        }
+        if (num == 11) {
+          return "B"
+        }
+        if (num == 12) {
+          return "C"
+        }
+        if (num == 13) {
+          return "D"
+        }
+        if (num == 14) {
+          return "E"
+        }
+        if (num == 15) {
+          return "F"
+        }
+      }
+    },
     timestampToTime(timestamp) {
       let date = new Date(timestamp); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
       let Y = date.getFullYear() + '-';
@@ -193,23 +245,26 @@ export default {
       return Y + M + D + h + m + s;
     },
     async wxpayClik() {
-      let wx_app_id
 
-      try {
-        wx_app_id = (await this.$http.get('/wx/appid')).data.wx_app_id //在线获取
-      } catch (e) {}
-      // this.wxpayTOjava()
-      // const redirectUri = `http://${location.hostname}/wx/wxpay?fee=` + this.feeTotal * 100
-      let feeT={}
-      feeT = {
-        'member_id': this.member_id,
-        'car_number': this.licenceNum,
-        'in_date': this.in_datey,
-        'price': this.feeTotal,
+      if (this.feeTotal == 0) {
+        location.href = 'http://jiayuanmember.dorm9tech.com/notify';
+      } else {
+        let wx_app_id
+        try {
+          wx_app_id = (await this.$http.get('/wx/appid')).data.wx_app_id //在线获取
+        } catch (e) {}
+        // this.wxpayTOjava()
+
+        // let feeT = this.member_id +","+this.licenceNum+","+this.in_datey+","+this.feeTotal* 100
+        let feeT = this.member_id +","+this.licenceNum+","+this.in_datey+",1"
+        feeT = JSON.stringify(feeT)
+        const redirectUri =`http://${location.hostname}/wx/wxpay?feeT=`+ this.urlEncode(feeT)
+        debugger
+        // const redirectUri = `http://${location.hostname}/wx/wxpay?feeT=1`
+        location.href = `http://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
+        this.mes = (await this.$http.get(`/wx/wxpay?id=` + 1)).data
       }
-       const redirectUri = urlEncode(`http://${location.hostname}/wx/wxpay?feeT=`+ feeTecode)
-      location.href = `http://open.weixin.qq.com/connect/oauth2/authorize?appid=${wx_app_id}&redirect_uri=${redirectUri}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`
-      this.mes = (await this.$http.get(`/wx/wxpay?id=` + 1)).data
+
     },
     async wxpayTOjava() {
       let list = (await this.$http.post(`/api/parkingCoupon/pay/`, {
