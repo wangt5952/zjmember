@@ -32,4 +32,5 @@ public class GoagoController {
         int result = gagService.uploadBill(memberId, qrCode);
         return new ResponseEntity(result, HttpStatus.OK);
     }
+
 }
