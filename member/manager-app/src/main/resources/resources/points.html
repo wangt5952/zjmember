@@ -234,6 +234,13 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s6">
+                                    <input id="ticketNo" name="ticketNo"
+                                           type="text" data-parsley-ui-enabled="false">
+                                    <label for="ticketNo">单据号</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s6">
                                     <input id="amountsStart" name="amountsStart"
                                            type="number" step="0.01" value="0">
                                     <label for="amountsStart">支付金额(区间起始)</label>
@@ -360,6 +367,9 @@ Scripts
                         case 'mobile':
                             $('#mobile').val(value)
                             break
+                        case 'ticketNo':
+                            $('#ticketNo').val(value)
+                            break
                         case 'shoppingDateStart':
                             $('#shopping-date-start').val(dateString(new Date(value)))
                             $('#shoppingrDateStart').val(value)
@@ -397,6 +407,7 @@ Scripts
                 var obj = {}
                 if ($('#username').val()) obj.username = $('#username').val()
                 if ($('#mobile').val()) obj.mobile = $('#mobile').val()
+                if ($('#ticketNo').val()) obj.ticketNo = $('#ticketNo').val()
 
                 if ($('#shopping-date-start').val() && $('#shopping-date-end').val()) {
                     $('#shoppingDateStart').val(Number(dateToMilliseconds($('#shopping-date-start').val())))

@@ -280,8 +280,12 @@ public class PointsRuleServiceImpl implements PointsRuleService {
                 result = promotionPointsRuleDao.editPointsRuleWithoutBirthday(rule);
             else
                 result = promotionPointsRuleDao.editPointsRule(rule);
+            if (result <= 0) throw new MallDBException();
 
             result = promotionPointsRuleDao.removePromotionQuery(condition.getRuleId());
+            if (result <= 0) throw new MallDBException();
+
+            result = promotionPointsRuleDao.removeDayPointsRule(condition.getRuleId());
             if (result <= 0) throw new MallDBException();
 
             try {

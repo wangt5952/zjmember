@@ -1,8 +1,6 @@
 package com.laf.manager.service;
 
-import com.laf.manager.dto.Coupon;
-import com.laf.manager.dto.ReceiveCouponInfo;
-import com.laf.manager.dto.VerificationLog;
+import com.laf.manager.dto.*;
 import com.laf.manager.enums.CouponType;
 import com.laf.manager.querycondition.coupon.*;
 import com.laf.manager.querycondition.member.MemberFilterCondition;
@@ -13,13 +11,22 @@ import java.util.List;
 
 public interface CouponService {
 
+
     int editCoupon(final ReceiveCouponEditCondition condition);
+
+    int editParkingCoupon(ReceiveCouponEditCondition condition);
 
     ReceiveCouponInfo getReceiveCoupon(final Integer couponId);
 
+    ReceiveCouponInfo getParkingCoupon(final Integer couponId);
+
     int delReceiveCoupon(final Integer couponId);
 
+    int delCoupon(final Integer couponId);
+
     int getCouponsCount(final CouponQueryCondition condition);
+
+    int getParkingCouponsCount(final CouponQueryCondition condition);
 
     /**
      * 获取领取记录
@@ -36,13 +43,25 @@ public interface CouponService {
 
     List<Coupon> getCouponLogsList(CouponLogFilterCondition condition);
 
+    List<ParkingCouponInfo> getParkingCouponLogsList(CouponLogFilterCondition condition);
+
+    int getParkingCouponPayLogsCount(CouponLogFilterCondition condition);
+
+    List<ParkingCouponInfo> getParkingCouponPayLogsList(CouponLogFilterCondition condition);
+
     int getCouponLogsCount(CouponLogFilterCondition condition);
 
+    int getParkingCouponLogsCount(CouponLogFilterCondition condition);
+
     BigDecimal getCouponLogsSum(CouponLogFilterCondition condition);
+
+    BigDecimal getParkingCouponLogsSum(CouponLogFilterCondition condition);
 
     int editPushCoupon(final PushCouponEditCondition condition);
 
     List<ReceiveCouponInfo> getCouponInfoList(CouponQueryCondition condition);
+
+    List<ReceiveCouponInfo> getParkingCouponInfoList(CouponQueryCondition condition);
 
     List<ReceiveCouponInfo> getCouponInfoListFromType(CouponType couponType);
 
@@ -57,4 +76,10 @@ public interface CouponService {
     String associationCoupons2Json(List<ReceiveCouponInfo> list);
 
     void print2Excel(List<Coupon> members, OutputStream out);
+
+    void print2ExcelParking(List<ParkingCouponInfo> couponLogs, OutputStream out);
+
+    int saveParkingInfo(String intro);
+
+    ParkingInfo getParkingInfo();
 }

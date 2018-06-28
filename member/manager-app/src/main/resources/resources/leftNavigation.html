@@ -154,13 +154,6 @@
                     </a>
                 </li>
 
-                <li class="bold active-coupon" th:if="${#authentication.name=='admin'}">
-                    <a href="/coupons" class="waves-effect waves-cyan">
-                        <i class="material-icons">card_membership</i>
-                        <span class="nav-text">优惠券管理</span>
-                    </a>
-                </li>
-
                 <!--<li class="bold active-receive-logs" th:if="${#authentication.name=='admin'}">-->
                 <!--<a href="/receiveLogs" class="waves-effect waves-cyan">-->
                 <!--<i class="material-icons">local_laundry_service</i>-->
@@ -175,10 +168,39 @@
                 <!--</a>-->
                 <!--</li>-->
 
+                <li class="bold active-coupon" th:if="${#authentication.name=='admin'}">
+                    <a href="/coupons" class="waves-effect waves-cyan">
+                        <i class="material-icons">card_membership</i>
+                        <span class="nav-text">优惠券管理</span>
+                    </a>
+                </li>
+
                 <li class="bold active-coupon-logs" th:if="${#authentication.name=='admin'}">
                     <a href="/couponLogs" class="waves-effect waves-cyan">
                         <i class="material-icons">folder_shared</i>
                         <span class="nav-text">券记录</span>
+                    </a>
+                </li>
+
+
+                 <li class="bold active-parking-coupon" th:if="${#authentication.name=='admin'}">
+                    <a href="/parkingCoupons" class="waves-effect waves-cyan">
+                        <i class="material-icons">card_membership2</i>
+                        <span class="nav-text">停车券管理</span>
+                    </a>
+                 </li>
+
+                <li class="bold active-parkingCoupon-logs" th:if="${#authentication.name=='admin'}">
+                    <a href="parkingCouponLogs" class="waves-effect waves-cyan">
+                        <i class="material-icons">folder_shared</i>
+                        <span class="nav-text">停车券记录</span>
+                    </a>
+                </li>
+
+                <li class="bold active-parkingCoupon-pay-logs" th:if="${#authentication.name=='admin'}">
+                    <a href="parkingCouponPayLogs" class="waves-effect waves-cyan">
+                        <i class="material-icons">folder_shared</i>
+                        <span class="nav-text">停车缴费记录</span>
                     </a>
                 </li>
 

@@ -33,20 +33,40 @@ public class CouponDao {
         return repository.insertReceiveCoupon(coupon);
     }
 
+    public int saveParkingCoupon(ReceiveCouponInfo coupon) {
+        return repository.insertParkingCoupon(coupon);
+    }
+
     public int editReceiveCoupon(ReceiveCouponInfo coupon) {
         return repository.updateReceiveCoupon(coupon);
+    }
+
+    public int editParkingCoupon(ReceiveCouponInfo coupon) {
+        return repository.updateParkingCoupon(coupon);
     }
 
     public int deleteCoupon(final Integer couponId) {
         return repository.deleteCoupon(couponId);
     }
 
+    public int updateCouponState(final Integer couponId,final Integer state) {
+        return repository.updateCouponState(couponId,state);
+    }
+
     public ReceiveCouponInfo getCouponInfoById(final Integer couponId) {
         return repository.selectCouponInfoById(couponId);
     }
 
+    public ReceiveCouponInfo getParkingCouponInfoById(final Integer couponId) {
+        return repository.selectParkingCouponInfoById(couponId);
+    }
+
     public List<ReceiveCouponInfo> getCouponInfoList(CouponQueryCondition condition) {
         return repository.selectCouponInfoList(condition);
+    }
+
+    public List<ReceiveCouponInfo> getParkingCouponInfoList(CouponQueryCondition condition) {
+        return repository.selectParkingCouponInfoList(condition);
     }
 
     public List<VerificationWide> getVerificationWideByCouponId(final int couponId, final int verificationType) {
@@ -67,6 +87,10 @@ public class CouponDao {
 
     public int getCouponsCount(final CouponQueryCondition condition) {
         return repository.selectCouponsCount(condition);
+    }
+
+    public int getParkingCouponsCount(final CouponQueryCondition condition) {
+        return repository.selectParkingCouponsCount(condition);
     }
 
     public List<Coupon> getReceivedLogList(ReceivedQueryCondition condition) {
@@ -132,12 +156,48 @@ public class CouponDao {
         return $;
     }
 
+    public List<ParkingCouponInfo> multipleParkingQuery(final CouponLogFilterCondition condition) {
+        List<ParkingCouponInfo> $ = null;
+
+        try {
+            $ = repository.multipleSelectParkingCouponLogs(condition);
+        } catch (EmptyResultDataAccessException e) {
+            $ = new ArrayList<>();
+        }
+
+        return $;
+    }
+
+    public List<ParkingCouponInfo> multipleParkingPayQuery(final CouponLogFilterCondition condition) {
+        List<ParkingCouponInfo> $ = null;
+
+        try {
+            $ = repository.multipleSelectParkingCouponPayLogs(condition);
+        } catch (EmptyResultDataAccessException e) {
+            $ = new ArrayList<>();
+        }
+
+        return $;
+    }
+
     public int multipleCouponLogsCount(final CouponLogFilterCondition condition) {
         return repository.multipleSelectCouponLogsCount(condition);
     }
 
+    public int multipleParkingCouponLogsCount(final CouponLogFilterCondition condition) {
+        return repository.multipleSelectParkingCouponLogsCount(condition);
+    }
+
+    public int multipleParkingCouponPayLogsCount(final CouponLogFilterCondition condition) {
+        return repository.multipleSelectParkingCouponPayLogsCount(condition);
+    }
+
     public BigDecimal getCouponLogsSum(CouponLogFilterCondition condition) {
         return repository.selectCouponLogsSum(condition);
+    }
+
+    public BigDecimal getParkingCouponLogsSum(CouponLogFilterCondition condition) {
+        return repository.selectParkingCouponLogsSum(condition);
     }
 
     public int saveCouponsForPush2Members(final List<Member> members, final int coupon_id) {
@@ -160,4 +220,19 @@ public class CouponDao {
     public int saveCouponInfoQRCode(final int couponId, final String url, final String qrCodeParam) {
         return repository.updateCouponInfoQRCode(couponId, url, qrCodeParam);
     }
+
+    public int saveParkingCouponInfoQRCode(final int couponId, final String url, final String qrCodeParam) {
+        return repository.updateParkingCouponInfoQRCode(couponId, url, qrCodeParam);
+    }
+
+
+
+    public int insertParkingInfo(String content){
+        return repository.insertParkingInfo(content, 1);
+    }
+
+    public ParkingInfo selectParkingInfo(){
+        return repository.selectParkingInfo();
+    }
+
 }

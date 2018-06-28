@@ -111,12 +111,7 @@
                         <!--<a class="btn-floating btn-large waves-effect waves-light red right"-->
                         <!--style="margin-top:-.7em;margin-right:-.7em;" href="/receiveCoupon"><i class="material-icons">add</i></a>-->
 
-                        <a class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn red right" href="#!"
-                           data-activates="couponTypeSelect">
-                            <!--<i class="material-icons hide-on-med-and-up">settings</i>-->
-                            <span class="hide-on-small-onl">新增</span>
-                            <i class="material-icons right">arrow_drop_down</i>
-                        </a>
+
                         <ul id="couponTypeSelect" class="dropdown-content">
                             <li th:each="type:${T(com.laf.manager.enums.CouponType).values()}"
                                 th:if="${type?.value()!=-1}">
@@ -125,8 +120,13 @@
                             </li>
                         </ul>
                         <div class="card-panel">
-                            <h4 class="header2">优惠券列表</h4>
-
+                            <!--<h4 class="header2">优惠券列表</h4>-->
+                            <a class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn red right" href="#!"
+                               data-activates="couponTypeSelect">
+                                <!--<i class="material-icons hide-on-med-and-up">settings</i>-->
+                                <span class="hide-on-small-onl">新增</span>
+                                <i class="material-icons right">arrow_drop_down</i>
+                            </a>
                             <div class="row">
                                 <form id="form-filter" action="/coupons/filter" method="post">
                                     <div class="input-field col s3">
@@ -190,13 +190,12 @@
                                                 <td th:text="${coupon?.verification_of>0} ? ${coupon?.verification_of - coupon?.verification} : ${coupon?.receivedTotal - coupon?.verification}"></td>
                                                 <td th:case="0" th:text="'草稿'"></td>
                                                 <td th:case="1" th:text="'发布'"></td>
+                                                <td th:case="9" th:text="'下架'"></td>
                                                 <td>
-                                                    <a class="waves-effect waves-light"
-                                                       th:href="@{'/coupon?couponId=' + ${coupon?.coupon_id}}"><i
-                                                            class="material-icons left">edit</i></a>
+                                                    <a class="waves-effect waves-light" th:href="@{'/coupon?couponId=' + ${coupon?.coupon_id}}"><i class="material-icons left">edit</i></a>
                                                     <!--<a class="waves-effect waves-light" th:href="@{'/delReceiveCoupon?couponId=' + ${receiveCoupon?.coupon_id}}"><i class="material-icons left">delete_forever</i></a>-->
-                                                    <a class="waves-effect waves-light" th:if="${!#strings.isEmpty(coupon?.qr_code)}" th:href="${coupon?.qr_code}" download=""><i
-                                                            class="material-icons left">gradient</i></a>
+                                                    <a class="waves-effect waves-light" th:if="${!#strings.isEmpty(coupon?.qr_code)}" th:href="${coupon?.qr_code}" download=""><i class="material-icons left">gradient</i></a>
+                                                    <!--<a class="waves-effect waves-light"  th:href="@{'/delCoupon?couponId=' + ${coupon?.coupon_id}}"><i class="material-icons left">delete_forever</i></a>-->
                                                 </td>
                                             </tr>
                                             </tbody>

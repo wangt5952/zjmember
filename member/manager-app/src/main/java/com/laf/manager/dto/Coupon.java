@@ -2,6 +2,7 @@ package com.laf.manager.dto;
 
 import com.laf.manager.enums.CouponStatus;
 import com.laf.manager.enums.CouponType;
+import com.laf.manager.enums.ParkingCouponStatus;
 import com.laf.manager.utils.datetime.DateTimeUtils;
 import lombok.*;
 
@@ -156,6 +157,14 @@ public class Coupon {
             return "已激活";
         } else {
             return CouponStatus.valueOf(coupon_status).theName();
+        }
+    }
+
+    public String getParkingStatusName(int couponType) {
+        if (coupon_status == ParkingCouponStatus.ACTIVATED.value() && couponType == CouponType.ACTIVITY.value()) {
+            return "已激活";
+        } else {
+            return ParkingCouponStatus.valueOf(coupon_status).theName();
         }
     }
 

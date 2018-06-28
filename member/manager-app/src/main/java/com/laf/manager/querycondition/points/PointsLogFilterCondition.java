@@ -15,6 +15,8 @@ public class PointsLogFilterCondition {
 
     private String mobile = "";
 
+    private String ticketNo = "";
+
     private long shoppingDateStart;
 
     private long shoppingDateEnd;

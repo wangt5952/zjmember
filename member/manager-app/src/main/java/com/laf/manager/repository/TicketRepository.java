@@ -248,6 +248,11 @@ public class TicketRepository {
             args.add($$.getMobile());
         }
 
+        if (!StringUtils.isEmpty($$.getTicketNo())) {
+            sql += " and ticket_no like '%' ? '%'";
+            args.add($$.getTicketNo());
+        }
+
         if ($$.getCreateDateStart() > 0L && $$.getCreateDateEnd() > 0L) {
             sql += " and upload_date >= ? and upload_date<=?";
             args.add($$.getCreateDateStart());
@@ -323,6 +328,11 @@ public class TicketRepository {
         if (!StringUtils.isEmpty($$.getMobile())) {
             sql += " and member_mobile = ?";
             args.add($$.getMobile());
+        }
+
+        if (!StringUtils.isEmpty($$.getTicketNo())) {
+            sql += " and ticket_no like '%' ? '%'";
+            args.add($$.getTicketNo());
         }
 
         if ($$.getCreateDateStart() > 0L && $$.getCreateDateEnd() > 0L) {

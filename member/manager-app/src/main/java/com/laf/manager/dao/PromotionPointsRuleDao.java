@@ -51,6 +51,10 @@ public class PromotionPointsRuleDao {
         return result;
     }
 
+    public int removeDayPointsRule(Integer ruleId) {
+        return repository.deleteDayPointsRule(ruleId);
+    }
+
     public int removePromotionQuery(Integer ruleId) {
         return repository.deletePromotionQuery(ruleId);
     }

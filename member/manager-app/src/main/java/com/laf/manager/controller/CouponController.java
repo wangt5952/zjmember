@@ -2,9 +2,7 @@ package com.laf.manager.controller;
 
 import com.laf.manager.SettingsProperties;
 import com.laf.manager.dao.CouponDao;
-import com.laf.manager.dto.Coupon;
-import com.laf.manager.dto.ReceiveCouponInfo;
-import com.laf.manager.dto.Shop;
+import com.laf.manager.dto.*;
 import com.laf.manager.querycondition.coupon.CouponLogFilterCondition;
 import com.laf.manager.querycondition.coupon.CouponQueryCondition;
 import com.laf.manager.querycondition.coupon.ReceiveCouponEditCondition;
@@ -89,6 +87,42 @@ public class CouponController {
         return model;
     }
 
+    @GetMapping("/parkingCoupon")
+    public ModelAndView getParkingCoupon(@RequestParam(required = false) Integer couponId) {
+        ModelAndView model = new ModelAndView();
+        ReceiveCouponInfo coupon = null;
+
+        if (couponId != null) {
+            coupon = couponService.getParkingCoupon(couponId);
+            if (coupon == null) return new ModelAndView("404");
+
+            model.getModel().put("coupon", coupon);
+
+        } else {
+            coupon = new ReceiveCouponInfo();
+        }
+        model.setViewName("parkingcoupon");
+        return model;
+    }
+
+    @GetMapping("/parking")
+    public ModelAndView getParking(@RequestParam(required = false) Integer couponId) {
+        ModelAndView model = new ModelAndView();
+        ReceiveCouponInfo coupon = null;
+
+        if (couponId != null) {
+            coupon = couponService.getParkingCoupon(couponId);
+            if (coupon == null) return new ModelAndView("404");
+
+            model.getModel().put("coupon", coupon);
+
+        } else {
+            coupon = new ReceiveCouponInfo();
+        }
+        model.setViewName("parking");
+        return model;
+    }
+
 //    @PostMapping("/receiveCoupons")
 //    public ModelAndView getReceiveCouponsForPost(@RequestParam(required = false) String pageJson) {
 //        ModelAndView model = new ModelAndView();
@@ -156,6 +190,34 @@ public class CouponController {
         return model;
     }
 
+    @GetMapping("/parkingCoupons")
+    public ModelAndView getParkingCoupons(HttpSession session) {
+        ModelAndView model = new ModelAndView();
+        CouponQueryCondition condition;
+
+        if (session.getAttribute("coupons_querycondition") != null) {
+            condition = (CouponQueryCondition) session.getAttribute("coupons_querycondition");
+        } else {
+            condition = new CouponQueryCondition();
+        }
+
+        condition.setMallId(settingsProperties.getMallId());
+        List<ReceiveCouponInfo> list = couponService.getParkingCouponInfoList(condition);
+
+        int total = couponService.getParkingCouponsCount(condition);
+
+        Map<String, Object> pageMap = new HashMap<>();
+        pageMap.put("index", condition.getPage());
+        pageMap.put("size", condition.getSize());
+        pageMap.put("total", total);
+
+        model.getModel().put("coupons", list);
+        model.getModel().put("pageMap", pageMap);
+        model.setViewName("parkingcoupons");
+
+        return model;
+    }
+
     @PostMapping("/coupons/filter")
     public String couponsFilter(CouponQueryCondition condition, String filterJson, BindingResult errors, HttpSession session) {
 
@@ -211,15 +273,69 @@ public class CouponController {
         return "redirect:coupons";
     }
 
+    @PostMapping("/saveParkingCoupon")
+    public String editParkingCoupon(MultipartFile file, ReceiveCouponEditCondition condition, BindingResult errors) throws IOException {
+
+        if (errors.hasErrors()) {
+            return "redirect:error";
+        }
+
+        String picture = "";
+
+        if (file != null && file.getName().equals("file")) {
+            String uploadFileName = file.getOriginalFilename();
+
+            if (!StringUtils.isEmpty(uploadFileName)) {
+
+                String suffixName = uploadFileName.substring(uploadFileName.lastIndexOf("."));
+                String folder = fileProperties.getPath();
+                String fileName = "parkingcoupon_" + new Date().getTime() + suffixName;
+
+                File localFile = new File(folder, fileName);
+                file.transferTo(localFile);
+                String url = fileProperties.getDomain() + fileProperties.getBase() + fileName;
+                picture = url;
+            }
+        }
+
+        condition.setPicture(picture);
+        couponService.editParkingCoupon(condition);
+
+        return "redirect:/parkingCoupons";
+    }
+
+    @GetMapping("/getParkingInfo")
+    public ModelAndView getParkingInfo()  {
+        ModelAndView model = new ModelAndView();
+        ParkingInfo info = couponService.getParkingInfo();
+        model.getModel().put("parkingInfo", info);
+        model.setViewName("parking");
+        return model;
+    }
+
+    @PostMapping("/saveParkingInfo")
+    public String saveParkingInfo(ParkingInfo intro, BindingResult errors)  {
+
+        if (errors.hasErrors()) {
+            return "redirect:error";
+        }
+        couponService.saveParkingInfo(intro.getIntro());
+        return "redirect:/parkingCoupons";
+    }
+
+    @GetMapping("/delReceiveCoupon")
+    public String delReceiveCoupon(@RequestParam Integer couponId) {
+        if (couponId <= 0) return "redirect:404";
+        int result = couponService.delReceiveCoupon(couponId);
+        if (result <= 0) return "redirect:404";
+        return "redirect:coupons";
+    }
+
     @GetMapping("/delCoupon")
     public String delCoupon(@RequestParam Integer couponId) {
-
         if (couponId <= 0) return "redirect:404";
-
-        int result = couponService.delReceiveCoupon(couponId);
-
+        int result = couponService.delCoupon(couponId);
         if (result <= 0) return "redirect:404";
-
         return "redirect:coupons";
     }
 
@@ -354,6 +470,60 @@ public class CouponController {
         return model;
     }
 
+    @GetMapping("parkingCouponLogs")
+    public ModelAndView parkingCouponLogs(HttpSession session) {
+        ModelAndView model = new ModelAndView();
+        CouponLogFilterCondition condition = null;
+        if (session.getAttribute("parkingCouponLogs_queryCondition") != null) {
+            condition = (CouponLogFilterCondition) session.getAttribute("parkingCouponLogs_queryCondition");
+        } else {
+            condition = new CouponLogFilterCondition();
+        }
+
+        BigDecimal costPriceSum = couponService.getParkingCouponLogsSum(condition);
+        int total = couponService.getParkingCouponLogsCount(condition);
+        List<ParkingCouponInfo> list = couponService.getParkingCouponLogsList(condition);
+
+        Map<String, Object> pageMap = new HashMap<String, Object>();
+        pageMap.put("index", condition.getPage());
+        pageMap.put("size", condition.getSize());
+        pageMap.put("total", total);
+
+        model.getModel().put("costPriceSum", costPriceSum);
+        model.getModel().put("pageMap", pageMap);
+        model.getModel().put("logs", list);
+        model.setViewName("parkingcouponlogs");
+
+        return model;
+    }
+
+    @GetMapping("parkingCouponPayLogs")
+    public ModelAndView parkingCouponPayLogs(HttpSession session) {
+        ModelAndView model = new ModelAndView();
+        CouponLogFilterCondition condition = null;
+        if (session.getAttribute("parkingCouponPayLogs_queryCondition") != null) {
+            condition = (CouponLogFilterCondition) session.getAttribute("parkingCouponPayLogs_queryCondition");
+        } else {
+            condition = new CouponLogFilterCondition();
+        }
+
+        //BigDecimal costPriceSum = couponService.getParkingCouponLogsSum(condition);
+        int total = couponService.getParkingCouponPayLogsCount(condition);
+        List<ParkingCouponInfo> list = couponService.getParkingCouponPayLogsList(condition);
+
+        Map<String, Object> pageMap = new HashMap<String, Object>();
+        pageMap.put("index", condition.getPage());
+        pageMap.put("size", condition.getSize());
+        pageMap.put("total", total);
+
+       // model.getModel().put("costPriceSum", costPriceSum);
+        model.getModel().put("pageMap", pageMap);
+        model.getModel().put("logs", list);
+        model.setViewName("parkingcouponpaylogs");
+
+        return model;
+    }
+
     @PostMapping("/couponLogs/filter")
     public String filterReceiveCoupons(CouponLogFilterCondition condition, BindingResult errors, String filterJson, HttpSession session) {
 
@@ -361,6 +531,24 @@ public class CouponController {
         session.setAttribute("couponLogs_filterJson", filterJson);
 
         return "redirect:/couponLogs";
+    }
+
+    @PostMapping("/parkingCouponLogs/filter")
+    public String filterParkingCoupons(CouponLogFilterCondition condition, BindingResult errors, String filterJson, HttpSession session) {
+
+        session.setAttribute("parkingCouponLogs_queryCondition", condition);
+        session.setAttribute("parkingCouponLogs_filterJson", filterJson);
+
+        return "redirect:/parkingCouponLogs";
+    }
+
+    @PostMapping("/parkingCouponPayLogs/filter")
+    public String filterParkingCouponsPay(CouponLogFilterCondition condition, BindingResult errors, String filterJson, HttpSession session) {
+
+        session.setAttribute("parkingCouponPayLogs_queryCondition", condition);
+        session.setAttribute("parkingCouponPayLogs_filterJson", filterJson);
+
+        return "redirect:/parkingCouponPayLogs";
     }
 
     @PostMapping("/couponLogs/reset")
@@ -377,6 +565,38 @@ public class CouponController {
         }
 
         return "redirect:/couponLogs";
+    }
+
+    @PostMapping("/parkingCouponLogs/reset")
+    public String resetParkingCoupons(HttpSession session) {
+
+        Enumeration<String> names = session.getAttributeNames();
+
+        while (names.hasMoreElements()) {
+            String name = names.nextElement();
+
+            if (name.startsWith("parkingCouponLogs_")) {
+                session.removeAttribute(name);
+            }
+        }
+
+        return "redirect:/parkingCouponLogs";
+    }
+
+    @PostMapping("/parkingCouponPayLogs/reset")
+    public String resetParkingCouponsPay(HttpSession session) {
+
+        Enumeration<String> names = session.getAttributeNames();
+
+        while (names.hasMoreElements()) {
+            String name = names.nextElement();
+
+            if (name.startsWith("parkingCouponPayLogs_")) {
+                session.removeAttribute(name);
+            }
+        }
+
+        return "redirect:/parkingCouponPayLogs";
     }
 
     @GetMapping("/export_coupon_logs")
@@ -398,5 +618,26 @@ public class CouponController {
         condition.setSize(3000000); // excel 最大支持300万行
         List<Coupon> list = couponService.getCouponLogsList(condition);
         couponService.print2Excel(list, response.getOutputStream());
+    }
+
+    @GetMapping("/export_parkingCoupon_logs")
+    public void exportParkingMembers(HttpServletResponse response, HttpSession session) throws IOException {
+        String mimeType = "application/octet-stream";
+        String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"", settingsProperties.getExcel());
+        response.setHeader(headerKey, headerValue);
+        response.setContentType(mimeType);
+
+        CouponLogFilterCondition condition = null;
+
+        if (session.getAttribute("couponLogs_queryCondition") != null) {
+            condition = (CouponLogFilterCondition) session.getAttribute("couponLogs_queryCondition");
+        } else {
+            condition = new CouponLogFilterCondition();
+        }
+
+        condition.setSize(3000000); // excel 最大支持300万行
+        List<ParkingCouponInfo> list = couponService.getParkingCouponLogsList(condition);
+        couponService.print2ExcelParking(list, response.getOutputStream());
     }
 }

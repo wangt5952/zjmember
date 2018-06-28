@@ -125,6 +125,7 @@
                                                 <th>会员性别</th>
                                                 <th>累计消费</th>
                                                 <th>可用积分</th>
+                                                <th>车牌信息</th>
                                                 <th>注册时间</th>
                                                 <th>状态</th>
                                                 <th>操作</th>
@@ -138,6 +139,7 @@
                                                 <td th:text="${member?.sex_name}"></td>
                                                 <td th:text="${member?.cumulate_amount}"></td>
                                                 <td th:text="${member?.usable_points}"></td>
+                                                <td th:text="${member?.carNumber}"></td>
                                                 <td th:text="${#dates.format(member?.regist_date, 'yyyy-MM-dd HH:mm')}"></td>
                                                 <td th:text="${T(com.laf.manager.enums.MemberStatus).valueOf(member?.status).theName()}"></td>
                                                 <td><a class="waves-effect waves-light"
@@ -287,6 +289,14 @@
                                        data-parsley-pattern="(^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$)"
                                        data-parsley-pattern-message="字段内容不是正确的手机号格式">
                                 <label for="mobile">会员手机号</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="carNumber" name="carNumber"
+                                       type="text" data-parsley-ui-enabled="false">
+                                <label for="carNumber">车牌号</label>
                             </div>
                         </div>
                         <div class="row">
@@ -453,6 +463,9 @@ Scripts
                     case 'mobile':
                         $('#mobile').val(value)
                         break
+                    case 'carNumber':
+                        $('#carNumber').val(value)
+                        break
                     case 'registerDateStart':
                         $('#register-date-start').val(dateString(new Date(value)))
                         $('#registerDateStart').val(value)
@@ -502,6 +515,7 @@ Scripts
             var obj = {}
             if ($('#username').val()) obj.username = $('#username').val()
             if ($('#mobile').val()) obj.mobile = $('#mobile').val()
+            if ($('#carNumber').val()) obj.mobile = $('#carNumber').val()
 
             if ($('#register-date-start').val() && $('#register-date-end').val()) {
                 $('#registerDateStart').val(Number(dateToMilliseconds($('#register-date-start').val())))

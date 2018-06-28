@@ -15,6 +15,8 @@ public class MemberFilterCondition {
 
     private String mobile = "";
 
+    private String carNumber = "";
+
     private long registerDateStart;
 
     private long registerDateEnd;

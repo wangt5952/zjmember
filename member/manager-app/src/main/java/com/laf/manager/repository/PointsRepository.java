@@ -251,6 +251,11 @@ public class PointsRepository {
             args.add($$.getMobile());
         }
 
+        if (!StringUtils.isEmpty($$.getTicketNo())) {
+            sql += " and ticket_no = ?";
+            args.add($$.getTicketNo());
+        }
+
         if ($$.getShoppingDateStart() > 0L && $$.getShoppingDateEnd() > 0L) {
             sql += " and shopping_date >= ? and shopping_date<=?";
             args.add($$.getShoppingDateStart());
@@ -321,6 +326,11 @@ public class PointsRepository {
         if (!StringUtils.isEmpty($$.getMobile())) {
             sql += " and member_mobile = ?";
             args.add($$.getMobile());
+        }
+
+        if (!StringUtils.isEmpty($$.getTicketNo())) {
+            sql += " and ticket_no = ?";
+            args.add($$.getTicketNo());
         }
 
         if ($$.getShoppingDateStart() > 0L && $$.getShoppingDateEnd() > 0L) {

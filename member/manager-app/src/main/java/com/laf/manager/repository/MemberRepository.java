@@ -436,9 +436,10 @@ public class MemberRepository {
         String sql = "select m.member_id,m.name,m.mobile,m.sex,m.birthday,m.occupation,m.address," +
                 "m.degree_of_education,m.income_range,m.interest,m.wechat_account,m.enable_public_wa," +
                 "m.cumulate_points,m.usable_points,m.cumulate_amount,m.level,m.level_id,mm.open_id,mm.status," +
-                "m.member_card_no,mm.regist_date,mm.mall_id,m.email,m.edit_flag,m.birthday_modified " +
+                "m.member_card_no,mm.regist_date,mm.mall_id,m.email,m.edit_flag,m.birthday_modified,p.car_number " +
                 "from `T_MEMBER` m inner join `T_MALL_MEMBER` mm on m.member_id=mm.member_id " +
-                "where mm.mall_id=?";
+                "left join `t_parking` p on m.member_id=p.member_id  " +
+                "where ifnull(p.isdefault,1)=1 and mm.mall_id=?";
 
         List<Object> args = new ArrayList<>();
         args.add($$.getMallId());
@@ -451,6 +452,11 @@ public class MemberRepository {
         if (!StringUtils.isEmpty($$.getMobile())) {
             sql += " and m.mobile = ?";
             args.add($$.getMobile());
+        }
+
+        if (!StringUtils.isEmpty($$.getCarNumber())) {
+            sql += " and p.car_number like '%' ? '%'";
+            args.add($$.getCarNumber());
         }
 
         if ($$.getRegisterDateStart() > 0L && $$.getRegisterDateEnd() > 0L) {
@@ -524,6 +530,7 @@ public class MemberRepository {
                     $.setEdit_flag(rs.getInt("edit_flag"));
                     $.setBirthday_modified(rs.getInt("birthday_modified"));
                     $.setStatus(rs.getInt("status"));
+                    $.setCarNumber(rs.getString("car_number"));
                     return $;
                 });
     }
@@ -531,7 +538,8 @@ public class MemberRepository {
     public int multipleSelectMembersCount(final MemberFilterCondition $$) {
         String sql = "select count(1) cnt from `T_MEMBER` m " +
                 "inner join `T_MALL_MEMBER` mm on m.member_id=mm.member_id " +
-                "where mm.mall_id=?";
+                "left join `t_parking` p on m.member_id=p.member_id  " +
+                "where ifnull(p.isdefault,1)=1 and mm.mall_id=?";
 
         List<Object> args = new ArrayList<>();
         args.add($$.getMallId());
@@ -544,6 +552,11 @@ public class MemberRepository {
         if (!StringUtils.isEmpty($$.getMobile())) {
             sql += " and m.mobile = ?";
             args.add($$.getMobile());
+        }
+
+        if (!StringUtils.isEmpty($$.getCarNumber())) {
+            sql += " and p.car_number like '%' ? '%'";
+            args.add($$.getCarNumber());
         }
 
         if ($$.getRegisterDateStart() > 0L && $$.getRegisterDateEnd() > 0L) {

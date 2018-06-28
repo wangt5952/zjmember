@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -107,6 +108,11 @@ public class Member {
      * 会员卡号
      */
     private String member_card_no;
+
+    /**
+     * 车牌号
+     */
+    private String carNumber;
 
     /**
      * 注册时间

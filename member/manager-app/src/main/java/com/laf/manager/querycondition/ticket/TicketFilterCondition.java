@@ -15,6 +15,8 @@ public class TicketFilterCondition {
 
     private String mobile = "";
 
+    private String ticketNo = "";
+
     private Long createDateStart = 0L;
 
     private Long createDateEnd = 0L;

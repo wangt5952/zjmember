@@ -49,6 +49,7 @@ function dataWithoutYearString(date) {
 }
 
 function dateToMilliseconds(dataString) {
+    if(dataString=="") return 0;
     var dataAndTime = dataString.split(' ')
     var d = dataAndTime[0]
     var t = dataAndTime[1] ? dataAndTime[1] : '00:00:00'
