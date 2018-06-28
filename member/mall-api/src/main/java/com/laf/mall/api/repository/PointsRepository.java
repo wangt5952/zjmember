@@ -29,7 +29,7 @@ public class PointsRepository {
 
 
     public List<Points> selectPointsList(PointsQueryCondition condition, final Integer memberId) {
-        String sql = "SELECT mplog_id,amount,points,shop_name,shopping_date,sources " +
+        String sql = "SELECT mplog_id,amount,points,shop_name,shopping_date,handle_date,sources " +
                 "FROM `T_MEMBER_POINTS_LOG` WHERE mall_id=? AND member_id=? " +
                 "ORDER BY " + condition.getSort() + " " + condition.getDirection() + " limit ?, ?";
 
@@ -54,6 +54,17 @@ public class PointsRepository {
         } catch (Exception e) {
         }
 
+        return points;
+    }
+
+    public Points selectPointsDetailByTicketNo(final String ticket_no) {
+        String sql = "SELECT mplog_id,amount,points,shop_name,shopping_date,sources " +
+                "FROM `T_MEMBER_POINTS_LOG` WHERE ticket_no=?";
+        Points points = null;
+        try {
+            points = jdbcTemplate.queryForObject(sql, new Object[]{ticket_no}, new int[]{Types.VARCHAR}, new PointsRowMapper());
+        } catch (Exception e) {
+        }
         return points;
     }
 
@@ -127,6 +138,7 @@ log.info("PointsRepository#insertPointsExcludeConsume()==condition.getHandleDate
             if (dbUtils.hasColumn(rs, "points")) points.setPoints(rs.getInt("points"));
             if (dbUtils.hasColumn(rs, "shop_name")) points.setShop_name(rs.getString("shop_name"));
             if (dbUtils.hasColumn(rs, "shopping_date")) points.setShopping_date(new Date(rs.getLong("shopping_date")));
+            if (dbUtils.hasColumn(rs, "handle_date")) points.setHandle_date(new Date(rs.getLong("handle_date")));
             if (dbUtils.hasColumn(rs, "sources")) points.setSources(rs.getInt("sources"));
 
             return points;

@@ -5,6 +5,7 @@ import com.laf.mall.api.repository.LevelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Component
@@ -19,5 +20,9 @@ public class LevelDao {
 
     public List<Level> getAllLevel(final Integer mallId) {
         return repository.selectAllLevelsByMall(mallId);
+    }
+
+    public List<Level> getLevelWidthAmount(BigDecimal amount) {
+        return repository.selectLevelWidthAmount(amount);
     }
 }

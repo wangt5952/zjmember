@@ -1,6 +1,7 @@
 package com.laf.mall.api.utils.datetime;
 
 import org.springframework.stereotype.Component;
+import sun.applet.Main;
 
 import java.time.*;
 import java.util.Date;
@@ -57,5 +58,12 @@ public class DateTimeUtils {
         ZonedDateTime zdt = time.atZone(ZoneId.systemDefault());
 
         return zdt.toInstant().toEpochMilli();
+    }
+
+    public static void main(String[] args)
+    {
+        DateTimeUtils util = new DateTimeUtils();
+
+
     }
 }

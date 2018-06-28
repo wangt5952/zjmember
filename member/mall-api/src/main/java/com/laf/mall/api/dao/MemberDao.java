@@ -8,6 +8,8 @@ import com.laf.mall.api.repository.VerificationClerkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class MemberDao {
 
@@ -81,6 +83,10 @@ public class MemberDao {
         return repository.updatePoints(memberId, cumulatePoints, useablePoints);
     }
 
+    public int updateCumulateAmount(int memberId, BigDecimal amount) {
+        return repository.updateCumulateAmount(memberId, amount);
+    }
+
     public VerificationClerk getClerk(final int memberId, final int vcType, final int mallId) {
         return verificationClerkRepository.selectClerk(memberId, vcType, mallId);
     }
@@ -88,4 +94,9 @@ public class MemberDao {
     public int saveMemberVisitLog(MemberVisitLog log) {
         return repository.insertMemberVisitLog(log);
     }
+
+    public int updateLevel(int memberId, int levelId, String levelName) {
+        return repository.updateLevel(memberId, levelId, levelName);
+    }
+
 }

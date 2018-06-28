@@ -13,6 +13,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +95,27 @@ public class LevelRepository {
         });
 
         return list;
+    }
+
+    public List<Level> selectLevelWidthAmount(BigDecimal amount) {
+        String sql = "select level_id, level_name from `T_MEMBER_LEVEL` where ? >= amount_low order by amount_low desc";
+
+        List<Level> level = jdbcTemplate.query(sql, new Object[]{amount}, new int[]{Types.DECIMAL}, new ResultSetExtractor<List<Level>>() {
+            @Override
+            public List<Level> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Level> _level = new ArrayList<>();
+
+                while (rs.next()) {
+                    Level l = new Level();
+                    l.setLevel_id(rs.getInt("level_id"));
+                    l.setLevel_name(rs.getString("level_name"));
+                    _level.add(l);
+                }
+                return _level;
+            }
+        });
+
+        return level;
     }
 
     class LevelRowMapper implements RowMapper<Level> {

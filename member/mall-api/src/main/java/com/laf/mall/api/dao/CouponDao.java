@@ -76,6 +76,10 @@ public class CouponDao {
         return repository.selectCouponCountByStatus(memberId, couponId, couponStatus);
     }
 
+    public int getCouponCountByStatus( final int couponId, final int couponStatus) {
+        return repository.selectCouponCountByStatus(couponId, couponStatus);
+    }
+
     public int saveCouponActiveLog(Activate activate) {
         return repository.insertCouponActiveLog(activate);
     }

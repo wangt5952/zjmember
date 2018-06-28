@@ -14,4 +14,8 @@ public class SettingsDao {
         return repository.selectPointsCoefficient(mallId);
     }
 
+    public String getPointsRule(int mallId) {
+        return repository.selectPointsRule(mallId);
+    }
+
 }

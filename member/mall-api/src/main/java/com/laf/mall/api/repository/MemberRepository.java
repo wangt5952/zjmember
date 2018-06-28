@@ -15,6 +15,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Date;
 import java.util.List;
@@ -390,6 +391,12 @@ log.info("holder.getKey(){}", holder.getKey());
         return jdbcTemplate.update(sql, cumulatePoints, useablePoints, memberId);
     }
 
+    public int updateCumulateAmount(int memberId, BigDecimal amount) {
+        final String sql = "update `T_MEMBER` set cumulate_amount=? where member_id=?";
+
+        return jdbcTemplate.update(sql, amount, memberId);
+    }
+
     public int insertMemberVisitLog(MemberVisitLog log) {
         final String sql = "INSERT INTO `T_MEMBER_VISIT_LOG` (member_id,mall_id,open_id,visit_time,simple_time) VALUES (?,?,?,?,?)";
 
@@ -411,5 +418,11 @@ log.info("holder.getKey(){}", holder.getKey());
         }, holder);
 
         return holder.getKey().intValue();
+    }
+
+    public int updateLevel(int memberId, int levelId, String levelName) {
+        final String sql = "update `T_MEMBER` set `level`=?,level_id=? where member_id=?";
+
+        return jdbcTemplate.update(sql, levelName, levelId, memberId);
     }
 }

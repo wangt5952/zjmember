@@ -78,6 +78,16 @@ public class GiftCoupon {
     private Date expiry_date_end;
 
     /**
+     * 保留核销数
+     */
+    private int keep_verification_of;
+
+    /**
+     * 总核销数
+     */
+    private int verification_of;
+
+    /**
      * 礼品券详细信息
      */
     @JsonView(CouponDetailView.class)

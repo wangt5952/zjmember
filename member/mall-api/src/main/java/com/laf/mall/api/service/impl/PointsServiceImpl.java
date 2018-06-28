@@ -55,6 +55,11 @@ public class PointsServiceImpl implements PointsService {
     }
 
     @Override
+    public Points getPointsDetailByTickNo(String ticket_no) {
+        return pointsDao.getPointsDetailByTicketNo(ticket_no);
+    }
+
+    @Override
     public int savePoints(Points points) {
         return pointsDao.savePoints(points);
     }

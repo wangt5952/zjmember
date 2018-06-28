@@ -34,6 +34,11 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    public Shop getShopDetail(String shopname) {
+        return shopDao.getShopDetail(shopname);
+    }
+
+    @Override
     public List<Shop> getShopList(ShopQueryCondition condition) {
         return shopDao.getShopList(condition);
     }

@@ -98,6 +98,25 @@ public class ShopRepository {
         return shop;
     }
 
+    public Shop selectShopByname(final String shopname) {
+        Shop shop = null;
+        String sql = "SELECT s.shop_id, s.shop_name, s.phone,s.mobile, s.pictures, s.logo, s.berth_number, s.points," +
+                " p.map_picture, i.industry_name, a.content" +
+                " FROM `T_SHOP` s" +
+                " LEFT JOIN `T_PLANE_MAP` p ON s.plane_map=p.map_id" +
+                " LEFT JOIN `T_INDUSTRIES` i ON s.industry=i.industry_id" +
+                " LEFT JOIN `T_ARTICLES` a ON s.intro=a.article_id" +
+                " WHERE s.shop_name=?";
+
+        log.debug("[{}]", sql);
+        try {
+            shop = jdbcTemplate.queryForObject(sql, new Object[]{shopname}, new ShopRowMapper());
+        } catch (Exception e) {
+        }
+
+        return shop;
+    }
+
     public List<Shop> selectShopList(ShopQueryCondition sqc) {
         final String sql = "SELECT s.shop_id, s.shop_name, s.logo, s.points, s.berth_number, s.sort, i.industry_name" +
                 " FROM `T_SHOP` s" +

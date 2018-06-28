@@ -93,6 +93,8 @@ public class Points {
     /**
      * 操作时间
      */
+    @JsonView(PointsAppView.class)
+    @ApiModelProperty(value = "操作时间")
     private Date handle_date;
 
     /**

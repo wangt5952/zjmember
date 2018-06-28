@@ -49,6 +49,10 @@ public class GiftCouponDao {
         return repository.selectCouponById(crlId);
     }
 
+    public int getCouponCountByStatus( final int couponId, final int couponStatus) {
+        return repository.selectCouponCountByStatus(couponId, couponStatus);
+    }
+
     public int getVerificationWideByShop(VerificationClerk vc, final int coupon_id) {
         return repository.selectVerificationWideByShop(vc, coupon_id);
     }

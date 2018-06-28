@@ -18,6 +18,10 @@ public class ShopDao {
         return repository.selectShopById(shopId);
     }
 
+    public Shop getShopDetail(final String shopname) {
+        return repository.selectShopByname(shopname);
+    }
+
     public List<Shop> getShopList(final ShopQueryCondition condition) {
         return repository.selectShopList(condition);
     }

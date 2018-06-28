@@ -26,6 +26,8 @@ public interface PointsService {
      */
     Points getPointsDetail(final String mplogId);
 
+    Points getPointsDetailByTickNo(String ticket_no);
+
     /**
      * 保存积分的收入和支出记录
      * @param points

@@ -122,6 +122,23 @@ public class Coupon {
     private String activetion_site;
 
     /**
+     * 保留核销数
+     */
+    private int keep_verification_of;
+
+    /**
+     * 总核销数
+     */
+    private int verification_of;
+
+
+    /**
+     * 市场价
+     */
+    @JsonView(CouponAppListView.class)
+    private BigDecimal price;
+
+    /**
      * 激活限制提示
      */
     @JsonView(CouponDetailView.class)
@@ -150,5 +167,7 @@ public class Coupon {
     public long getActive_time() {
         return active_time == null ? 0L : active_time.getTime();
     }
+
+
 }
 

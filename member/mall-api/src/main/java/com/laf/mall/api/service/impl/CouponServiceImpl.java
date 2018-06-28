@@ -77,7 +77,7 @@ public class CouponServiceImpl implements CouponService {
 
 
         if (circulationDaily > 0) {
-            circulationDaily = circulationDaily > inventory ? inventory : circulationDaily; //当日限制总数
+            //circulationDaily = circulationDaily > inventory ? inventory : circulationDaily; //当日限制总数
             if (circulationDaily - receivedDaily <= 0) { //日发行量-当天领取张数=当天剩余张数
                 receiveCouponInfo.setLimitPromptCode(2);
                 return receiveCouponInfo; //当天已不能领取
@@ -116,7 +116,7 @@ public class CouponServiceImpl implements CouponService {
 
         //limited受库存限制
         if (limited > 0) {
-            limited = limited > inventory ? inventory : limited;
+            //limited = limited > inventory ? inventory : limited;
             if (limited <= memberTotalReceived) {
                 log.info("CouponServiceImpl:===========[已领取{}达到总限领张数{}]", memberTotalReceived, limited);
                 receiveCouponInfo.setLimitPromptCode(5);
@@ -127,7 +127,7 @@ public class CouponServiceImpl implements CouponService {
         //1.有限制张数，限制张数-已领取张数
         //2.没有限制张数，
         if (dailyLimited > 0) {
-            dailyLimited = dailyLimited > (limited - memberTotalReceived) ? (limited - memberTotalReceived) : dailyLimited;
+            //dailyLimited = dailyLimited > (limited - memberTotalReceived) ? (limited - memberTotalReceived) : dailyLimited;
             if (dailyLimited <= memberDailyReceived) {
                 log.info("CouponServiceImpl:===========[当天领取{}已达到限领张数{}]", memberDailyReceived, dailyLimited);
                 receiveCouponInfo.setLimitPromptCode(5);
@@ -179,6 +179,11 @@ public class CouponServiceImpl implements CouponService {
         //检查券的有效期
         long today = dateTimeUtils.getMilliByToDay();
         if (today < coupon.getExpiry_date_start() || today > coupon.getExpiry_date_end()) return 0;
+
+        //检查核销数量
+        int totalVerify = coupon.getVerification_of();
+        int total = couponDao.getCouponCountByStatus(coupon.getCoupon_id(), 2);
+        if(total >= totalVerify) return 0;
 
         int result = couponDao.updateCouponStatus(2, crlId);
 

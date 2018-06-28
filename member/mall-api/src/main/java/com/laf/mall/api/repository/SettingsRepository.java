@@ -36,4 +36,26 @@ public class SettingsRepository {
 
         return coefficient.floatValue();
     }
+
+    public String selectPointsRule(int mallId) {
+        final String sql = "select points from `T_SETTINGS` where mall_id=?";
+
+        final String rule = jdbcTemplate.query(sql, new Object[]{mallId}, new ResultSetExtractor<String>() {
+            @Override
+            public String extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+                if (rs.next()) {
+
+                    String _rule = rs.getString("points");
+
+                    return _rule;
+
+                }
+
+                return null;
+            }
+        });
+
+        return rule;
+    }
 }

@@ -45,4 +45,8 @@ public class SmsUtil {
         x += 100000;
         return String.valueOf(x);
     }
+
+    public static void main(String[] args)  throws UnsupportedEncodingException{
+        new SmsUtil().sendSmsByTemplate("15957357787","111111");
+    }
 }

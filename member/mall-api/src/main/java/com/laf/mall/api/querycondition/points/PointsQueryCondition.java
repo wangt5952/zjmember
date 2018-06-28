@@ -37,7 +37,7 @@ public class PointsQueryCondition {
     }
 
     public String getSort() {
-        return "shopping_date";
+        return "handle_date";
     }
 
     public String getDirection() {

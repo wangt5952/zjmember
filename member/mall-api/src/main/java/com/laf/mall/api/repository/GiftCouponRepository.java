@@ -51,7 +51,8 @@ public class GiftCouponRepository {
         argsType.add(Types.BIGINT);
 
         if (registTime > 0) {
-            sb.append(" AND ? >= ci.reg_time_start AND ? <= ci.reg_time_end");
+           // sb.append(" AND ? >= ci.reg_time_start AND ? <= ci.reg_time_end");
+            sb.append(" AND ((? >= ci.reg_time_start AND ? <= ci.reg_time_end) OR reg_time_start=0)");
             args.add(registTime);
             args.add(registTime);
             argsType.add(Types.BIGINT);
@@ -117,7 +118,7 @@ public class GiftCouponRepository {
                     "ci.inventory,ci.receive_method,ci.required_points,ci.limited,ci.daily_limited,ci.price," +
                     "ci.keep_verification_of,ci.verification_of,ci.issue_start,ci.issue_end,a.content," +
                     "(select count(1) from `T_GIFT_COUPON` where coupon_id=?) as total," +
-                    "(select count(1) from `T_GIFT_COUPON` where coupon_id=? AND receive_date=?) as daily" +
+                    "(select count(1) from `T_GIFT_COUPON` where coupon_id=? AND receive_date>=?) as daily" +
                     " FROM `T_GIFT_COUPON_INFO` ci LEFT JOIN `T_ARTICLES` a ON ci.intro=a.article_id" +
                     " WHERE ci.coupon_id=?";
 
@@ -203,12 +204,27 @@ public class GiftCouponRepository {
      * @return
      */
     public int selectDailyReceivedByMember(final Integer memberId, final Integer couponId, final long currTime) {
-        String sql = "select count(1) as daily from `T_GIFT_COUPON` where coupon_id=? and member_id=? and receive_date=?";
+        String sql = "select count(1) as daily from `T_GIFT_COUPON` where coupon_id=? and member_id=? and receive_date>?";
 
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, new Object[]{couponId, memberId, currTime}, new int[]{Types.INTEGER, Types.INTEGER, Types.BIGINT});
         rowSet.first();
 
         return rowSet.getInt("daily");
+    }
+
+    /**
+     * 根据状态获取券的数量
+     * @param couponId
+     * @param couponStatus
+     * @return
+     */
+    public int selectCouponCountByStatus(final int couponId, final int couponStatus) {
+        String sql = "SELECT count(1) cnt FROM `T_GIFT_COUPON` where coupon_id=? and coupon_status=?";
+
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, new Object[]{couponId, couponStatus}, new int[]{Types.INTEGER, Types.INTEGER});
+        rowSet.first();
+
+        return rowSet.getInt("cnt");
     }
 
 
@@ -301,7 +317,8 @@ public class GiftCouponRepository {
      * @return
      */
     public GiftCoupon selectCouponById(final Integer crlId) {
-        final String sql = "select crl_id,c.coupon_id,member_id,c.mall_id,coupon_status,coupon_name,picture,expiry_date_start,expiry_date_end,a.content" +
+        final String sql = "select crl_id,c.coupon_id,member_id,c.mall_id,coupon_status,coupon_name,picture," +
+                "expiry_date_start,expiry_date_end,verification_of,keep_verification_of,a.content" +
                 " from `T_GIFT_COUPON` c inner join `T_GIFT_COUPON_INFO` ci on ci.coupon_id = c.coupon_id" +
                 " LEFT JOIN `T_ARTICLES` a ON ci.intro=a.article_id where crl_id=?";
         log.info("[{}]", sql);
@@ -321,6 +338,8 @@ public class GiftCouponRepository {
                     coupon.setPicture(rs.getString("picture"));
                     coupon.setExpiry_date_start(new Date(rs.getLong("expiry_date_start")));
                     coupon.setExpiry_date_end(new Date(rs.getLong("expiry_date_end")));
+                    coupon.setKeep_verification_of(rs.getInt("keep_verification_of"));
+                    coupon.setVerification_of(rs.getInt("verification_of"));
                     coupon.setIntro(rs.getString("content"));
                 }
                 return coupon;

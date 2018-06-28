@@ -24,6 +24,10 @@ public class PointsDao {
         return pointsRepository.selectPointsDetail(mplogId);
     }
 
+    public Points getPointsDetailByTicketNo(final String ticket_no) {
+        return pointsRepository.selectPointsDetailByTicketNo(ticket_no);
+    }
+
     public int savePoints(Points points) {
         return pointsRepository.insertPoints(points);
     }

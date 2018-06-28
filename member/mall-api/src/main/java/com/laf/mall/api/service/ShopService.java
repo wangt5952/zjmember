@@ -21,6 +21,14 @@ public interface ShopService {
     Shop getShopDetail(final Integer shopId);
 
     /**
+     * 获取商户详情
+     *
+     * @param shopname
+     * @return 商户信息
+     */
+    Shop getShopDetail(final String shopname);
+
+    /**
      * 获取商户列表
      *
      * @param condition
