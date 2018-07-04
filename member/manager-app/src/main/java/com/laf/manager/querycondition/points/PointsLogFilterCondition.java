@@ -17,6 +17,8 @@ public class PointsLogFilterCondition {
 
     private String ticketNo = "";
 
+    private String shopIndustry = "";
+
     private long shoppingDateStart;
 
     private long shoppingDateEnd;

@@ -19,6 +19,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -256,6 +257,11 @@ public class PointsRepository {
             args.add($$.getTicketNo());
         }
 
+        if (!StringUtils.isEmpty($$.getShopIndustry())) {
+            sql += " and industry_name = ?";
+            args.add($$.getShopIndustry());
+        }
+
         if ($$.getShoppingDateStart() > 0L && $$.getShoppingDateEnd() > 0L) {
             sql += " and shopping_date >= ? and shopping_date<=?";
             args.add($$.getShoppingDateStart());
@@ -264,8 +270,8 @@ public class PointsRepository {
 
         if ($$.getAmountsStart().doubleValue() > 0 && $$.getAmountsEnd().doubleValue() > 0) {
             sql += " and amount>=? and amount<=?";
-            args.add($$.getAmountsStart());
-            args.add($$.getAmountsEnd());
+            args.add($$.getAmountsEnd().multiply(new BigDecimal(-1)));
+            args.add($$.getAmountsStart().multiply(new BigDecimal(-1)));
         }
 
         if ($$.getPointsStart() > 0 && $$.getPointsEnd() > 0) {
@@ -312,25 +318,30 @@ public class PointsRepository {
     }
 
     public int multipleSelectPointsCount(final PointsLogFilterCondition $$) {
-        String sql = "select count(1) cnt from `T_MEMBER_POINTS_LOG` " +
-                "where mall_id=?";
+        String sql = "select count(1) cnt from `T_MEMBER_POINTS_LOG` l left join `T_SHOP` s on l.shop_id=s.shop_id " +
+                "where l.mall_id=?";
 
         List<Object> args = new ArrayList<>();
         args.add($$.getMallId());
 
         if (!StringUtils.isEmpty($$.getUsername())) {
-            sql += " and member_name like '%' ? '%'";
+            sql += " and l.member_name like '%' ? '%'";
             args.add($$.getUsername());
         }
 
         if (!StringUtils.isEmpty($$.getMobile())) {
-            sql += " and member_mobile = ?";
+            sql += " and l.member_mobile = ?";
             args.add($$.getMobile());
         }
 
         if (!StringUtils.isEmpty($$.getTicketNo())) {
             sql += " and ticket_no = ?";
             args.add($$.getTicketNo());
+        }
+
+        if (!StringUtils.isEmpty($$.getShopIndustry())) {
+            sql += " and industry_name = ?";
+            args.add($$.getShopIndustry());
         }
 
         if ($$.getShoppingDateStart() > 0L && $$.getShoppingDateEnd() > 0L) {
@@ -341,8 +352,8 @@ public class PointsRepository {
 
         if ($$.getAmountsStart().doubleValue() > 0 && $$.getAmountsEnd().doubleValue() > 0) {
             sql += " and amount>=? and amount<=?";
-            args.add($$.getAmountsStart());
-            args.add($$.getAmountsEnd());
+            args.add($$.getAmountsEnd().multiply(new BigDecimal(-1)));
+            args.add($$.getAmountsStart().multiply(new BigDecimal(-1)));
         }
 
         if ($$.getPointsStart() > 0 && $$.getPointsEnd() > 0) {
@@ -352,7 +363,7 @@ public class PointsRepository {
         }
 
         if ($$.getShop() > 0) {
-            sql += " and shop_id=?";
+            sql += " and s.shop_id=?";
             args.add($$.getShop());
         }
 

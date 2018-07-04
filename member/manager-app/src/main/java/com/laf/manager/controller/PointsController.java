@@ -2,10 +2,12 @@ package com.laf.manager.controller;
 
 import com.laf.manager.SettingsProperties;
 import com.laf.manager.core.exception.MallDBException;
+import com.laf.manager.dto.Industry;
 import com.laf.manager.dto.PlaneMap;
 import com.laf.manager.dto.Points;
 import com.laf.manager.querycondition.points.PointsLogFilterCondition;
 import com.laf.manager.querycondition.points.PointsManualCondition;
+import com.laf.manager.service.MallService;
 import com.laf.manager.service.PointsService;
 import com.laf.manager.service.ShopService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +35,9 @@ public class PointsController {
 
     @Autowired
     ShopService shopService;
+
+    @Autowired
+    MallService mallService;
 
     @Autowired
     SettingsProperties settingsProperties;
@@ -65,6 +70,9 @@ public class PointsController {
 
         List<PlaneMap> maps = shopService.getShopsGroupByMap();
         model.getModel().put("maps", maps);
+
+        List<Industry> listIndustry = mallService.getIndustries();
+        model.getModel().put("industrys", listIndustry);
 
         model.setViewName("points");
 
@@ -139,8 +147,8 @@ public class PointsController {
 
         PointsLogFilterCondition condition = null;
 
-        if (session.getAttribute("members_queryCondition") != null) {
-            condition = (PointsLogFilterCondition) session.getAttribute("members_queryCondition");
+        if (session.getAttribute("points_queryCondition") != null) {
+            condition = (PointsLogFilterCondition) session.getAttribute("points_queryCondition");
 
         } else {
             condition = new PointsLogFilterCondition();

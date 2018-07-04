@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--================================================================================
+  Item Name: Materialize - Material Design Admin Template
+  Version: 4.0
+  Author: PIXINVENT
+  Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================ -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <!--<meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">-->
+    <!--<meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">-->
+    <title>BAUHINIA SQUARE Admin</title>
+    <!-- Favicons-->
+    <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="images/favicon/apple-touch-icon-152x152.png">
+    <!-- For iPhone -->
+    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <!-- For Windows Phone -->
+    <!-- CORE CSS-->
+    <link href="css//materialize.css" type="text/css" rel="stylesheet">
+    <link href="css//style.css" type="text/css" rel="stylesheet">
+    <!-- Custome CSS-->
+    <link href="css/custom/custom.css" type="text/css" rel="stylesheet">
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <link href="vendors/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet">
+    <link href="vendors/flag-icon/css/flag-icon.min.css" type="text/css" rel="stylesheet">
+</head>
+
+<body ng-app="materializeApp" class="active-parking-coupon">
+<!-- Start Page Loading -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- End Page Loading -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START HEADER -->
+<header id="header" class="page-topbar">
+    <!-- start header nav-->
+    <div class="navbar-fixed" th:include="header :: header"></div>
+    <!-- end header nav-->
+</header>
+<!-- END HEADER -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START MAIN -->
+<div id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        <!-- START LEFT SIDEBAR NAV-->
+        <aside id="left-sidebar-nav" th:include="leftNavigation :: navigation">
+        </aside>
+        <!-- END LEFT SIDEBAR NAV-->
+        <!-- //////////////////////////////////////////////////////////////////////////// -->
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s10 m6 l6">
+                            <h5 class="breadcrumbs-title">停车券</h5>
+                            <ol class="breadcrumbs">
+                                <li><a href="/">上海紫荆广场</a>
+                                </li>
+                                <li><a href="#">停车券</a>
+                                </li>
+                                <li class="active">停车券 列表</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!-- //////////////////////////////////////////////////////////////////////////// -->
+            <!--start container-->
+            <div class="container">
+
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <!--<a class="btn-floating btn-large waves-effect waves-light red right"-->
+                        <!--style="margin-top:-.7em;margin-right:-.7em;" href="/receiveCoupon"><i class="material-icons">add</i></a>-->
+                        <a class="btn-floating btn-large waves-effect waves-light red right"  style="margin-top:-.7em;margin-right:-.7em;" href="/getParkingInfo">
+                            编辑<i class="material-icons">add</i>
+                        </a>
+                        <a class="btn-floating btn-large waves-effect waves-light red right" style="margin-top:-.7em;margin-right:-.7em;" href="/parkingCoupon">
+                            新增<i class="material-icons">add</i>
+                        </a>
+
+
+                        <div class="card-panel">
+                            <!--<h4 class="header2">停车券列表</h4>-->
+
+                            <div class="row">
+                                <form id="form-filter" action="/coupons/filter" method="post">
+                                    <!--<div class="col s3">-->
+                                    <!--<button type="button" id="filter-button" name="filter-button"-->
+                                    <!--class="waves-effect waves-light btn right"><i-->
+                                    <!--class="material-icons left" style="text-align: center">local_bar</i>筛 选-->
+                                    <!--</button>-->
+                                    <!--</div>-->
+                                    <input type="hidden" id="filterJson" name="filterJson" value="">
+                                    <input type="hidden" id="page" name="page" value="">
+                                    <input type="hidden" id="size" name="size" value="">
+                                </form>
+                                <!--<div class="col s3">-->
+                                    <!--<button type="button" id="filter-reset" name="filter-reset"-->
+                                            <!--class="waves-effect waves-light btn right"><i-->
+                                            <!--class="material-icons left">find_replace</i>重 置-->
+                                    <!--</button>-->
+                                <!--</div>-->
+                            </div>
+                            <form id="form-reset" action="/coupons/reset" method="post"></form>
+
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="row">
+                                        <table class="striped centered">
+                                            <thead>
+                                            <tr>
+                                                <th>券名称</th>
+                                                <th>券发布时间</th>
+                                                <th>最大发放量</th>
+                                                <th>日最大发放量</th>
+                                                <th>最大核销数</th>
+                                                <th>已领取量</th>
+                                                <th>当日领取量</th>
+                                                <th>已激活数</th>
+                                                <th>已核销数</th>
+                                                <th>未核销数</th>
+                                                <th>状态</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="coupon:${coupons}" th:switch="${coupon?.status}">
+                                                <td th:text="${coupon?.coupon_name}"></td>
+                                                <td th:text="${coupon?.coupon_type==0} ? ${#dates.format(coupon?.issue_start,'yyyy-MM-dd')+'~'+#dates.format(coupon?.issue_end,'yyyy-MM-dd')} : '-'"></td>
+                                                <td th:text="${coupon?.circulation<=0} ? '-' : ${coupon?.circulation}"></td>
+                                                <td th:text="${coupon?.daily_circulation<=0} ? '-' : ${coupon?.daily_circulation}"></td>
+                                                <td th:text="${coupon?.verification_of<=0} ? '-' : ${coupon?.verification_of}"></td>
+                                                <td th:text="${coupon?.receivedTotal}"></td>
+                                                <td th:text="${coupon?.receivedDaily}"></td>
+                                                <td th:text="${coupon?.coupon_type == T(com.laf.manager.enums.CouponType).ACTIVITY.value()} ? ${coupon?.activate} : '-'"></td>
+                                                <td th:text="${coupon?.verification}"></td>
+                                                <td th:text="${coupon?.verification_of>0} ? ${coupon?.verification_of - coupon?.verification} : ${coupon?.receivedTotal - coupon?.verification}"></td>
+                                                <td th:case="0" th:text="'草稿'"></td>
+                                                <td th:case="1" th:text="'发布'"></td>
+                                                <td>
+                                                    <a class="waves-effect waves-light"
+                                                       th:href="@{'/parkingCoupon?couponId=' + ${coupon?.coupon_id}}"><i
+                                                            class="material-icons left">edit</i></a>
+                                                    <!--<a class="waves-effect waves-light" th:href="@{'/delReceiveCoupon?couponId=' + ${receiveCoupon?.coupon_id}}"><i class="material-icons left">delete_forever</i></a>-->
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <!--<form id="pageForm" method="post" action="/coupons">-->
+                                    <!--<input type="hidden" id="pageJson" name="pageJson" value="">-->
+                                    <!--</form>-->
+                                    <div class="row" ng-controller="PaginationController" th:object="${pageMap}">
+                                        <pagination class="right" th:attr="page=''+ *{index}+'',total=''+*{total}+''"
+                                                    page-size="10" show-prev-next="true" dots="...."
+                                                    hide-if-empty="false" adjacent="2" scroll-top="false"
+                                                    pagination-action="changePage(page)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--</form>-->
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+        <!-- START RIGHT SIDEBAR NAV-->
+        <aside id="right-sidebar-nav" th:include="rightSidebarNav :: right-sidebar-nav">
+        </aside>
+        <!-- END RIGHT SIDEBAR NAV-->
+    </div>
+    <!-- END WRAPPER -->
+</div>
+<!-- END MAIN -->
+<!-- //////////////////////////////////////////////////////////////////////////// -->
+<!-- START FOOTER -->
+<footer class="page-footer gradient-45deg-light-cyan-cyan" th:include="footer :: footer">
+</footer>
+<!-- END FOOTER -->
+<!-- ================================================
+Scripts
+================================================ -->
+<!-- jQuery Library -->
+<script type="text/javascript" src="vendors/jquery-3.2.1.min.js"></script>
+<!--angularjs-->
+<script type="text/javascript" src="vendors/angular.min.js"></script>
+<script type="text/javascript" src="vendors/angular-materialize.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<!--scrollbar-->
+<script type="text/javascript" src="vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="js/plugins.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/angular-ui.js"></script>
+<!--custom-script.js - Add your own theme custom JS-->
+<script type="text/javascript" src="js/custom-script.js"></script>
+
+<script th:inline="javascript">
+    var couponType = [[${T(com.laf.manager.enums.CouponType).NONE.value()}]];
+
+    $(document).ready(function () {
+
+        var filterData = /*[[${session.coupons_filter}]]*/ undefined
+        if (filterData) {
+            log(filterData)
+            $('#filterJson').val(filterData)
+
+            JSON.parse(filterData, function (key, value) {
+                switch (key) {
+                    case 'couponType':
+                        $('#couponType').val(value)
+                        $('#couponType').material_select()
+                        couponType = value
+                        break;
+                }
+            })
+        }
+
+//        $('#filter-button').on('click', function (event) {
+//            var obj = {}
+//            if ($('#couponType').val() > -1) obj.couponType = $('#couponType').val()
+//            $('#filterJson').val(JSON.stringify(obj))
+//            $('#page').val(1)
+//            $('#size').val(10)
+//
+//            $('#form-filter').submit()
+//        })
+
+//        $('#filter-reset').on('click', function (event) {
+//            $('#form-reset').submit()
+//        })
+
+        //1.与上一次选择一样的选项，不处理
+        //2.条件不限，清除所有session
+        $('#couponType').bind('change', function (event) {
+            var select = $('#couponType')
+
+            if (couponType == select.val()) return;
+
+            if (select.val() == [[${T(com.laf.manager.enums.CouponType).NONE.value()}]]) {
+                $('#form-reset').submit()
+
+            } else {
+                var obj = {}
+                obj.couponType = select.val()
+                $('#filterJson').val(JSON.stringify(obj))
+                $('#page').val(1)
+                $('#size').val(10)
+
+                $('#form-filter').submit()
+            }
+        }) // #couponType.change() End
+
+    }) // document.ready() End
+</script>
+</body>
+
+</html>

@@ -238,6 +238,12 @@
                                            type="text" data-parsley-ui-enabled="false">
                                     <label for="ticketNo">单据号</label>
                                 </div>
+                                <div class="input-field col s6">
+                                    <select id="shopIndustry" name="shopIndustry">
+                                        <option value="" selected>业态</option>
+                                        <option th:text="${industry?.industry_name}" th:value="${industry?.industry_name}" th:each="industry:${industrys}"></option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s6">
@@ -370,9 +376,12 @@ Scripts
                         case 'ticketNo':
                             $('#ticketNo').val(value)
                             break
+                        case 'shopIndustry':
+                            $('#shopIndustry').val(value)
+                            break
                         case 'shoppingDateStart':
                             $('#shopping-date-start').val(dateString(new Date(value)))
-                            $('#shoppingrDateStart').val(value)
+                            $('#shoppingDateStart').val(value)
                             break
                         case 'shoppingDateEnd':
                             $('#shopping-date-end').val(dateString(new Date(value)))
@@ -408,12 +417,13 @@ Scripts
                 if ($('#username').val()) obj.username = $('#username').val()
                 if ($('#mobile').val()) obj.mobile = $('#mobile').val()
                 if ($('#ticketNo').val()) obj.ticketNo = $('#ticketNo').val()
+                if ($('#shopIndustry').val()) obj.shopIndustry = $('#shopIndustry').val()
 
                 if ($('#shopping-date-start').val() && $('#shopping-date-end').val()) {
                     $('#shoppingDateStart').val(Number(dateToMilliseconds($('#shopping-date-start').val())))
                     $('#shoppingDateEnd').val(Number(dateToMilliseconds($('#shopping-date-end').val())))
                     obj.shoppingDateStart = Number($('#shoppingDateStart').val())
-                    obj.shoppingDateEnd = Number($('#registerDateEnd').val())
+                    obj.shoppingDateEnd = Number($('#shoppingDateEnd').val())
                 }
 
                 if ($('#shop').val() > -1) obj.shop = $('#shop').val()

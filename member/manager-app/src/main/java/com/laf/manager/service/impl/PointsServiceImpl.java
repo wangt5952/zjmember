@@ -99,7 +99,7 @@ public class PointsServiceImpl implements PointsService {
 
     @Override
     public void print2Excel(List<Points> points, OutputStream out) {
-        List<String> titles = Arrays.asList("会员名称","会员手机号","消费金额","消费时间", "消费单号", "积分", "来源", "操作人", "操作时间");
+        List<String> titles = Arrays.asList("会员名称","会员手机号","消费金额","消费时间","店铺","业态" ,"消费单号", "积分", "来源", "操作人", "操作时间");
 //        List<Tuple2<List<String>, CellStyle>> data = new ArrayList<>();
         List<List<String>> data = new ArrayList<>();
 
@@ -110,6 +110,8 @@ public class PointsServiceImpl implements PointsService {
             rowData.add(point.getMember_mobile());
             rowData.add(point.getAmount() == null ? "" : point.getAmount().toString());
             rowData.add(dateTimeUtils.getDataTimeString(point.getShopping_date()));
+            rowData.add(point.getShop_name());
+            rowData.add(point.getShop_industry());
             rowData.add(point.getTicket_no());
             rowData.add(String.valueOf(point.getPoints()));
             rowData.add(Sources.valueOf(point.getSources()).theName());

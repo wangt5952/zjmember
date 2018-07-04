@@ -1,5 +1,5 @@
 spring:
   profiles:
 #    active: dev # 使用xxx-dev.yml 配置文件
- #   active: prod
-    active: demo
+    active: prod
+#    active: demo
