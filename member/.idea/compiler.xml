@@ -15,6 +15,8 @@
       <module name="manager-app_test" target="1.8" />
       <module name="manager-core_main" target="1.8" />
       <module name="manager-core_test" target="1.8" />
+      <module name="member-mall-manager_main" target="1.8" />
+      <module name="member-mall-manager_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

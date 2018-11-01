@@ -183,7 +183,7 @@ public class CouponServiceImpl implements CouponService {
         //检查核销数量
         int totalVerify = coupon.getVerification_of();
         int total = couponDao.getCouponCountByStatus(coupon.getCoupon_id(), 2);
-        if(total >= totalVerify) return 0;
+        if(total >= totalVerify && totalVerify==0) return 0;
 
         int result = couponDao.updateCouponStatus(2, crlId);
 
@@ -207,33 +207,19 @@ public class CouponServiceImpl implements CouponService {
         return json;
     }
 
+
+
     @Override
-    public int getCouponByRegister(Integer mallId) {
-        String json = couponDao.getCouponRule(mallId);
+    public int getPointByRegister() {
         int result = 0;
-        Map<String, String> map = null;
+        result = couponDao.getRewardFromId(8, 0);
+        return result;
+    }
 
-        if (!StringUtils.isEmpty(json)) {
-            map = (Map<String, String>) JsonPath.parse(json).read("$", Map.class);
-
-            if (map != null && map.size() > 0) {
-                long nowTime = dateTimeUtils.getMilliWithoutTime(new Date().getTime());
-                long activityTime = dateTimeUtils.getMilliWithoutTime(Long.valueOf(map.get("activity_date")).longValue());
-
-                result = nowTime == activityTime ?
-                        Integer.valueOf(map.get("activity_coupon_id")).intValue() :
-                        Integer.valueOf(map.get("coupon_id")).intValue();
-            }
-        }
-
-        /**
-         * {"activity_date": 342423321312,
-         * "activity_coupon_id": 1,
-         * "activity_coupon_name": "50元",
-         * "coupon_id": 2,
-         * "coupon_name": "破朔料袋"}
-         */
-
+    @Override
+    public int getCouponByRegister() {
+        int result = 0;
+        result = couponDao.getRewardFromId(8, 1);
         return result;
     }
 

@@ -133,11 +133,11 @@ public class ShopServiceImpl implements ShopService {
 
         if (shop == null) return 0;
 
-        int result = articlesDao.deleteArticle(shop.getArticle_id());
+        //int result = articlesDao.deleteArticle(shop.getArticle_id());
 
-        if (result <= 0) return result;
+        //if (result <= 0) return result;
 
-        result = shopDao.deleteShop(shopId);
+        int result = shopDao.deleteShop(shopId);
 
         return result;
     }

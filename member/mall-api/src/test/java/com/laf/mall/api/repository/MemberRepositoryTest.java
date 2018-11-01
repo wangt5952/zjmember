@@ -32,9 +32,9 @@ public class MemberRepositoryTest {
         member.setOpen_id("asdfjlads2323dsafjakls11");
         member.setBirthday(new Date());
 
-        int result = memberRepository.insertMemeber(member);
+        //int result = memberRepository.insertMemeber(member);
 
-        assertNotEquals(0, result);
+       // assertNotEquals(0, result);
     }
 
     @Test
@@ -58,9 +58,9 @@ public class MemberRepositoryTest {
             int id = memberRepository.insertMemeber(member);
             assertNotEquals(0, id);
 
-            int result = memberRepository.insertMemberInMall(id, 10, "asdfjlads2323dsafjakls11");
-            Assert.assertTrue(result != 0);
-            log.info("{}", result);
+           // int result = memberRepository.insertMemberInMall(id, 10, "asdfjlads2323dsafjakls11");
+           // Assert.assertTrue(result != 0);
+           // log.info("{}", result);
         }
     }
 

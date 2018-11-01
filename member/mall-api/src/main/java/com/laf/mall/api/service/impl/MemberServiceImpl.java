@@ -96,8 +96,13 @@ public class MemberServiceImpl implements MemberService {
         member.setMall_id(condition.getMallId());
         member.setLevel_id(level.getLevel_id());
         member.setLevel(level.getLevel_name());
-        member.setUsable_points(100);
-        member.setCumulate_points(100);
+
+        /**
+         * update by kj
+         * 2018-09-30注册如果送券了就取消送积分
+         */
+        //member.setUsable_points(100);
+        //member.setCumulate_points(100);
 
         int newMemberId = memberDao.saveMember(member);
         int result = 0;
@@ -116,10 +121,17 @@ public class MemberServiceImpl implements MemberService {
 //            return result;
 //        }
         if (couponProperties.isIsrelated()) {
-            int couponId = couponProperties.getCouponid(); //int couponId = couponService.getCouponByRegister(condition.getMallId());
+            int couponId = couponService.getCouponByRegister();
+           // couponId = couponProperties.getCouponid();
+
             ReceiveCouponInfo info = couponService.getCouponInfoById(couponId, newMemberId);
 
-            if (info == null) return result;
+            if (info == null) {
+                //如果没有送券就送积分
+                int point = couponService.getPointByRegister();
+                memberDao.updatePoints(newMemberId, point, point);
+                return result;
+            }
 
             CouponReceiveCondition receiveCondition = new CouponReceiveCondition();
             receiveCondition.setCouponId(couponId);

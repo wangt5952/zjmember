@@ -195,12 +195,20 @@ public class CouponRepository {
      */
     public List<ReceiveCouponInfo> selectCouponInfoList(CouponQueryCondition condition) {
 
+//        String sql = "SELECT ci.coupon_id,coupon_name,picture,issue_start,issue_end,circulation,daily_circulation," +
+//                "coupon_type,receive_method,create_date,sort_id,status,ci.text1,ci.mall_id,verification_of,qr_code," +
+//                "(select count(1) from `T_COUPON` where coupon_id=ci.coupon_id) as total," +
+//                "(select count(1) from `T_COUPON` where coupon_id=ci.coupon_id AND receive_date <= ? and receive_date >= ?) as daily," +
+//                "(select count(1) from `T_COUPON` where coupon_id=ci.coupon_id AND coupon_status=2) as verification," +
+//                "(select count(1) from `T_COUPON` where coupon_id=ci.coupon_id AND coupon_status=1) as activate" +
+//                " FROM `T_COUPON_INFO` ci left join `T_COUPON` c on ci.coupon_id=c.coupon_id where 1=1";
+
         String sql = "SELECT ci.coupon_id,coupon_name,picture,issue_start,issue_end,circulation,daily_circulation," +
                 "coupon_type,receive_method,create_date,sort_id,status,ci.text1,ci.mall_id,verification_of,qr_code," +
-                "(select count(1) from `T_COUPON` where coupon_id=ci.coupon_id) as total," +
-                "(select count(1) from `T_COUPON` where coupon_id=ci.coupon_id AND receive_date <= ? and receive_date >= ?) as daily," +
-                "(select count(1) from `T_COUPON` where coupon_id=ci.coupon_id AND coupon_status=2) as verification," +
-                "(select count(1) from `T_COUPON` where coupon_id=ci.coupon_id AND coupon_status=1) as activate" +
+                "count(1) as total," +
+                "(select count(1) from `T_COUPON` where 1=1 AND receive_date <= ? and receive_date >= ?) as daily," +
+                "(select count(1) from `T_COUPON` where 1=1 AND coupon_status=2) as verification," +
+                "(select count(1) from `T_COUPON` where 1=1 AND coupon_status=1) as activate" +
                 " FROM `T_COUPON_INFO` ci left join `T_COUPON` c on ci.coupon_id=c.coupon_id where 1=1";
 
         StringBuilder sb = new StringBuilder(sql);

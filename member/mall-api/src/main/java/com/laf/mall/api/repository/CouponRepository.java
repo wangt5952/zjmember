@@ -445,20 +445,31 @@ public class CouponRepository {
         final String rule = jdbcTemplate.query(sql, new Object[] {mallId}, new ResultSetExtractor<String>() {
             @Override
             public String extractData(ResultSet rs) throws SQLException, DataAccessException {
-
                 if (rs.next()) {
-
                     String _rule = rs.getString("coupon");
-
                     return _rule;
-
                 }
-
                 return null;
             }
         });
 
         return rule;
+    }
+
+    public int selectRewardFromId(int category, int type) {
+        final String sql = "select ifnull(reward_value,0) reward_value from `T_REWARD` where reward_id=? and reward_type=?";
+
+        final int result = jdbcTemplate.query(sql, new Object[] {category,type }, new ResultSetExtractor<Integer>() {
+            @Override
+            public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+                int _rule = 0;
+                if (rs.next()) {
+                    _rule = rs.getInt("reward_value");
+                }
+                return _rule;
+            }
+        });
+        return result;
     }
 
     /**

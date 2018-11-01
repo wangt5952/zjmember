@@ -467,9 +467,9 @@ public class MemberController {
     @ApiOperation(value = "核销接口")
     public ResponseEntity toVerify(@RequestParam Integer memberId, @RequestParam Integer crlId) {
 
-        if (memberId <= 0 || crlId <= 0) {
+        if (memberId <= 0 || crlId <= 0)
             return new ResponseEntity(new SimpleResponse("参数无效"), HttpStatus.BAD_REQUEST);
-        }
+
 
         int result = 0;
 

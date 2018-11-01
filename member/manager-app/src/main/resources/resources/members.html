@@ -298,6 +298,11 @@
                                        type="text" data-parsley-ui-enabled="false">
                                 <label for="carNumber">车牌号</label>
                             </div>
+                            <div class="input-field col s6">
+                                <input id="birthdayMonth" name="birthdayMonth"
+                                       type="text" data-parsley-ui-enabled="false">
+                                <label for="birthdayMonth">生日月份</label>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s6">
@@ -466,6 +471,9 @@ Scripts
                     case 'carNumber':
                         $('#carNumber').val(value)
                         break
+                    case 'birthdayMonth':
+                        $('#birthdayMonth').val(value)
+                        break
                     case 'registerDateStart':
                         $('#register-date-start').val(dateString(new Date(value)))
                         $('#registerDateStart').val(value)
@@ -515,7 +523,9 @@ Scripts
             var obj = {}
             if ($('#username').val()) obj.username = $('#username').val()
             if ($('#mobile').val()) obj.mobile = $('#mobile').val()
-            if ($('#carNumber').val()) obj.mobile = $('#carNumber').val()
+            if ($('#carNumber').val()) obj.carNumber = $('#carNumber').val()
+            if ($('#birthdayMonth').val()) obj.birthdayMonth = $('#birthdayMonth').val()
+
 
             if ($('#register-date-start').val() && $('#register-date-end').val()) {
                 $('#registerDateStart').val(Number(dateToMilliseconds($('#register-date-start').val())))

@@ -37,7 +37,7 @@ public class SimplePointsRuleRepositoryTest {
             list.add(shopPointsAssociation);
         }
 
-        repository.insertShopPointsAssociations(list);
+       // repository.insertShopPointsAssociations(list);
     }
 
 }

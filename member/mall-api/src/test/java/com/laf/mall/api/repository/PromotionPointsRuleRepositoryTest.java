@@ -62,7 +62,7 @@ public class PromotionPointsRuleRepositoryTest {
         rule.setEnd_date(new Date());
         rule.setAmount(new BigDecimal(99));
 
-        repository.insertPromotionPointsRuleWithoutBirthday(rule);
+       // repository.insertPromotionPointsRuleWithoutBirthday(rule);
     }
 
     @Test

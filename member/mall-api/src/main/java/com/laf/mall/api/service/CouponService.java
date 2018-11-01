@@ -53,10 +53,15 @@ public interface CouponService {
 
     /**
      * 获得注册送优惠券
-     * @param mallId
      * @return
      */
-    int getCouponByRegister(final Integer mallId);
+    int getPointByRegister();
+
+    /**
+     * 获得注册送优惠券
+     * @return
+     */
+    int getCouponByRegister();
 
     /**
      * 激活

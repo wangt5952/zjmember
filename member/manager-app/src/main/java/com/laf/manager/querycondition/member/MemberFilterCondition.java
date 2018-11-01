@@ -17,6 +17,8 @@ public class MemberFilterCondition {
 
     private String carNumber = "";
 
+    private String birthdayMonth = "";
+
     private long registerDateStart;
 
     private long registerDateEnd;

@@ -23,7 +23,7 @@ public class MyUserDetailsService implements UserDetailsService {
         log.info("登录用户名：{}", username);
 
 //        return new User(username, "123456", AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
-        String password = passwordEncoder.encode("111");
+        String password = passwordEncoder.encode("zjgc1628");
 
         log.info("密码：{}", password);
 

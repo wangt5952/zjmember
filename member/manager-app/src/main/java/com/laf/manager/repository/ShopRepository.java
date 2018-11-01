@@ -93,7 +93,7 @@ public class ShopRepository {
         if (shopId == null || shopId <= 0) return null;
 
         String sql = "SELECT s.shop_id, s.shop_name,s.logo,s.pictures, s.phone,s.mobile,s.linkman, s.pictures, s.logo, s.berth_number," +
-                " s.map_name, s.plane_map, s.industry, s.industry_name, s.brand, s.business_hours, s.status, s.sort, s.mall_id, s.intro, a.content" +
+                " s.map_name, s.plane_map, s.industry, s.industry_name, s.brand, s.business_hours, s.status, s.sort, s.mall_id, s.intro, a.content, a.article_id" +
                 " FROM `T_SHOP` s" +
                 " LEFT JOIN `T_ARTICLES` a ON s.intro=a.article_id" +
                 " WHERE s.shop_id=?";

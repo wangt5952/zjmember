@@ -19,6 +19,8 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -459,6 +461,32 @@ public class MemberRepository {
             args.add($$.getCarNumber());
         }
 
+        if(!StringUtils.isEmpty($$.getBirthdayMonth())){
+            if($$.getBirthdayMonth().indexOf("-") > -1){
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM");
+                try {
+                    Date date = formatter.parse($$.getBirthdayMonth());
+                    sql += " and FROM_UNIXTIME(m.birthday/1000,'%Y-%m') = ?";
+                    args.add($$.getBirthdayMonth());
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }else{
+                if($$.getBirthdayMonth().length()==1){
+                    $$.setBirthdayMonth("0" + $$.getBirthdayMonth());
+                    sql += " and FROM_UNIXTIME(m.birthday/1000,'%m') = ?";
+                    args.add($$.getBirthdayMonth());
+                }else if($$.getBirthdayMonth().length() == 4){
+                    sql += " and FROM_UNIXTIME(m.birthday/1000,'%Y') = ?";
+                    args.add($$.getBirthdayMonth());
+                }else{
+                    sql += " and FROM_UNIXTIME(m.birthday/1000,'%m') = ?";
+                    args.add($$.getBirthdayMonth());
+                }
+
+            }
+        }
+
         if ($$.getRegisterDateStart() > 0L && $$.getRegisterDateEnd() > 0L) {
             sql += " and mm.regist_date >= ? and mm.regist_date<=?";
             args.add($$.getRegisterDateStart());
@@ -557,6 +585,31 @@ public class MemberRepository {
         if (!StringUtils.isEmpty($$.getCarNumber())) {
             sql += " and p.car_number like '%' ? '%'";
             args.add($$.getCarNumber());
+        }
+
+        if(!StringUtils.isEmpty($$.getBirthdayMonth())){
+            if($$.getBirthdayMonth().indexOf("-") > -1){
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM");
+                try {
+                    Date date = formatter.parse($$.getBirthdayMonth());
+                    sql += " and FROM_UNIXTIME(m.birthday/1000,'%Y-%m') = ?";
+                    args.add($$.getBirthdayMonth());
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }else{
+                if($$.getBirthdayMonth().length()==1){
+                    $$.setBirthdayMonth("0" + $$.getBirthdayMonth());
+                    sql += " and FROM_UNIXTIME(m.birthday/1000,'%m') = ?";
+                    args.add($$.getBirthdayMonth());
+                }else if($$.getBirthdayMonth().length() == 4){
+                    sql += " and FROM_UNIXTIME(m.birthday/1000,'%Y') = ?";
+                    args.add($$.getBirthdayMonth());
+                }else{
+                    sql += " and FROM_UNIXTIME(m.birthday/1000,'%m') = ?";
+                    args.add($$.getBirthdayMonth());
+                }
+            }
         }
 
         if ($$.getRegisterDateStart() > 0L && $$.getRegisterDateEnd() > 0L) {

@@ -72,6 +72,10 @@ public class CouponDao {
         return repository.selectCouponRule(mallId);
     }
 
+    public int getRewardFromId(int category, int type) {
+        return repository.selectRewardFromId(category, type);
+    }
+
     public int getCouponCountByStatus(final int memberId, final int couponId, final int couponStatus) {
         return repository.selectCouponCountByStatus(memberId, couponId, couponStatus);
     }

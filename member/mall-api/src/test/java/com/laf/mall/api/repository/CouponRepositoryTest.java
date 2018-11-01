@@ -110,9 +110,9 @@ public class CouponRepositoryTest {
             list.add(info);
         }
 
-        int result = insertList(list);
-        Assert.assertTrue(result != 0);
-        log.info("rows ====== {}", result);
+        //int result = insertList(list);
+        //Assert.assertTrue(result != 0);
+       // log.info("rows ====== {}", result);
     }
 
     int insertList(List<ReceiveCouponInfo> info) {
