@@ -2,32 +2,32 @@ export default {
   db: {
     client: 'mysql',
     connection: {
-      host: '106.14.172.38',
+      host: '38',
       port: 3996,
-      user: 'njjsadmin',
-      password: 'njjspwd12345678$%^',
-      database: 'jybi'
+      user: 'xx',
+      password: 'xx',
+      database: 'xx'
     },
   },
 
   gt: {
-    geetest_id: 'ef1d13b11e3ec2b0ff7d0ba7e973916c',
-    geetest_key: '472732b2ac27d98b7a0aa29195481129'
+    geetest_id: 'xx',
+    geetest_key: 'xx'
   },
 
   qiniu: {
-    ACCESS_KEY: '8kLKAs_BgE6Ns6j9GJpN7F-3whvjXmVUPFffnWFE',
-    SECRET_KEY: 'TiZaHqULZ51rhNeD-uDv8ltjnUs5IsBl8v_6RB1w',
-    bucket: 'oss-ngsyun',
-    host: 'oss.ngsyun.com'
+    ACCESS_KEY: 'xx-xx',
+    SECRET_KEY: 'xx-xx',
+    bucket: 'xx-xx',
+    host: 'xx.xx.xx'
   },
 
   WX: {
-    AppID: 'wx3041b222eaad5c8a',
-    AppSecret: 'fda2fbf4fdec7a43b178f12d4bf36414' ,
-    wxappid: 'wx3041b222eaad5c8a',
-    wxappsecret: 'fda2fbf4fdec7a43b178f12d4bf36414',
-    wxpaykey: 'x0jhJ4r5NMAKei7ktvysNhYxjFsV63uR',
-    mch_id: '1505462971'
+    AppID: 'xx',
+    AppSecret: 'xx' ,
+    wxappid: 'xx',
+    wxappsecret: 'xx',
+    wxpaykey: 'xx',
+    mch_id: 'xx'
   }
 }
