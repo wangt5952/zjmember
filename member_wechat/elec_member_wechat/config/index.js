@@ -29,13 +29,13 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://121.196.208.176:9001',
+        target: 'http://176:9001',
         pathRewrite: {
           '^/api': '/'
         }
       },
       '/upload/images/': {
-        target: 'http://121.196.208.176:9354',
+        target: 'http://176:9354',
         pathRewrite: {
           '^/upload/images/': '/upload/images/'
         }
