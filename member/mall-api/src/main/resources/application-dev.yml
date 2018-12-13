@@ -1,14 +1,13 @@
 server:
-  port: 9001
+  port: xx
   context-path: /
 
 spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://121.196.208.176:3306/member_test?useUnicode=true&characterEncoding=utf-8&useSSL=false
     url: jdbc:mysql://localhost:3306/member_test?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    username: root
-    password: root
+    username: xx
+    password: xx
   output:
     ansi:
       enabled: always
@@ -42,11 +41,11 @@ com:
         loginType: REDIRECT
     mall:
       sms:
-        url: http://112.74.76.186:8030/service/httpService/httpInterface.do
-        username: JSM41961
-        password: 5tjfzvne
-        veryCode: upxg5dedtrk2
-        tempid: JSM41961-0001
+        url: http://xx:xx/service/xx/xx.do
+        username: xx
+        password: xxx
+        veryCode: xx
+        tempid: xx-xx
     upload:
       file:
 #        path: /Users/apple/Desktop
@@ -54,7 +53,7 @@ com:
 #        domain: 127.0.0.1:8080
         path: /Users/apple/bbb/member/manager-app/src/main/resources/resources/upload/img
         base: /
-        domain: http://localhost:9000/upload/img
+        domain: http://localhost:xx/upload/img
     coupon:
       relate:
         isrelated: true
