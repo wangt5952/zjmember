@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: xx
   context-path: /
   error:
     whitelabel:
@@ -8,12 +8,9 @@ server:
 spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost/member_test?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    username: root
-    password: root
-#    url: jdbc:mysql://121.196.208.176:3306/member_test?useUnicode=true&characterEncoding=utf-8&useSSL=false
-#    username: dev
-#    password: dev123456
+    url: jdbc:mysql://localhost/xx?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: xx
+    password: xx
   output:
     ansi:
       enabled: always
@@ -64,16 +61,16 @@ com:
       file:
         path: /Users/apple/bbb/member/manager-app/src/main/resources/resources/upload/img
         base: /
-        domain: http://localhost:9000/upload/img
+        domain: http://localhost:xx/upload/img
     settings:
       appid: dsafdas
       excel: export.xls
     ajax:
       url:
-        api: http://localhost:9001/
-        manager: http://localhost:9000/
+        api: http://localhost:xx/
+        manager: http://localhost:xx/
     wechat:
-      domain: http://jiayuanmember.dorm9tech.com/
+      domain: http://xx/
       path: activity_sign_in
 
 logging:
