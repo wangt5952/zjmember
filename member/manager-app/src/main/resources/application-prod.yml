@@ -1,5 +1,5 @@
 server:
-  port: 9002
+  port: xx
   context-path: /
   session:
     timeout: 28800
@@ -7,9 +7,9 @@ server:
 spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://rm-m5e3yx9fb3g133p6weo.mysql.rds.aliyuncs.com:3306/member?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    username: member
-    password: Member123465
+    url: jdbc:mysql://xx:3306/xx?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: xx
+    password: xx
   output:
     ansi:
     enabled: always
@@ -41,16 +41,16 @@ com:
       file:
         path: /var/lib/tomcat8/webapps/upload/images
         base: /upload/images/
-        domain: http://121.196.208.176:9354
+        domain: http://xx:xx
     settings:
-      appid: wxc798a317f1c859c2
+      appid: xx
       excel: export.xls
     ajax:
       url:
-        api: http://121.196.208.176:9003/
-        manager: http://121.196.208.176:9002/
+        api: http://xx:xx/
+        manager: http://xx:xx/
     wechat:
-      domain: http://bsm.dorm9tech.com/
+      domain: http://xx/
       path: activity_sign_in
 
 logging:
